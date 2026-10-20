@@ -1,5 +1,8 @@
 # LifeLoop solver
 
+**[Saved results and winning strategies](RESULTS.md)** — start here for education
+comparisons, exact boost timings and complete action paths.
+
 A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
