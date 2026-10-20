@@ -1,0 +1,86 @@
+Education: College; job track: ByteFixServices; +50% business income
+19y01m: job boost for 120 payments
+21y10m: buy Green Fork
+23y07m: buy Green Fork
+24y11m: buy Green Fork
+25y10m: buy Green Fork
+26y06m: buy Green Fork
+27y02m: buy Green Fork
+27y08m: buy Green Fork
+28y08m: buy Cup & Go
+29y07m: buy Cup & Go
+30y11m: sell (70%) Green Fork → $2,100
+30y11m: buy Spark Fix
+32y01m: sell (70%) Green Fork → $2,100
+32y01m: buy Spark Fix
+33y02m: sell (70%) Green Fork → $2,100
+33y02m: buy Spark Fix
+34y01m: sell (70%) Green Fork → $2,100
+34y01m: buy Spark Fix
+34y11m: sell (70%) Green Fork → $2,100
+34y11m: buy Spark Fix
+36y08m: sell (70%) Green Fork → $2,100
+36y08m: buy Pedal Fleet
+38y02m: sell (70%) Green Fork → $2,100
+38y02m: buy Pedal Fleet
+40y06m: sell (70%) Cup & Go → $4,200
+40y06m: buy Tech Tinker
+42y05m: sell (70%) Cup & Go → $4,200
+42y05m: buy Tech Tinker
+45y05m: sell (70%) Spark Fix → $8,400
+45y05m: buy Trend Loop
+47y10m: sell (70%) Spark Fix → $8,400
+47y10m: buy Trend Loop
+49y11m: sell (70%) Spark Fix → $8,400
+49y11m: buy Trend Loop
+51y09m: sell (70%) Spark Fix → $8,400
+51y09m: buy Trend Loop
+54y09m: sell (70%) Spark Fix → $8,400
+54y09m: buy Paw Pal
+57y00m: sell (70%) Pedal Fleet → $16,800
+57y00m: buy Paw Pal
+59y00m: sell (70%) Pedal Fleet → $16,800
+59y00m: buy Paw Pal
+62y03m: sell (70%) Tech Tinker → $30,100
+62y03m: buy Dash Logix
+67y01m: sell (70%) Tech Tinker → $30,100
+67y01m: buy Crust & Crumb
+70y07m: sell (70%) Trend Loop → $54,600
+70y07m: buy Crust & Crumb
+73y06m: sell (70%) Trend Loop → $54,600
+73y06m: buy Crust & Crumb
+76y01m: sell (70%) Trend Loop → $54,600
+76y01m: buy Crust & Crumb
+80y00m: business boost for 120 payments
+80y00m: sell (70%) Trend Loop → $54,600
+80y00m: buy Tailor Forge
+81y07m: sell (70%) Paw Pal → $98,000
+81y07m: buy Tailor Forge
+82y11m: sell (70%) Paw Pal → $98,000
+82y11m: buy Tailor Forge
+84y01m: sell (70%) Paw Pal → $98,000
+84y01m: buy Tailor Forge
+88y07m: sell (70%) Crust & Crumb → $299,600
+88y07m: sell (70%) Tailor Forge → $509,600
+88y07m: sell (70%) Tailor Forge → $509,600
+88y07m: sell (70%) Tailor Forge → $509,600
+88y07m: sell (70%) Crust & Crumb → $299,600
+88y07m: sell (70%) Crust & Crumb → $299,600
+88y07m: sell (70%) Crust & Crumb → $299,600
+88y07m: buy Globe Freight
+88y07m: buy Cup & Go
+88y07m: buy Cup & Go
+88y07m: buy Cup & Go
+88y07m: buy Cup & Go
+88y07m: buy Cup & Go
+88y07m: buy Cup & Go
+90y00m: sell (140%) Globe Freight → $7,541,800
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Dash Logix → $176,400
+90y00m: sell (70%) Tailor Forge → $509,600
+Final cash after refunds: $9,155,745.00

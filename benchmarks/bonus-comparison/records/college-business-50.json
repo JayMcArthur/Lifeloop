@@ -1,0 +1,421 @@
+{
+  "schema": 1,
+  "signature": "a88f8444f52f4d7fb7b935276acc5e7f9f4b265893ba30db8cd21ead015345ca",
+  "scenario": {
+    "education": "college",
+    "starting_bonus": "business-50",
+    "starting_cash": 0,
+    "max_businesses": 9,
+    "end_month": 1080
+  },
+  "result": {
+    "final_cash": 9155745.0,
+    "actions": [
+      [
+        229,
+        "job boost",
+        null
+      ],
+      [
+        262,
+        "buy",
+        0
+      ],
+      [
+        283,
+        "buy",
+        0
+      ],
+      [
+        299,
+        "buy",
+        0
+      ],
+      [
+        310,
+        "buy",
+        0
+      ],
+      [
+        318,
+        "buy",
+        0
+      ],
+      [
+        326,
+        "buy",
+        0
+      ],
+      [
+        332,
+        "buy",
+        0
+      ],
+      [
+        344,
+        "buy",
+        1
+      ],
+      [
+        355,
+        "buy",
+        1
+      ],
+      [
+        371,
+        "sell (70%)",
+        0
+      ],
+      [
+        371,
+        "buy",
+        2
+      ],
+      [
+        385,
+        "sell (70%)",
+        0
+      ],
+      [
+        385,
+        "buy",
+        2
+      ],
+      [
+        398,
+        "sell (70%)",
+        0
+      ],
+      [
+        398,
+        "buy",
+        2
+      ],
+      [
+        409,
+        "sell (70%)",
+        0
+      ],
+      [
+        409,
+        "buy",
+        2
+      ],
+      [
+        419,
+        "sell (70%)",
+        0
+      ],
+      [
+        419,
+        "buy",
+        2
+      ],
+      [
+        440,
+        "sell (70%)",
+        0
+      ],
+      [
+        440,
+        "buy",
+        3
+      ],
+      [
+        458,
+        "sell (70%)",
+        0
+      ],
+      [
+        458,
+        "buy",
+        3
+      ],
+      [
+        486,
+        "sell (70%)",
+        1
+      ],
+      [
+        486,
+        "buy",
+        4
+      ],
+      [
+        509,
+        "sell (70%)",
+        1
+      ],
+      [
+        509,
+        "buy",
+        4
+      ],
+      [
+        545,
+        "sell (70%)",
+        2
+      ],
+      [
+        545,
+        "buy",
+        5
+      ],
+      [
+        574,
+        "sell (70%)",
+        2
+      ],
+      [
+        574,
+        "buy",
+        5
+      ],
+      [
+        599,
+        "sell (70%)",
+        2
+      ],
+      [
+        599,
+        "buy",
+        5
+      ],
+      [
+        621,
+        "sell (70%)",
+        2
+      ],
+      [
+        621,
+        "buy",
+        5
+      ],
+      [
+        657,
+        "sell (70%)",
+        2
+      ],
+      [
+        657,
+        "buy",
+        6
+      ],
+      [
+        684,
+        "sell (70%)",
+        3
+      ],
+      [
+        684,
+        "buy",
+        6
+      ],
+      [
+        708,
+        "sell (70%)",
+        3
+      ],
+      [
+        708,
+        "buy",
+        6
+      ],
+      [
+        747,
+        "sell (70%)",
+        4
+      ],
+      [
+        747,
+        "buy",
+        7
+      ],
+      [
+        805,
+        "sell (70%)",
+        4
+      ],
+      [
+        805,
+        "buy",
+        8
+      ],
+      [
+        847,
+        "sell (70%)",
+        5
+      ],
+      [
+        847,
+        "buy",
+        8
+      ],
+      [
+        882,
+        "sell (70%)",
+        5
+      ],
+      [
+        882,
+        "buy",
+        8
+      ],
+      [
+        913,
+        "sell (70%)",
+        5
+      ],
+      [
+        913,
+        "buy",
+        8
+      ],
+      [
+        960,
+        "business boost",
+        null
+      ],
+      [
+        960,
+        "sell (70%)",
+        5
+      ],
+      [
+        960,
+        "buy",
+        9
+      ],
+      [
+        979,
+        "sell (70%)",
+        6
+      ],
+      [
+        979,
+        "buy",
+        9
+      ],
+      [
+        995,
+        "sell (70%)",
+        6
+      ],
+      [
+        995,
+        "buy",
+        9
+      ],
+      [
+        1009,
+        "sell (70%)",
+        6
+      ],
+      [
+        1009,
+        "buy",
+        9
+      ],
+      [
+        1063,
+        "sell (70%)",
+        8
+      ],
+      [
+        1063,
+        "sell (70%)",
+        9
+      ],
+      [
+        1063,
+        "sell (70%)",
+        9
+      ],
+      [
+        1063,
+        "sell (70%)",
+        9
+      ],
+      [
+        1063,
+        "sell (70%)",
+        8
+      ],
+      [
+        1063,
+        "sell (70%)",
+        8
+      ],
+      [
+        1063,
+        "sell (70%)",
+        8
+      ],
+      [
+        1063,
+        "buy",
+        13
+      ],
+      [
+        1063,
+        "buy",
+        1
+      ],
+      [
+        1063,
+        "buy",
+        1
+      ],
+      [
+        1063,
+        "buy",
+        1
+      ],
+      [
+        1063,
+        "buy",
+        1
+      ],
+      [
+        1063,
+        "buy",
+        1
+      ],
+      [
+        1063,
+        "buy",
+        1
+      ]
+    ]
+  },
+  "statistics": {
+    "engine": "cpp",
+    "status": "completed",
+    "elapsed_seconds": 0.00351451,
+    "peak_rss_kb": 4088,
+    "candidates": 20065,
+    "dominated": 25,
+    "lossy_prunes": 19189,
+    "peak_pool": 2,
+    "months_completed": 851,
+    "depth_limited": false,
+    "certified": false,
+    "best_source": "search",
+    "beam_width": 1,
+    "time_limit_seconds": 1,
+    "hard_memory_mb": 768,
+    "diversity": true,
+    "income_weight": 100,
+    "incumbent_cash": 9150417.0,
+    "native_money_scale": 2,
+    "source_commit": "efe109f5e42e7e0539c88ddcacf3b47d9791ab05",
+    "source_sha256": "583ecaa98f4c2b6164c481b6932c9bcd85e61026baed4b8a7cc423aba3f940be",
+    "polish_evaluations": 2450,
+    "polish_elapsed_seconds": 1.4477551109157503,
+    "polish_status": "local_fixed_point",
+    "polish_cash_before": 9155745.0,
+    "polish_cash_after": 9155745.0,
+    "polish_templates": 17,
+    "polish_templates_sha256": "31f180d9cb6066ae1e7814a813a8988928f0e330e914e22e782ad9c4631bdc66"
+  }
+}

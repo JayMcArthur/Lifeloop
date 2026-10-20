@@ -1,0 +1,70 @@
+Education: University; job track: DocuDynoCorp; +100% job income
+22y02m: job boost for 120 payments
+23y01m: buy Green Fork
+24y00m: buy Green Fork
+24y10m: buy Green Fork
+25y07m: buy Green Fork
+26y03m: buy Green Fork
+26y10m: buy Green Fork
+27y11m: buy Cup & Go
+28y10m: buy Cup & Go
+30y03m: buy Spark Fix
+31y03m: sell (70%) Green Fork → $2,100
+31y03m: buy Spark Fix
+32y03m: sell (70%) Green Fork → $2,100
+32y03m: buy Spark Fix
+33y05m: sell (70%) Green Fork → $2,100
+33y05m: buy Spark Fix
+34y05m: sell (70%) Green Fork → $2,100
+34y05m: buy Spark Fix
+34y05m: sell (70%) Green Fork → $2,100
+35y06m: buy Spark Fix
+38y11m: sell (70%) Green Fork → $2,100
+38y11m: buy Tech Tinker
+41y08m: sell (70%) Cup & Go → $4,200
+41y08m: buy Tech Tinker
+44y01m: sell (70%) Cup & Go → $4,200
+44y01m: buy Tech Tinker
+47y07m: sell (70%) Spark Fix → $8,400
+47y07m: buy Trend Loop
+50y07m: sell (70%) Spark Fix → $8,400
+50y07m: buy Trend Loop
+55y06m: sell (70%) Spark Fix → $8,400
+55y06m: buy Paw Pal
+59y04m: sell (70%) Spark Fix → $8,400
+59y04m: buy Paw Pal
+62y07m: sell (70%) Spark Fix → $8,400
+62y07m: buy Paw Pal
+65y05m: sell (70%) Spark Fix → $8,400
+65y05m: buy Paw Pal
+69y08m: sell (70%) Tech Tinker → $30,100
+69y08m: buy Dash Logix
+73y02m: sell (70%) Tech Tinker → $30,100
+73y02m: buy Dash Logix
+76y03m: sell (70%) Tech Tinker → $30,100
+76y03m: buy Dash Logix
+79y11m: business boost for 120 payments
+80y05m: sell (70%) Trend Loop → $54,600
+80y05m: buy Crust & Crumb
+82y06m: sell (70%) Trend Loop → $54,600
+82y06m: buy Crust & Crumb
+87y08m: sell (70%) Crust & Crumb → $299,600
+87y08m: sell (70%) Crust & Crumb → $299,600
+87y08m: sell (70%) Dash Logix → $176,400
+87y08m: sell (70%) Dash Logix → $176,400
+87y08m: sell (70%) Paw Pal → $98,000
+87y08m: buy Rapid Reach
+87y08m: buy Cup & Go
+87y08m: buy Cup & Go
+87y09m: buy Cup & Go
+87y09m: buy Cup & Go
+90y00m: sell (140%) Rapid Reach → $2,945,600
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Cup & Go → $4,200
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Dash Logix → $176,400
+Final cash after refunds: $3,925,391.00

@@ -3,12 +3,16 @@
 A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
-The [recorded campaign](benchmarks/README.md) reaches **$27,896,953** with
-Primary education/+100% business income and **$25,253,906** with maximum education.
-It includes complete action paths and all ten scenario records.
+The [current bonus comparison](benchmarks/bonus-comparison/README.md) reaches
+**$9,155,745 with College/+50% business**. The strongest +100% job route is
+**$3,925,391 with University**. All five education starts and both current choices
+have saved, independently replayed action paths.
 
-Those reference results use **+100% business starting income**. They remain saved.
-The current comparison is **+100% job** versus **+50% business** starting income:
+The [preserved reference campaign](benchmarks/README.md) uses **+100% business**
+starting income and reaches $27,896,953 with Primary. Its records remain unchanged;
+it is a separate research case from the current +50% business option.
+
+Continue the current comparison:
 
 ```bash
 MAX_SECONDS=550 ./scripts/run_safe.sh --compare-starting-bonuses --beam-width 64 --seconds 20 --polish-seconds 30
@@ -37,10 +41,11 @@ serialized and cached locally in `build/`. Repeating setup leaves the lock
 unchanged. A direct `python3 main.py` CLI launch enters the same safe runner.
 
 The default is University education (DocuDynoCorp job track), +100% business starting income,
-beam 512 and ten seconds of native search. To search all ten combinations:
+beam 512 and ten seconds of native search. To search all fifteen combinations
+(including the preserved +100% business reference):
 
 ```bash
-MAX_SECONDS=240 ./scripts/run_safe.sh --campaign --beam-width 512 --seconds 15
+MAX_SECONDS=400 ./scripts/run_safe.sh --campaign --beam-width 512 --seconds 15
 ```
 
 Select a scenario and a larger bounded run:
@@ -98,7 +103,9 @@ the best continuation found so far. A hard-killed process leaves the previous
 checkpoint intact. Continuation preserves the best route; it restarts frontier
 exploration and does not retain a persistent exhaustive search graph.
 
-Recorded benchmark strategies live under `benchmarks/records/`. The original
+Recorded reference strategies live under `benchmarks/records/`; the current
+[bonus comparison](benchmarks/bonus-comparison/README.md) has separate records
+under `benchmarks/bonus-comparison/records/`. The original
 Python beam-64 baseline is replay-verified at $16,922,240 for University/business.
 The CLI automatically retains each scenario's committed best record as a floor,
 as well as the original Python baseline for University/business. Fresh checkouts
