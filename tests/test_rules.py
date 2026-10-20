@@ -148,7 +148,7 @@ class GameRulesTests(unittest.TestCase):
         first = Education.DOCUDYNO.start_month + 1
         businesses = (Business("Test shop", 100, 20),)
         scenario = Scenario(starting_cash=100, max_businesses=1, end_month=first + 4)
-        result = solve(scenario, beam_width=256, businesses=businesses)
+        result = solve(scenario, beam_width=256, businesses=businesses).result
         # Four boosted job payments, three boosted shop payments, one final 140% refund.
         self.assertEqual(result.final_cash, 4 * 120 + 3 * 80 + 140)
         self.assertEqual(replay(scenario, result.actions, businesses), result)
@@ -159,13 +159,13 @@ class GameRulesTests(unittest.TestCase):
             for bonus in StartingBonus:
                 with self.subTest(education=education, bonus=bonus):
                     scenario = Scenario(education, bonus, 100, 2, education.start_month + 7)
-                    result = solve(scenario, 32, businesses)
+                    result = solve(scenario, 32, businesses).result
                     self.assertEqual(replay(scenario, result.actions, businesses), result)
 
     def test_empty_portfolio_can_finish_without_refund_boost(self):
         first = Education.SUNNY_SPROUT.start_month + 1
         scenario = Scenario(Education.SUNNY_SPROUT, StartingBonus.JOB, end_month=first + 2)
-        result = solve(scenario, 8)
+        result = solve(scenario, 8).result
         self.assertEqual(result.final_cash, 2 * 10 * 4)
         self.assertEqual(result.final_sales, ())
 
