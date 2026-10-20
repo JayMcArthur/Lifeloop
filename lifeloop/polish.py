@@ -91,7 +91,18 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
                 break
         cash += sum(n * item.refund() for n, item in zip(owned, businesses))
         if not used_refund:
-            cash += max((item.refund(True) - item.refund() for n, item in zip(owned, businesses) if n), default=0)
+            extra = max((item.refund(True) - item.refund() for n, item in zip(owned, businesses) if n), default=0)
+            chosen = None
+            for index, item in enumerate(businesses):
+                gain = item.refund(True) - item.cost
+                if item.cost <= cash and gain > extra:
+                    chosen, extra = index, gain
+            if chosen is not None:
+                events.extend(Action(end - 1, ActionKind.SELL, index)
+                              for index, n in enumerate(owned) for _ in range(n))
+                events.extend((Action(end - 1, ActionKind.BUY, chosen),
+                               Action(end - 1, ActionKind.REFUND_BOOST, chosen)))
+            cash += extra
         if cash > best.final_cash:
             result = replay(scenario, tuple(events), businesses)
             if result.final_cash != cash:

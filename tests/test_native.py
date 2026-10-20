@@ -9,7 +9,7 @@ import tempfile
 import unittest
 
 from lifeloop.model import Action, ActionKind, Business, Education, Scenario, StartingBonus, job_payment, replay
-from lifeloop.records import load_record, save_record
+from lifeloop.records import campaign_lock, load_record, save_record
 from lifeloop.solver import ROOT, ensure_binary, solve
 
 
@@ -78,6 +78,27 @@ class NativeSearchTests(unittest.TestCase):
         self.assertGreater(len(purchases), 1)
         self.assertTrue(found.statistics["certified"])
 
+    def test_immediate_refund_can_fund_another_purchase_in_the_same_month(self):
+        businesses = (Business("Small", 1000, 1), Business("Large", 1400, 100))
+        scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=268)
+        found = solve(scenario, 5000, businesses, seconds=5)
+        self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
+        refund = next(a for a in found.result.actions if a.kind == ActionKind.REFUND_BOOST)
+        self.assertEqual(refund.month, 265)
+        self.assertTrue(any(a.month == refund.month and a.kind == ActionKind.BUY and a.business == 1
+                            for a in found.result.actions))
+        self.assertTrue(found.statistics["certified"])
+
+    def test_final_refund_purchase_uses_no_extra_month(self):
+        businesses = (Business("Shop", 1000, 1),)
+        scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=266)
+        found = solve(scenario, 5000, businesses, seconds=5)
+        self.assertEqual(found.result.final_cash, 1520)
+        self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
+        self.assertFalse(found.result.final_sales)
+        self.assertEqual(found.result.actions[-2:], (Action(265, ActionKind.BUY, 0),
+                                                     Action(265, ActionKind.REFUND_BOOST, 0)))
+
     def test_stopped_search_keeps_replayed_incumbent_and_reports_no_certificate(self):
         scenario = Scenario()
         seed = load_record(ROOT / "benchmarks/records/python-baseline.json", scenario)
@@ -115,6 +136,16 @@ class NativeSearchTests(unittest.TestCase):
             path.write_text(json.dumps(data))
             with self.assertRaisesRegex(ValueError, "does not match"):
                 load_record(path, scenario)
+
+    def test_campaign_lock_rejects_overlap_and_releases(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            with campaign_lock(path):
+                with self.assertRaisesRegex(RuntimeError, "Another search"):
+                    with campaign_lock(path):
+                        self.fail("Overlapping writer acquired the lock")
+            with campaign_lock(path):
+                self.assertTrue((path / ".campaign.lock").exists())
 
 
 class NativeSafetyTests(unittest.TestCase):

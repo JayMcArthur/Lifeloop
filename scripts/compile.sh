@@ -5,7 +5,7 @@ mkdir -p "$repo/build"
 exec 8>"$repo/build/build.lock"
 flock 8
 binary="$repo/build/lifeloop-search"
-if [[ -x "$binary" && "$binary" -nt "$repo/native/search.cpp" && "$binary" -nt "$repo/native/safety.hpp" && "$binary" -nt "$repo/flake.nix" ]]; then
+if [[ -x "$binary" && "$binary" -nt "$repo/native/search.cpp" && "$binary" -nt "$repo/native/safety.hpp" && "$binary" -nt "$repo/flake.nix" && "$binary" -nt "$repo/flake.lock" && "$binary" -nt "$repo/scripts/compile.sh" ]]; then
     exit 0
 fi
 temporary="$binary.tmp.$$"

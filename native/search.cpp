@@ -116,15 +116,35 @@ class Search {
         return (!state.job_end) | ((!state.business_end) << 1) | ((!state.refund_used) << 2);
     }
 
-    Money completion(const State& state, int month) const {
+    Money terminal_cash(const State& state, int month) const {
         const int next = month + 1, remaining = input.end - next;
         Money value = state.cash + state.resale + state.rate * remaining + input.prefix[input.end] - input.prefix[next];
-        if (!state.refund_used) value += state.extra_refund;
         if (!state.job_end) value += input.prefix[input.end] - input.prefix[std::max(next, input.end - 120)];
         else value += input.prefix[std::max(next, std::min(input.end, state.job_end))] - input.prefix[next];
         const int boost_months = state.business_end ? std::max(0, std::min(input.end, state.business_end) - next)
                                                    : std::min(120, remaining);
         return value + state.rate * boost_months;
+    }
+
+    int refund_purchase(const State& state, Money cash) const {
+        int chosen = -1;
+        Money extra = state.extra_refund;
+        if (state.refund_used || input.first == input.end) return chosen;
+        for (int i = 0; i < input.business_count; ++i) {
+            const auto cost = input.businesses[i].cost;
+            if (cash >= cost && cost * 4 / 10 > extra) {
+                chosen = i;
+                extra = cost * 4 / 10;
+            }
+        }
+        return chosen;
+    }
+
+    Money completion(const State& state, int month) const {
+        const Money cash = terminal_cash(state, month);
+        const int chosen = refund_purchase(state, cash);
+        return cash + (state.refund_used ? 0 : chosen < 0 ? state.extra_refund
+                                        : input.businesses[chosen].cost * 4 / 10);
     }
 
     long double score(const State& state, int month) const {
@@ -148,6 +168,15 @@ class Search {
             tail.push_back({next, business_boost, -1});
         std::stable_sort(tail.begin(), tail.end(), [](auto a, auto b) { return a.month < b.month; });
         best_actions.insert(best_actions.end(), tail.begin(), tail.end());
+        const int chosen = refund_purchase(state, terminal_cash(state, month));
+        if (chosen >= 0) {
+            const int last = input.end - 1;
+            for (int i = 0; i < input.business_count; ++i)
+                for (int n = (state.holdings >> (4 * i)) & 15; n; --n)
+                    best_actions.push_back({last, sell, i});
+            best_actions.push_back({last, buy, chosen});
+            best_actions.push_back({last, refund, chosen});
+        }
     }
 
     void check_budget() const {
@@ -345,8 +374,12 @@ public:
                     bool changed = false;
                     for (const auto& state : retained) {
                         for (int i = 0; i < input.business_count; ++i) {
-                            if (state.count < input.slots && state.cash >= input.businesses[i].cost)
-                                changed = offer(pool, act(state, {month, buy, i}), month) || changed;
+                            if (state.count < input.slots && state.cash >= input.businesses[i].cost) {
+                                const auto bought = act(state, {month, buy, i});
+                                changed = offer(pool, bought, month) || changed;
+                                if (!state.refund_used)
+                                    changed = offer(pool, act(bought, {month, refund, i}), month) || changed;
+                            }
                             if ((state.holdings >> (4 * i)) & 15) {
                                 const auto sold = act(state, {month, sell, i});
                                 changed = offer(pool, sold, month) || changed;

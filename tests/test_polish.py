@@ -5,6 +5,15 @@ from lifeloop.polish import polish
 
 
 class PolishTests(unittest.TestCase):
+    def test_final_buy_refund_is_immediate_and_adds_40_percent(self):
+        scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=266)
+        businesses = (Business("Shop", 1000, 1),)
+        result, _ = polish(scenario, replay(scenario, (), businesses), 1, businesses)
+        self.assertEqual(result.final_cash, 1520)
+        self.assertFalse(result.final_sales)
+        self.assertEqual(result.actions[-2:], (Action(265, ActionKind.BUY, 0),
+                                               Action(265, ActionKind.REFUND_BOOST, 0)))
+
     def test_refinement_moves_purchases_and_boosts_earlier_when_profitable(self):
         scenario = Scenario(starting_cash=1000, max_businesses=2, end_month=270)
         businesses = (Business("Shop", 100, 100),)

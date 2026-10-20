@@ -64,7 +64,8 @@ nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-
 
 Each scenario writes an atomic replay-verified checkpoint to
 `runs/EDUCATION-BONUS.json`. Repeating the command loads it as a floor and injects
-its valid prefixes into the next search. `runs/attempts.jsonl` records each run's
+its valid prefixes into the next search. An exclusive output-directory lock
+rejects overlapping writers. `runs/attempts.jsonl` records each run's
 parameters, elapsed time, peak native RSS, candidate/pruning counts, completion
 status, source commit/hash and whether the best route came from its incumbent.
 Use `--output-dir DIR` to keep a separate campaign and `--json` for summary lines.
@@ -92,7 +93,10 @@ controlled comparison; `--income-weight 25..200`
 varies ranking emphasis on remaining business income (default 100).
 
 Within a month, it explores repeated purchases and ordinary/boosted sales,
-including selling and rebuying a business. Closure is bounded at 20 expansion
+including immediate buy/refund pairs and selling and rebuying a business.
+Its completion score also considers selling holdings normally after the last
+payment, buying an affordable business and immediately refunding it at 140%.
+Closure is bounded at 20 expansion
 rounds. Ranking and beam trimming can lose promising routes, so **full-game
 results are best found, not proven global optima**. `certified` is true only
 when the configured scenario finishes with no lossy trimming and every monthly
@@ -115,6 +119,8 @@ restricted refinement space is not a global certificate.
 - Activate each independent job/business boost once for 120 monthly payments.
   The boost multiplies its starting bonus for 4× base income in that category.
 - Ordinary sales refund 70%; one business sale per round can refund 140%.
+  Buying and refunding is immediate and consumes no game time, so the one-use
+  refund may accelerate early investment or fund a final payout.
 - DocuDyno upgrades to base $400 during age 71 years, six months. Its first
   $400 payment arrives at 71 years, seven months.
 

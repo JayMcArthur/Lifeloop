@@ -8,7 +8,7 @@ from pathlib import Path
 import sys
 
 from lifeloop.model import BUSINESSES, ActionKind, Education, Scenario, StartingBonus, age
-from lifeloop.records import load_record, save_record
+from lifeloop.records import campaign_lock, load_record, save_record
 from lifeloop.polish import polish
 from lifeloop.solver import ROOT, SearchResult, solve
 
@@ -49,43 +49,44 @@ def main():
         Scenario(Education(args.education), StartingBonus(args.starting_bonus))]
     best = None
     try:
-        for scenario in scenarios:
-            path = args.output_dir / f"{scenario.education.value}-{scenario.starting_bonus.value}.json"
-            seed = load_record(args.incumbent, scenario) if args.incumbent else None
-            if path.exists():
-                saved = load_record(path, scenario)
-                if seed is None or saved.final_cash > seed.final_cash:
-                    seed = saved
-            baseline = ROOT / "benchmarks/records/python-baseline.json"
-            if scenario == Scenario() and baseline.exists():
-                saved = load_record(baseline, scenario)
-                if seed is None or saved.final_cash > seed.final_cash:
-                    seed = saved
-            found = solve(scenario, args.beam_width, seconds=args.seconds, memory_mb=args.memory_mb,
-                          diversity=not args.no_diversity, income_weight=args.income_weight, incumbent=seed)
-            refined, metrics = polish(scenario, found.result, args.polish_seconds)
-            found.statistics.update(metrics)
-            if refined.final_cash > found.result.final_cash:
-                if found.statistics["certified"]:
-                    raise RuntimeError("Polishing improved a claimed exact result")
-                found.statistics["best_source"] = "polish"
-            found = SearchResult(refined, found.statistics)
-            save_record(path, scenario, found.result, found.statistics)
-            summary = {"education": scenario.education.value, "starting_bonus": scenario.starting_bonus.value,
-                       "final_cash": found.result.final_cash, "checkpoint": str(path), **found.statistics}
-            with (args.output_dir / "attempts.jsonl").open("a") as stream:
-                stream.write(json.dumps(summary) + "\n")
-            if args.json:
-                print(json.dumps(summary), flush=True)
-            else:
-                print(f"{scenario.education.value}/{scenario.starting_bonus.value}: ${found.result.final_cash:,}; "
-                      f"{found.statistics['status']}; {found.statistics['elapsed_seconds']:.2f}s; "
-                      f"{found.statistics['peak_rss_kb'] / 1024:.1f} MB; "
-                      f"certified={found.statistics['certified']}", flush=True)
-            if best is None or found.result.final_cash > best[1].final_cash:
-                best = (scenario, found.result)
-        if not args.json:
-            print_route(*best)
+        with campaign_lock(args.output_dir):
+            for scenario in scenarios:
+                path = args.output_dir / f"{scenario.education.value}-{scenario.starting_bonus.value}.json"
+                seed = load_record(args.incumbent, scenario) if args.incumbent else None
+                if path.exists():
+                    saved = load_record(path, scenario)
+                    if seed is None or saved.final_cash > seed.final_cash:
+                        seed = saved
+                baseline = ROOT / "benchmarks/records/python-baseline.json"
+                if scenario == Scenario() and baseline.exists():
+                    saved = load_record(baseline, scenario)
+                    if seed is None or saved.final_cash > seed.final_cash:
+                        seed = saved
+                found = solve(scenario, args.beam_width, seconds=args.seconds, memory_mb=args.memory_mb,
+                              diversity=not args.no_diversity, income_weight=args.income_weight, incumbent=seed)
+                refined, metrics = polish(scenario, found.result, args.polish_seconds)
+                found.statistics.update(metrics)
+                if refined.final_cash > found.result.final_cash:
+                    if found.statistics["certified"]:
+                        raise RuntimeError("Polishing improved a claimed exact result")
+                    found.statistics["best_source"] = "polish"
+                found = SearchResult(refined, found.statistics)
+                save_record(path, scenario, found.result, found.statistics)
+                summary = {"education": scenario.education.value, "starting_bonus": scenario.starting_bonus.value,
+                           "final_cash": found.result.final_cash, "checkpoint": str(path), **found.statistics}
+                with (args.output_dir / "attempts.jsonl").open("a") as stream:
+                    stream.write(json.dumps(summary) + "\n")
+                if args.json:
+                    print(json.dumps(summary), flush=True)
+                else:
+                    print(f"{scenario.education.value}/{scenario.starting_bonus.value}: ${found.result.final_cash:,}; "
+                          f"{found.statistics['status']}; {found.statistics['elapsed_seconds']:.2f}s; "
+                          f"{found.statistics['peak_rss_kb'] / 1024:.1f} MB; "
+                          f"certified={found.statistics['certified']}", flush=True)
+                if best is None or found.result.final_cash > best[1].final_cash:
+                    best = (scenario, found.result)
+            if not args.json:
+                print_route(*best)
     except (ValueError, RuntimeError, OSError) as error:
         parser.exit(2, f"Search stopped: {error}\nPreviously written checkpoints remain available.\n")
 

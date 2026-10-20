@@ -88,7 +88,8 @@ def solve(scenario: Scenario, beam_width: int = 512, businesses=BUSINESSES, *,
     source = hashlib.sha256()
     for name in ("native/search.cpp", "native/safety.hpp", "lifeloop/model.py", "lifeloop/solver.py",
                  "lifeloop/polish.py", "lifeloop/records.py", "main.py", "scripts/compile.sh",
-                 "scripts/run_limited.sh", "flake.nix", "flake.lock"):
+                 "scripts/run_limited.sh", "scripts/run_safe.sh", "scripts/build_safe.sh",
+                 "scripts/compiler_limiter.sh", "flake.nix", "flake.lock"):
         source.update(name.encode() + b"\0" + (ROOT / name).read_bytes())
     statistics["source_sha256"] = source.hexdigest()
     return SearchResult(result, statistics)

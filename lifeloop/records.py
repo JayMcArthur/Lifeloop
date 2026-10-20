@@ -1,12 +1,25 @@
 """Replay-validated, atomic result checkpoints."""
 
 import hashlib
+from contextlib import contextmanager
+import fcntl
 import json
 import os
 from pathlib import Path
 import tempfile
 
 from .model import BUSINESSES, Action, ActionKind, Scenario, job_payment, replay
+
+
+@contextmanager
+def campaign_lock(directory: Path):
+    directory.mkdir(parents=True, exist_ok=True)
+    with (directory / ".campaign.lock").open("a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise RuntimeError("Another search owns this output directory") from None
+        yield
 
 
 def scenario_data(scenario: Scenario) -> dict:
