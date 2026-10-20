@@ -79,7 +79,9 @@ exploration and does not retain a persistent exhaustive search graph.
 
 Recorded benchmark strategies live under `benchmarks/records/`. The original
 Python beam-64 baseline is replay-verified at $16,922,240 for DocuDyno/business.
-It is automatically retained as a floor for that scenario.
+The CLI automatically retains each scenario's committed best record as a floor,
+as well as the original Python baseline for DocuDyno/business. Fresh checkouts
+therefore keep the best recorded route even during a short search.
 
 ## Search behavior and limits
 

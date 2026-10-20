@@ -163,6 +163,11 @@ class NativeSafetyTests(unittest.TestCase):
         self.assertLessEqual(limits["cpu_quota"], limits["cpu_period"])
         self.assertLessEqual(limits["tasks"], 64)
         self.assertEqual(limits["oom_group"], 1)
+        compiler = subprocess.run([str(ROOT / "scripts/run_limited.sh"),
+                                   str(ROOT / "scripts/compiler_limiter.sh"), sys.executable, "-c",
+                                   "import resource; print(resource.getrlimit(resource.RLIMIT_AS)[0])"],
+                                  capture_output=True, text=True, env=environment, check=True, timeout=15)
+        self.assertLessEqual(int(compiler.stdout), 256 * 1024 * 1024)
 
     def test_oversize_memory_override_is_rejected_before_command_runs(self):
         completed = subprocess.run([str(ROOT / "scripts/run_limited.sh"), sys.executable, "-c", "print('SHOULD_NOT_RUN')"],

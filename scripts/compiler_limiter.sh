@@ -15,4 +15,8 @@ fi
 exec 9>/tmp/lifeloop-solver-compiler.lock
 flock 9
 as_bytes=$((max_mb * 1024 * 1024))
+inherited_as_kb=$(ulimit -Hv)
+if [[ "$inherited_as_kb" =~ ^[0-9]+$ ]] && ((inherited_as_kb * 1024 < as_bytes)); then
+    as_bytes=$((inherited_as_kb * 1024))
+fi
 exec prlimit --as="$as_bytes" --core=0 -- "$@"

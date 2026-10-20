@@ -57,11 +57,15 @@ def main():
                     saved = load_record(path, scenario)
                     if seed is None or saved.final_cash > seed.final_cash:
                         seed = saved
-                baseline = ROOT / "benchmarks/records/python-baseline.json"
-                if scenario == Scenario() and baseline.exists():
-                    saved = load_record(baseline, scenario)
-                    if seed is None or saved.final_cash > seed.final_cash:
-                        seed = saved
+                recorded = ROOT / "benchmarks/records" / path.name
+                floors = [recorded]
+                if scenario == Scenario():
+                    floors.append(ROOT / "benchmarks/records/python-baseline.json")
+                for floor in floors:
+                    if floor.exists():
+                        saved = load_record(floor, scenario)
+                        if seed is None or saved.final_cash > seed.final_cash:
+                            seed = saved
                 found = solve(scenario, args.beam_width, seconds=args.seconds, memory_mb=args.memory_mb,
                               diversity=not args.no_diversity, income_weight=args.income_weight, incumbent=seed)
                 refined, metrics = polish(scenario, found.result, args.polish_seconds)
