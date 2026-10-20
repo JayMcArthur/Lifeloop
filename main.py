@@ -14,7 +14,8 @@ from lifeloop.solver import ROOT, SearchResult, solve
 
 
 def print_route(scenario, result):
-    print(f"Education: {scenario.education.value}; +100% {scenario.starting_bonus.value} income")
+    print(f"Education: {scenario.education.label}; job track: {scenario.education.job_track}; "
+          f"+100% {scenario.starting_bonus.value} income")
     for action in (*result.actions, *result.final_sales):
         detail = BUSINESSES[action.business].name if action.business is not None else "for 120 payments"
         if action.kind in (ActionKind.SELL, ActionKind.REFUND_BOOST):
@@ -28,7 +29,7 @@ def main():
     if "lifeloop-limited-" not in scope:
         os.execv(str(ROOT / "scripts/run_safe.sh"), [str(ROOT / "scripts/run_safe.sh"), *sys.argv[1:]])
     parser = argparse.ArgumentParser(description="Safely bounded LifeLoop C++ search, verified by Python replay.")
-    parser.add_argument("--education", choices=[e.value for e in Education], default="docudyno")
+    parser.add_argument("--education", choices=[e.value for e in Education], default="university")
     parser.add_argument("--starting-bonus", choices=[b.value for b in StartingBonus], default="business")
     parser.add_argument("--beam-width", type=int, default=512)
     parser.add_argument("--seconds", type=int, default=10, help="native time budget per scenario")
@@ -86,14 +87,15 @@ def main():
                     found.statistics["best_source"] = "polish"
                 found = SearchResult(refined, found.statistics)
                 save_record(path, scenario, found.result, found.statistics)
-                summary = {"education": scenario.education.value, "starting_bonus": scenario.starting_bonus.value,
+                summary = {"education": scenario.education.value, "job_track": scenario.education.job_track,
+                           "starting_bonus": scenario.starting_bonus.value,
                            "final_cash": found.result.final_cash, "checkpoint": str(path), **found.statistics}
                 with (args.output_dir / "attempts.jsonl").open("a") as stream:
                     stream.write(json.dumps(summary) + "\n")
                 if args.json:
                     print(json.dumps(summary), flush=True)
                 else:
-                    print(f"{scenario.education.value}/{scenario.starting_bonus.value}: ${found.result.final_cash:,}; "
+                    print(f"{scenario.education.label}/{scenario.starting_bonus.value}: ${found.result.final_cash:,}; "
                           f"{found.statistics['status']}; {found.statistics['elapsed_seconds']:.2f}s; "
                           f"{found.statistics['peak_rss_kb'] / 1024:.1f} MB; "
                           f"certified={found.statistics['certified']}", flush=True)

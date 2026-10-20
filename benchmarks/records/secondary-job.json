@@ -1,423 +1,313 @@
 {
   "schema": 1,
-  "signature": "f049ea4f7bdfe6a43cf7ff9cd01a2e8918b67f08f50f57e67111538b832c1a5d",
+  "signature": "9f0bbc512b33209ba5bd0cd7d98c70a99fca6b1b6f65f42c53c43a830edc3c70",
   "scenario": {
-    "education": "bytefix",
-    "starting_bonus": "business",
+    "education": "secondary",
+    "starting_bonus": "job",
     "starting_cash": 0,
     "max_businesses": 9,
     "end_month": 1080
   },
   "result": {
-    "final_cash": 26837672,
+    "final_cash": 3260067,
     "actions": [
       [
-        229,
+        205,
         "job boost",
         null
       ],
       [
-        262,
+        234,
         "buy",
         0
       ],
       [
-        281,
+        257,
         "buy",
         0
       ],
       [
-        294,
+        275,
         "buy",
         0
       ],
       [
-        304,
+        289,
         "buy",
         0
       ],
       [
-        312,
+        299,
         "buy",
         0
       ],
       [
-        318,
+        307,
         "buy",
         0
       ],
       [
-        323,
-        "buy",
-        0
-      ],
-      [
-        332,
+        322,
         "buy",
         1
       ],
       [
-        340,
+        339,
         "buy",
         1
       ],
       [
-        352,
+        353,
+        "buy",
+        1
+      ],
+      [
+        375,
         "sell (70%)",
         0
       ],
       [
-        352,
+        375,
         "buy",
         2
       ],
       [
-        363,
+        393,
         "sell (70%)",
         0
       ],
       [
-        363,
+        393,
         "buy",
         2
       ],
       [
-        373,
+        408,
         "sell (70%)",
         0
       ],
       [
-        373,
+        408,
         "buy",
         2
       ],
       [
-        382,
+        423,
         "sell (70%)",
         0
       ],
       [
-        382,
+        423,
         "buy",
         2
       ],
       [
-        390,
+        452,
         "sell (70%)",
         0
       ],
       [
-        390,
-        "buy",
-        2
-      ],
-      [
-        406,
-        "sell (70%)",
-        0
-      ],
-      [
-        406,
+        452,
         "buy",
         3
       ],
       [
-        420,
+        452,
         "sell (70%)",
         0
       ],
       [
-        420,
+        479,
         "buy",
         3
       ],
       [
-        441,
+        518,
         "sell (70%)",
         1
       ],
       [
-        441,
+        518,
         "buy",
         4
       ],
       [
-        459,
+        550,
         "sell (70%)",
         1
       ],
       [
-        459,
+        550,
         "buy",
         4
       ],
       [
-        487,
+        578,
+        "sell (70%)",
+        1
+      ],
+      [
+        578,
+        "buy",
+        4
+      ],
+      [
+        623,
         "sell (70%)",
         2
       ],
       [
-        487,
+        623,
         "buy",
         5
       ],
       [
-        510,
+        661,
         "sell (70%)",
         2
       ],
       [
-        510,
+        661,
         "buy",
         5
       ],
       [
-        529,
+        720,
         "sell (70%)",
         2
       ],
       [
-        529,
-        "buy",
-        5
-      ],
-      [
-        545,
-        "sell (70%)",
-        2
-      ],
-      [
-        545,
-        "buy",
-        5
-      ],
-      [
-        573,
-        "sell (70%)",
-        2
-      ],
-      [
-        573,
+        720,
         "buy",
         6
       ],
       [
-        594,
+        768,
+        "sell (70%)",
+        2
+      ],
+      [
+        768,
+        "buy",
+        6
+      ],
+      [
+        806,
         "sell (70%)",
         3
       ],
       [
-        594,
+        806,
         "buy",
         6
       ],
       [
-        613,
+        840,
         "sell (70%)",
         3
       ],
       [
-        613,
+        840,
         "buy",
         6
       ],
       [
-        642,
+        894,
         "sell (70%)",
         4
       ],
       [
-        642,
+        894,
         "buy",
         7
       ],
       [
-        666,
+        940,
         "sell (70%)",
         4
       ],
       [
-        666,
+        940,
         "buy",
         7
       ],
       [
-        702,
-        "sell (70%)",
-        5
-      ],
-      [
-        702,
-        "buy",
-        8
-      ],
-      [
-        731,
-        "sell (70%)",
-        5
-      ],
-      [
-        731,
-        "buy",
-        8
-      ],
-      [
-        756,
-        "sell (70%)",
-        5
-      ],
-      [
-        756,
-        "buy",
-        8
-      ],
-      [
-        795,
-        "sell (70%)",
-        5
-      ],
-      [
-        795,
-        "buy",
-        9
-      ],
-      [
-        825,
-        "sell (70%)",
-        6
-      ],
-      [
-        825,
-        "buy",
-        9
-      ],
-      [
-        870,
-        "sell (70%)",
-        6
-      ],
-      [
-        870,
-        "buy",
-        10
-      ],
-      [
-        872,
+        959,
         "business boost",
         null
       ],
       [
-        889,
+        969,
+        "sell (70%)",
+        4
+      ],
+      [
+        969,
+        "buy",
+        7
+      ],
+      [
+        1000,
+        "sell (70%)",
+        5
+      ],
+      [
+        1000,
+        "buy",
+        8
+      ],
+      [
+        1071,
+        "sell (70%)",
+        8
+      ],
+      [
+        1071,
+        "sell (70%)",
+        7
+      ],
+      [
+        1071,
+        "sell (70%)",
+        7
+      ],
+      [
+        1071,
+        "sell (70%)",
+        7
+      ],
+      [
+        1071,
         "sell (70%)",
         6
       ],
       [
-        889,
-        "buy",
-        10
-      ],
-      [
-        903,
+        1071,
         "sell (70%)",
-        7
+        6
       ],
       [
-        903,
-        "buy",
-        10
-      ],
-      [
-        925,
+        1071,
         "sell (70%)",
-        7
+        5
       ],
       [
-        925,
+        1071,
         "buy",
         11
-      ],
-      [
-        942,
-        "sell (70%)",
-        8
-      ],
-      [
-        942,
-        "buy",
-        11
-      ],
-      [
-        956,
-        "sell (70%)",
-        8
-      ],
-      [
-        956,
-        "buy",
-        11
-      ],
-      [
-        977,
-        "sell (70%)",
-        8
-      ],
-      [
-        977,
-        "buy",
-        12
-      ],
-      [
-        1049,
-        "sell (70%)",
-        12
-      ],
-      [
-        1049,
-        "sell (70%)",
-        11
-      ],
-      [
-        1049,
-        "sell (70%)",
-        11
-      ],
-      [
-        1049,
-        "sell (70%)",
-        10
-      ],
-      [
-        1049,
-        "buy",
-        15
-      ],
-      [
-        1049,
-        "buy",
-        2
-      ],
-      [
-        1049,
-        "buy",
-        2
-      ],
-      [
-        1049,
-        "buy",
-        2
       ]
     ]
   },
   "statistics": {
     "engine": "cpp",
     "status": "completed",
-    "elapsed_seconds": 0.00458216,
+    "elapsed_seconds": 0.00346332,
     "peak_rss_kb": 4084,
-    "candidates": 26001,
-    "dominated": 55,
-    "lossy_prunes": 25095,
+    "candidates": 18669,
+    "dominated": 85,
+    "lossy_prunes": 17709,
     "peak_pool": 2,
-    "months_completed": 851,
+    "months_completed": 875,
     "depth_limited": false,
     "certified": false,
     "best_source": "incumbent",
@@ -426,14 +316,14 @@
     "hard_memory_mb": 768,
     "diversity": true,
     "income_weight": 100,
-    "incumbent_cash": 26837672,
+    "incumbent_cash": 3260067,
     "source_commit": "88ddf4900fb7c6e7758dce65e121ce60a0b24040",
     "source_sha256": "e24ffd1880c8d8fc4c79f447fd9027d1d54080b882f48395976ab240e03858b6",
-    "polish_evaluations": 2489,
-    "polish_elapsed_seconds": 1.3367634729947895,
+    "polish_evaluations": 2291,
+    "polish_elapsed_seconds": 1.3067013650434092,
     "polish_status": "local_fixed_point",
-    "polish_cash_before": 26837672,
-    "polish_cash_after": 26837672,
+    "polish_cash_before": 3260067,
+    "polish_cash_after": 3260067,
     "polish_templates": 20,
     "polish_templates_sha256": "c571fb247b6b7bab6b1eb37fe0ff44c3b9239910c54529c563f05939b46bbca4"
   }

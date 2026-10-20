@@ -4,7 +4,7 @@ A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
 The [recorded campaign](benchmarks/README.md) reaches **$27,896,953** with
-FreshMart/+100% business income and **$25,253,906** with maximum education.
+Primary education/+100% business income and **$25,253,906** with maximum education.
 It includes complete action paths and all ten scenario records.
 
 ## Build, test and search
@@ -25,7 +25,7 @@ These commands restore the locked environment noninteractively. Builds are
 serialized and cached locally in `build/`. Repeating setup leaves the lock
 unchanged. A direct `python3 main.py` CLI launch enters the same safe runner.
 
-The default is maximum education (DocuDyno), +100% business starting income,
+The default is University education (DocuDynoCorp job track), +100% business starting income,
 beam 512 and ten seconds of native search. To search all ten combinations:
 
 ```bash
@@ -35,10 +35,12 @@ MAX_SECONDS=240 ./scripts/run_safe.sh --campaign --beam-width 512 --seconds 15
 Select a scenario and a larger bounded run:
 
 ```bash
-MAX_SECONDS=90 ./scripts/run_safe.sh --education docudyno --starting-bonus business --beam-width 2000 --seconds 60
+MAX_SECONDS=90 ./scripts/run_safe.sh --education university --starting-bonus business --beam-width 2000 --seconds 60
 ```
 
-Education choices: `sunny-sprout`, `freshmart`, `brickline`, `bytefix`, `docudyno`.
+Education choices: `none` (age 10), `primary` (12), `secondary` (17),
+`college` (19), `university` (22). Their job tracks are SunnySproutFields,
+FreshMart, BrickLineWorks, ByteFixServices and DocuDynoCorp, respectively.
 Starting bonus choices: `job`, `business`.
 
 ## Resource containment
@@ -82,9 +84,9 @@ checkpoint intact. Continuation preserves the best route; it restarts frontier
 exploration and does not retain a persistent exhaustive search graph.
 
 Recorded benchmark strategies live under `benchmarks/records/`. The original
-Python beam-64 baseline is replay-verified at $16,922,240 for DocuDyno/business.
+Python beam-64 baseline is replay-verified at $16,922,240 for University/business.
 The CLI automatically retains each scenario's committed best record as a floor,
-as well as the original Python baseline for DocuDyno/business. Fresh checkouts
+as well as the original Python baseline for University/business. Fresh checkouts
 therefore keep the best recorded route even during a short search.
 
 ## Search behavior and limits
@@ -128,7 +130,8 @@ Attempt statistics include the number and fingerprint of the templates tried.
 
 ## Game rules
 
-- The five education/job tracks start at ages 10, 12, 17, 19 and 22.
+- Education levels None, Primary, Secondary, College and University start at
+  ages 10, 12, 17, 19 and 22, respectively.
 - Choose permanent +100% job or business income (2× base). Market is omitted.
 - Own up to nine businesses, including multiple copies. All sixteen tiers run
   from Green Fork ($3,000, $35/month) to Bright Core ($13,790,000, $35,500/month).

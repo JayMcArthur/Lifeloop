@@ -63,7 +63,7 @@ class NativeSearchTests(unittest.TestCase):
         businesses = (Business("Small", 100, 30), Business("Large", 200, 55))
         for bonus in StartingBonus:
             for months in (1, 2, 3):
-                scenario = Scenario(Education.DOCUDYNO, bonus, 300, 2, 265 + months)
+                scenario = Scenario(Education.UNIVERSITY, bonus, 300, 2, 265 + months)
                 with self.subTest(bonus=bonus, months=months):
                     found = solve(scenario, 5000, businesses, seconds=5)
                     self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))

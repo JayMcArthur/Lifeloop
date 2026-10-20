@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "signature": "ebbd583a1a339e5adf69fd5a5b38cdb6a2295c092b84175fcef6e4a7f651447a",
+  "signature": "3ec5008551211f6d062cb609e71302bd060cb6ba4d86ba704f114c5b22e895ea",
   "scenario": {
-    "education": "docudyno",
+    "education": "university",
     "starting_bonus": "job",
     "starting_cash": 0,
     "max_businesses": 9,

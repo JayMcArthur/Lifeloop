@@ -28,7 +28,7 @@ class PolishTests(unittest.TestCase):
         self.assertEqual(replay(scenario, result.actions, businesses), result)
 
     def test_foreign_education_template_uses_target_start_age_and_wages(self):
-        scenario = Scenario(Education.DOCUDYNO, starting_cash=100, max_businesses=1, end_month=268)
+        scenario = Scenario(Education.UNIVERSITY, starting_cash=100, max_businesses=1, end_month=268)
         businesses = (Business("Shop", 100, 100),)
         # These ages are outside the target round. Only the trade order transfers.
         template = (Action(145, ActionKind.JOB_BOOST), Action(146, ActionKind.BUY, 0))

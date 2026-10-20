@@ -11,11 +11,19 @@ END_MONTH = 90 * 12
 
 
 class Education(Enum):
-    SUNNY_SPROUT = "sunny-sprout"
-    FRESHMART = "freshmart"
-    BRICKLINE = "brickline"
-    BYTEFIX = "bytefix"
-    DOCUDYNO = "docudyno"
+    NONE = "none"
+    PRIMARY = "primary"
+    SECONDARY = "secondary"
+    COLLEGE = "college"
+    UNIVERSITY = "university"
+
+    @property
+    def label(self) -> str:
+        return self.value.title()
+
+    @property
+    def job_track(self) -> str:
+        return JOB_TRACKS[self]
 
     @property
     def start_month(self) -> int:
@@ -24,11 +32,19 @@ class Education(Enum):
 
 # Each threshold is tenure at the upgrade. Its new pay arrives next month.
 JOBS = {
-    Education.SUNNY_SPROUT: (10, ((0, 10), (96, 20), (204, 35), (324, 55), (480, 80))),
-    Education.FRESHMART: (12, ((0, 18), (84, 35), (180, 60), (300, 90), (456, 140))),
-    Education.BRICKLINE: (17, ((0, 25), (84, 45), (180, 75), (300, 110), (456, 170))),
-    Education.BYTEFIX: (19, ((0, 45), (78, 75), (162, 110), (270, 165), (402, 240), (570, 320))),
-    Education.DOCUDYNO: (22, ((0, 60), (78, 100), (162, 150), (270, 220), (414, 300), (594, 400))),
+    Education.NONE: (10, ((0, 10), (96, 20), (204, 35), (324, 55), (480, 80))),
+    Education.PRIMARY: (12, ((0, 18), (84, 35), (180, 60), (300, 90), (456, 140))),
+    Education.SECONDARY: (17, ((0, 25), (84, 45), (180, 75), (300, 110), (456, 170))),
+    Education.COLLEGE: (19, ((0, 45), (78, 75), (162, 110), (270, 165), (402, 240), (570, 320))),
+    Education.UNIVERSITY: (22, ((0, 60), (78, 100), (162, 150), (270, 220), (414, 300), (594, 400))),
+}
+
+JOB_TRACKS = {
+    Education.NONE: "SunnySproutFields",
+    Education.PRIMARY: "FreshMart",
+    Education.SECONDARY: "BrickLineWorks",
+    Education.COLLEGE: "ByteFixServices",
+    Education.UNIVERSITY: "DocuDynoCorp",
 }
 
 
@@ -70,7 +86,7 @@ BUSINESSES = (
 
 @dataclass(frozen=True, slots=True)
 class Scenario:
-    education: Education = Education.DOCUDYNO
+    education: Education = Education.UNIVERSITY
     starting_bonus: StartingBonus = StartingBonus.BUSINESS
     starting_cash: int = 0
     max_businesses: int = MAX_BUSINESSES

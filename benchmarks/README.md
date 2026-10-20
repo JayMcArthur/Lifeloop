@@ -2,39 +2,55 @@
 
 All amounts are final cash after business refunds at age 90. These are best found routes, not proven global optima. Every published record passes independent Python replay. Full-game searches trim branches; finishing the horizon or a local refinement pass is not a global proof.
 
-FreshMart is the education/job start at age 12. The business catalog runs from Green Fork through Bright Core. Each of the three independent boosts may be used once: double job income for 120 payments, double business income for 120 payments, and one 140% business refund. All ten retained strategies use each boost exactly once.
+Primary education starts at age 12 and uses the FreshMart job track. The business catalog runs from Green Fork through Bright Core. Each of the three independent boosts may be used once: double job income for 120 payments, double business income for 120 payments, and one 140% business refund. All ten retained strategies use each boost exactly once.
 
 | Education (start age) | +100% job bonus | +100% business bonus | Business gain this follow-up |
 |---|---:|---:|---:|
-| sunny-sprout (10) | $2,603,420 | $23,841,358 | +$515,172 |
-| freshmart (12) | $3,441,355 | $27,896,953 | +$1,262,052 |
-| brickline (17) | $3,260,067 | $24,495,230 | +$512,220 |
-| bytefix (19) | $3,844,302 | $26,837,672 | +$563,100 |
-| docudyno (22) | $3,925,391 | $25,253,906 | +$846,314 |
+| None (10) | $2,603,420 | $23,841,358 | +$515,172 |
+| Primary (12) | $3,441,355 | $27,896,953 | +$1,262,052 |
+| Secondary (17) | $3,260,067 | $24,495,230 | +$512,220 |
+| College (19) | $3,844,302 | $26,837,672 | +$563,100 |
+| University (22) | $3,925,391 | $25,253,906 | +$846,314 |
 
-The leading FreshMart/business route increased from $26,634,901 to $27,896,953: +$1,262,052 (4.74%). Maximum education/business increased from $24,407,592 to $25,253,906: +$846,314. The original Python DocuDyno/business baseline is $16,922,240, so the current gain over it is 49.2%.
+The leading Primary/business route increased from $26,634,901 to $27,896,953: +$1,262,052 (4.74%). Maximum education/business increased from $24,407,592 to $25,253,906: +$846,314. The original Python University/business baseline is $16,922,240, so the current gain over it is 49.2%.
 
 ## Independent boost schedules for the business starting bonus
 
 | Education | Job boost starts | Business boost starts | 140% refund | Refunded business |
 |---|---|---|---|---|
-| sunny-sprout | 10y05m | 78y10m | 90y00m | Bright Core |
-| freshmart | 12y02m | 71y10m | 90y00m | Bright Core |
-| brickline | 17y01m | 77y02m | 90y00m | Bright Core |
-| bytefix | 19y01m | 72y08m | 90y00m | Bright Core |
-| docudyno | 22y01m | 74y05m | 90y00m | Bright Core |
+| None | 10y05m | 78y10m | 90y00m | Bright Core |
+| Primary | 12y02m | 71y10m | 90y00m | Bright Core |
+| Secondary | 17y01m | 77y02m | 90y00m | Bright Core |
+| College | 19y01m | 72y08m | 90y00m | Bright Core |
+| University | 22y01m | 74y05m | 90y00m | Bright Core |
 
 The leading route refunds Bright Core for $19,306,000. Early immediate buy/refund and refund/rebuy funding remain legal search choices. These schedules show that job, business and refund boosts can occur at separate ages.
 
 Complete readable paths for each education with the business starting bonus:
 
-- [sunny-sprout](strategies/sunny-sprout-business.txt)
-- [freshmart](strategies/freshmart-business.txt)
-- [brickline](strategies/brickline-business.txt)
-- [bytefix](strategies/bytefix-business.txt)
-- [docudyno](strategies/docudyno-business.txt)
+- [None](strategies/none-business.txt)
+- [Primary](strategies/primary-business.txt)
+- [Secondary](strategies/secondary-business.txt)
+- [College](strategies/college-business.txt)
+- [University](strategies/university-business.txt)
 
 All ten machine-readable action paths are in [records/](records/).
+
+## Education and job tracks
+
+| Education | Starting age | Job track |
+|---|---:|---|
+| None | 10 | SunnySproutFields |
+| Primary | 12 | FreshMart |
+| Secondary | 17 | BrickLineWorks |
+| College | 19 | ByteFixServices |
+| University | 22 | DocuDynoCorp |
+
+The historical attempt matrix preserves its original job-based education IDs:
+`sunny-sprout`, `freshmart`, `brickline`, `bytefix`, `docudyno`, respectively.
+Current checkpoint names and CLI choices use the education names above.
+Relabelled checkpoints preserve their original action sequences, exact scores
+and search statistics; all were independently replayed after relabelling.
 
 ## Search and reproduction
 

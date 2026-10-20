@@ -1,4 +1,4 @@
-Education: sunny-sprout; +100% business income
+Education: None; job track: SunnySproutFields; +100% business income
 10y05m: job boost for 120 payments
 20y04m: buy Green Fork
 23y02m: buy Green Fork

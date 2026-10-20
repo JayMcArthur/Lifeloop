@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "signature": "7e8f735af9d7e347d884da70a7a3e92385a2880f5c94c2c540126f6f1f387468",
+  "signature": "4ab6a5052d41612df02372c62168e70f9f28c92c956962a539844d0082a43055",
   "scenario": {
-    "education": "freshmart",
+    "education": "primary",
     "starting_bonus": "job",
     "starting_cash": 0,
     "max_businesses": 9,
