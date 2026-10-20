@@ -8,7 +8,7 @@ import os
 from pathlib import Path
 import tempfile
 
-from .model import BUSINESSES, Action, ActionKind, Scenario, job_payment, replay
+from .model import BUSINESSES, Action, ActionKind, Scenario, StartingBonus, job_payment, replay
 
 
 @contextmanager
@@ -33,6 +33,8 @@ def signature(scenario: Scenario, businesses=BUSINESSES) -> str:
             "businesses": [(b.name, b.cost, b.income) for b in businesses],
             "payments": [job_payment(scenario.education, m) for m in range(scenario.end_month)],
             "rules": "income-before-trades;boost=120;refund=70/140-once;terminal-no-income;v1"}
+    if scenario.starting_bonus == StartingBonus.BUSINESS_50:
+        data["business_payments"] = [b.income * scenario.business_multiplier for b in businesses]
     return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
 
 

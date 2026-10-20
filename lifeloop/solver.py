@@ -8,7 +8,7 @@ from pathlib import Path
 import resource
 import subprocess
 
-from .model import BUSINESSES, Action, ActionKind, Result, Scenario, job_payment, replay
+from .model import BUSINESSES, Action, ActionKind, Result, Scenario, StartingBonus, job_payment, replay
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -55,14 +55,16 @@ def solve(scenario: Scenario, beam_width: int = 512, businesses=BUSINESSES, *,
         raise ValueError("At least 256 MB of bounded job memory is required")
 
     first = scenario.education.start_month + 1
+    # Preserve half-dollar payments while keeping the native core integer-only.
+    scale = 2 if scenario.starting_bonus == StartingBonus.BUSINESS_50 else 1
     header = [first, scenario.end_month, scenario.max_businesses, beam_width, seconds,
-              memory_mb * 3 // 4, int(diversity), income_weight, scenario.starting_cash, len(businesses)]
+              memory_mb * 3 // 4, int(diversity), income_weight, scenario.starting_cash * scale, len(businesses)]
     lines = ["LIFELOOP1 " + " ".join(map(str, header))]
-    lines += [f"{b.cost} {b.income * scenario.business_multiplier}" for b in businesses]
-    lines.append(" ".join(str(job_payment(scenario.education, m) * scenario.job_multiplier)
+    lines += [f"{b.cost * scale} {int(b.income * scenario.business_multiplier * scale)}" for b in businesses]
+    lines.append(" ".join(str(job_payment(scenario.education, m) * scenario.job_multiplier * scale)
                           for m in range(scenario.end_month)))
     actions = incumbent.actions if incumbent else ()
-    lines.append(f"{incumbent.final_cash if incumbent else -1} {len(actions)}")
+    lines.append(f"{int(incumbent.final_cash * scale) if incumbent else -1} {len(actions)}")
     lines += [f"{a.month} {KINDS.index(a.kind)} {a.business if a.business is not None else -1}"
               for a in actions]
     environment = {**os.environ, "LIMIT_MAX_MB": str(memory_mb), "LIMIT_MAX_SECONDS": str(seconds + 3)}
@@ -75,7 +77,7 @@ def solve(scenario: Scenario, beam_width: int = 512, businesses=BUSINESSES, *,
     route = tuple(Action(month, KINDS[kind], None if business == -1 else business)
                   for month, kind, business in payload["actions"])
     result = replay(scenario, route, businesses)
-    if result.final_cash != payload["final_cash"]:
+    if result.final_cash * scale != payload["final_cash"]:
         raise RuntimeError("Native score disagrees with independent Python replay")
     if incumbent and result.final_cash < incumbent.final_cash:
         raise RuntimeError("Native search lost its verified incumbent")
@@ -83,6 +85,7 @@ def solve(scenario: Scenario, beam_width: int = 512, businesses=BUSINESSES, *,
         "beam_width": beam_width, "time_limit_seconds": seconds, "hard_memory_mb": memory_mb,
         "diversity": diversity, "income_weight": income_weight,
         "incumbent_cash": incumbent.final_cash if incumbent else None,
+        "native_money_scale": scale,
         "source_commit": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
     }
     source = hashlib.sha256()

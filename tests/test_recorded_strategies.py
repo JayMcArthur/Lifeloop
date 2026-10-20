@@ -24,14 +24,16 @@ class RecordedStrategyTests(unittest.TestCase):
             saved = load_record(Path(directory) / "primary-business.json", scenario)
             self.assertGreaterEqual(saved.final_cash, floor.final_cash)
 
-    def test_all_ten_published_scores_pass_independent_replay(self):
-        for education in Education:
-            for bonus in StartingBonus:
-                with self.subTest(education=education, bonus=bonus):
-                    # The loader checks the rule signature and independently
-                    # replays the complete path against its published score.
-                    load_record(ROOT / "benchmarks/records" / f"{education.value}-{bonus.value}.json",
-                                Scenario(education, bonus))
+    def test_all_published_reference_and_comparison_scores_pass_independent_replay(self):
+        sets = (("benchmarks/records", (StartingBonus.JOB, StartingBonus.BUSINESS)),
+                ("benchmarks/bonus-comparison/records", (StartingBonus.JOB, StartingBonus.BUSINESS_50)))
+        for directory, bonuses in sets:
+            for education in Education:
+                for bonus in bonuses:
+                    with self.subTest(directory=directory, education=education, bonus=bonus):
+                        # Loading checks signatures and independently replays scores.
+                        load_record(ROOT / directory / f"{education.value}-{bonus.value}.json",
+                                    Scenario(education, bonus))
 
     def test_fresh_output_directory_keeps_committed_default_strategy(self):
         scenario = Scenario()

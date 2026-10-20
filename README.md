@@ -7,6 +7,17 @@ The [recorded campaign](benchmarks/README.md) reaches **$27,896,953** with
 Primary education/+100% business income and **$25,253,906** with maximum education.
 It includes complete action paths and all ten scenario records.
 
+Those reference results use **+100% business starting income**. They remain saved.
+The current comparison is **+100% job** versus **+50% business** starting income:
+
+```bash
+MAX_SECONDS=550 ./scripts/run_safe.sh --compare-starting-bonuses --beam-width 64 --seconds 20 --polish-seconds 30
+```
+
+This searches all five educations, writes separate checkpoints under
+`runs/bonus-comparison/`, and uses exact half-dollar business payments. Green Fork
+pays $52.50 with the +50% starting bonus and $105 during its temporary 2× boost.
+
 ## Build, test and search
 
 Requires Nix flakes, x86_64 Linux, cgroup v2 and a running systemd user manager.
@@ -41,7 +52,11 @@ MAX_SECONDS=90 ./scripts/run_safe.sh --education university --starting-bonus bus
 Education choices: `none` (age 10), `primary` (12), `secondary` (17),
 `college` (19), `university` (22). Their job tracks are SunnySproutFields,
 FreshMart, BrickLineWorks, ByteFixServices and DocuDynoCorp, respectively.
-Starting bonus choices: `job`, `business`.
+Starting bonus choices: `job` (+100% job), `business-50` (+50% business),
+and `business` (preserved +100% business reference). The single-scenario default
+remains the reference case; select `--starting-bonus business-50` for the 50% case.
+`--campaign` explores all three cases; `--compare-starting-bonuses` selects the
+two current alternatives above.
 
 ## Resource containment
 
@@ -132,11 +147,14 @@ Attempt statistics include the number and fingerprint of the templates tried.
 
 - Education levels None, Primary, Secondary, College and University start at
   ages 10, 12, 17, 19 and 22, respectively.
-- Choose permanent +100% job or business income (2× base). Market is omitted.
+- The current starting choices are +100% job (2× base) or +50% business
+  (1.5× base). The previous +100% business (2×) research case is retained separately.
+  Market is omitted.
 - Own up to nine businesses, including multiple copies. All sixteen tiers run
   from Green Fork ($3,000, $35/month) to Bright Core ($13,790,000, $35,500/month).
 - Activate each independent job/business boost once for 120 monthly payments.
-  The boost multiplies its starting bonus for 4× base income in that category.
+  The boost multiplies its starting bonus: 4× job income with the job bonus,
+  or 3× business income with the 50% business bonus (4× in the reference case).
 - Ordinary sales refund 70%; one business sale per round can refund 140%.
   Buying and refunding is immediate and consumes no game time, so the one-use
   refund may accelerate early investment or fund a final payout.

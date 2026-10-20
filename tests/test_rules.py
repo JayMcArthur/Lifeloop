@@ -9,6 +9,21 @@ from lifeloop.solver import solve
 
 
 class GameRulesTests(unittest.TestCase):
+    def test_half_business_bonus_and_temporary_boost_preserve_half_dollars(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.BUSINESS_50)
+        month = scenario.education.start_month + 1
+        state = State(owned=(0,))
+        self.assertEqual(income(scenario, state, month), 18 + 52.5)
+        state = activate(state, Action(month, ActionKind.BUSINESS_BOOST))
+        self.assertEqual(income(scenario, state, month), 18 + 105)
+        state = activate(state, Action(month, ActionKind.JOB_BOOST))
+        self.assertEqual(income(scenario, state, month), 36 + 105)
+
+    def test_primary_job_bonus_can_reach_3024_at_15_years_7_months(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.JOB, end_month=188)
+        result = replay(scenario, (Action(147, ActionKind.JOB_BOOST),))
+        self.assertEqual(result.final_cash, 3024)
+
     def test_education_sets_start_age_and_first_payment(self):
         for education, years, first_pay in (
             (Education.NONE, 10, 10),

@@ -1,10 +1,18 @@
 import unittest
 
-from lifeloop.model import Action, ActionKind, Business, Education, Scenario, replay
+from lifeloop.model import Action, ActionKind, Business, Education, Scenario, StartingBonus, replay
 from lifeloop.polish import polish
 
 
 class PolishTests(unittest.TestCase):
+    def test_refinement_preserves_an_unboosted_half_dollar_payment(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.BUSINESS_50, 100, 1, 267)
+        businesses = (Business("Shop", 100, 35),)
+        seed = replay(scenario, (Action(145, ActionKind.BUY, 0),), businesses)
+        result, _ = polish(scenario, seed, 1, businesses)
+        self.assertEqual(result.final_cash, 18440.5)
+        self.assertEqual(replay(scenario, result.actions, businesses), result)
+
     def test_removes_an_unprofitable_copy_without_changing_other_ownership(self):
         scenario = Scenario(starting_cash=1000, max_businesses=2, end_month=267)
         businesses = (Business("Shop", 100, 1),)

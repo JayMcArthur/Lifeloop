@@ -51,6 +51,11 @@ JOB_TRACKS = {
 class StartingBonus(Enum):
     JOB = "job"
     BUSINESS = "business"
+    BUSINESS_50 = "business-50"
+
+    @property
+    def label(self) -> str:
+        return "+50% business income" if self == StartingBonus.BUSINESS_50 else f"+100% {self.value} income"
 
 
 @dataclass(frozen=True, slots=True)
@@ -105,7 +110,9 @@ class Scenario:
         return 2 if self.starting_bonus == StartingBonus.JOB else 1
 
     @property
-    def business_multiplier(self) -> int:
+    def business_multiplier(self) -> int | float:
+        if self.starting_bonus == StartingBonus.BUSINESS_50:
+            return 1.5
         return 2 if self.starting_bonus == StartingBonus.BUSINESS else 1
 
 
@@ -129,7 +136,8 @@ class Action:
 
 @dataclass(frozen=True, slots=True)
 class State:
-    cash: int = 0
+    # Supported fractional payments are exact binary halves, never rounded.
+    cash: int | float = 0
     owned: tuple[int, ...] = ()
     job_until: int = 0
     business_until: int = 0
@@ -138,7 +146,7 @@ class State:
 
 @dataclass(frozen=True, slots=True)
 class Result:
-    final_cash: int
+    final_cash: int | float
     actions: tuple[Action, ...]
     final_sales: tuple[Action, ...]
 
@@ -165,7 +173,7 @@ def activate(state: State, action: Action) -> State:
     return replace(state, **{field: action.month + BOOST_MONTHS})
 
 
-def income(scenario: Scenario, state: State, month: int, businesses=BUSINESSES) -> int:
+def income(scenario: Scenario, state: State, month: int, businesses=BUSINESSES) -> int | float:
     job = job_payment(scenario.education, month) * scenario.job_multiplier
     business = sum(businesses[i].income for i in state.owned) * scenario.business_multiplier
     return job * (2 if month < state.job_until else 1) + business * (2 if month < state.business_until else 1)

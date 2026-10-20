@@ -59,6 +59,21 @@ def exhaustive_cash(scenario, businesses):
 
 
 class NativeSearchTests(unittest.TestCase):
+    def test_half_dollar_income_and_fractional_incumbent_match_native_oracle(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.BUSINESS_50, 100, 1, 147)
+        businesses = (Business("Shop", 100, 35),)
+        seed = replay(scenario, (Action(145, ActionKind.BUY, 0),), businesses)
+        self.assertEqual(seed.final_cash, 228.5)
+        found = solve(scenario, 5000, businesses, seconds=5, incumbent=seed)
+        self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
+        self.assertTrue(found.statistics["certified"])
+        self.assertEqual(found.statistics["native_money_scale"], 2)
+        self.assertEqual(replay(scenario, found.result.actions, businesses), found.result)
+        with tempfile.TemporaryDirectory() as directory:
+            checkpoint = Path(directory) / "fractional.json"
+            save_record(checkpoint, scenario, seed, {}, businesses)
+            self.assertEqual(load_record(checkpoint, scenario, businesses), seed)
+
     def test_native_matches_exhaustive_unrestricted_tiny_oracle(self):
         businesses = (Business("Small", 100, 30), Business("Large", 200, 55))
         for bonus in StartingBonus:
