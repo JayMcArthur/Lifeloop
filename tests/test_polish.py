@@ -5,6 +5,12 @@ from lifeloop.polish import polish
 
 
 class PolishTests(unittest.TestCase):
+    def test_no_trades_when_custom_scenario_has_no_paid_months(self):
+        scenario = Scenario(starting_cash=3000, end_month=265)
+        seed = replay(scenario, ())
+        result, _ = polish(scenario, seed, 1)
+        self.assertEqual(result, seed)
+
     def test_final_buy_refund_is_immediate_and_adds_40_percent(self):
         scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=266)
         businesses = (Business("Shop", 1000, 1),)

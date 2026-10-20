@@ -95,7 +95,7 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
             chosen = None
             for index, item in enumerate(businesses):
                 gain = item.refund(True) - item.cost
-                if item.cost <= cash and gain > extra:
+                if first < end and item.cost <= cash and gain > extra:
                     chosen, extra = index, gain
             if chosen is not None:
                 events.extend(Action(end - 1, ActionKind.SELL, index)

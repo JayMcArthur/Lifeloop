@@ -11,8 +11,7 @@ if ! command -v prlimit >/dev/null 2>&1 || ! command -v flock >/dev/null 2>&1; t
     exit 2
 fi
 
-# CMake may request several jobs, but large C++ compiler processes are serialized
-# across both executables so WSL never receives a burst of duplicate compilations.
+# Serialize compiler processes across LifeLoop builds and worktrees.
 exec 9>/tmp/lifeloop-solver-compiler.lock
 flock 9
 as_bytes=$((max_mb * 1024 * 1024))
