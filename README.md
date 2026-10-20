@@ -52,8 +52,9 @@ Boosts activate before that month's payment. Income arrives before purchases
 and sales, so a newly bought business first earns next month. Paid months begin
 one month after education finishes and end before age 90. Remaining businesses
 are sold at age 90; if the refund boost is unused, it applies to one most
-expensive remaining business. Multiple copies, repurchasing a sold business,
-and final liquidation retain the prototype's existing assumptions.
+expensive remaining business. Multiple copies and final liquidation retain the
+prototype's existing assumptions. The model also assumes a sold business can
+be purchased again.
 
 ## Search limits
 
