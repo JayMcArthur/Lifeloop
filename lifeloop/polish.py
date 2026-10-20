@@ -1,5 +1,6 @@
 """Retiming refinement inspired by Caravan's independently replayed route polisher."""
 
+from collections import deque
 from itertools import groupby
 import math
 import time
@@ -7,13 +8,13 @@ import time
 from .model import BUSINESSES, Action, ActionKind, Result, Scenario, job_payment, replay
 
 
-def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses=BUSINESSES):
+def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses=BUSINESSES, *, templates=()):
     if not math.isfinite(seconds) or seconds < 0 or seconds > 60:
         raise ValueError("Polish budget must be between zero and 60 seconds")
     started = time.monotonic()
     deadline = started + seconds
     best = incumbent
-    evaluated = 0
+    evaluated = template_count = 0
     first, end = scenario.education.start_month + 1, scenario.end_month
     payments = [job_payment(scenario.education, m) * scenario.job_multiplier for m in range(end)]
     starts = {a.kind: a.month for a in best.actions if a.kind in (ActionKind.JOB_BOOST, ActionKind.BUSINESS_BOOST)}
@@ -110,6 +111,14 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
             best = result
 
     timed_out = False
+    if seconds:
+        for actions in templates:
+            if time.monotonic() >= deadline:
+                timed_out = True
+                break
+            candidate, _ = plan(actions)
+            evaluate(candidate, job_start, business_start)
+            template_count += 1
     while seconds:
         before = best.final_cash
         blocks, sales = plan(best.actions)
@@ -160,8 +169,37 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
                       action, *ordinary[index + 1:]]
             candidate, _ = plan(events)
             evaluate(candidate, job_start, business_start)
+        if timed_out:
+            break
+        # Identify each purchased copy's eventual sale before changing its tier.
+        # Updating both ends keeps ownership valid when several copies coexist.
+        actions = best.actions
+        owned = [deque() for _ in businesses]
+        purchases = {}
+        for index, action in enumerate(actions):
+            if action.kind == ActionKind.BUY:
+                owned[action.business].append(index)
+                purchases[index] = None
+            elif action.kind in (ActionKind.SELL, ActionKind.REFUND_BOOST):
+                purchases[owned[action.business].popleft()] = index
+        for purchase, sale in purchases.items():
+            for tier in range(len(businesses)):
+                if time.monotonic() >= deadline:
+                    timed_out = True
+                    break
+                if tier == actions[purchase].business:
+                    continue
+                variant = list(actions)
+                for index in (purchase,) if sale is None else (purchase, sale):
+                    event = actions[index]
+                    variant[index] = Action(event.month, event.kind, tier)
+                candidate, _ = plan(variant)
+                evaluate(candidate, job_start, business_start)
+            if timed_out:
+                break
         if timed_out or best.final_cash == before:
             break
     return best, {"polish_evaluations": evaluated, "polish_elapsed_seconds": time.monotonic() - started,
                   "polish_status": "disabled" if not seconds else "time_limit" if timed_out else "local_fixed_point",
-                  "polish_cash_before": incumbent.final_cash, "polish_cash_after": best.final_cash}
+                  "polish_cash_before": incumbent.final_cash, "polish_cash_after": best.final_cash,
+                  "polish_templates": template_count}

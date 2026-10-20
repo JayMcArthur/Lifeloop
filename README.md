@@ -109,14 +109,21 @@ when the configured scenario finishes with no lossy trimming and every monthly
 trade closure reaches a fixed point. Tiny exhaustive-oracle tests verify this
 path; interrupted, beam-trimmed or depth-limited runs are uncertified.
 
-The refinement pass keeps a route's purchase/sale sequence, moves affordable
-transaction blocks to their earliest month, scans monthly job/business boost
+The refinement pass moves affordable transaction blocks to their earliest month,
+scans monthly job/business boost
 starts, and tries each recorded sale (or final liquidation) for the single
 140% refund. It removes cash-losing ordinary sell/rebuy cycles. Only strict,
 independently replayed improvements are accepted. It also tests an immediate
 refund/rebuy after each recorded purchase to fund earlier subsequent upgrades.
 A local fixed point in this
 restricted refinement space is not a global certificate.
+
+It also varies purchased business tiers together with their eventual sales and
+tries saved investment sequences from the other education/bonus starts. Each
+sequence is funded and retimed using the target scenario's own wages and boosts;
+its original score and action ages do not transfer. The CLI reads templates from
+committed records and its output directory. All three boosts are independent,
+and each remains usable once per round.
 
 ## Game rules
 

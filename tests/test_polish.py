@@ -1,10 +1,33 @@
 import unittest
 
-from lifeloop.model import Action, ActionKind, Business, Scenario, replay
+from lifeloop.model import Action, ActionKind, Business, Education, Scenario, replay
 from lifeloop.polish import polish
 
 
 class PolishTests(unittest.TestCase):
+    def test_changes_purchased_tier_and_its_later_sale_together(self):
+        scenario = Scenario(starting_cash=300, max_businesses=1, end_month=269)
+        businesses = (Business("Small", 100, 1), Business("Large", 200, 100))
+        seed = replay(scenario, (Action(265, ActionKind.JOB_BOOST), Action(265, ActionKind.BUY, 0),
+                                 Action(266, ActionKind.BUSINESS_BOOST), Action(267, ActionKind.SELL, 0),
+                                 Action(267, ActionKind.BUY, 1)), businesses)
+        result, _ = polish(scenario, seed, 1, businesses)
+        self.assertEqual(result.final_cash, 2060)
+        self.assertIn(Action(265, ActionKind.BUY, 1), result.actions)
+        self.assertEqual(replay(scenario, result.actions, businesses), result)
+
+    def test_foreign_education_template_uses_target_start_age_and_wages(self):
+        scenario = Scenario(Education.DOCUDYNO, starting_cash=100, max_businesses=1, end_month=268)
+        businesses = (Business("Shop", 100, 100),)
+        # These ages are outside the target round. Only the trade order transfers.
+        template = (Action(145, ActionKind.JOB_BOOST), Action(146, ActionKind.BUY, 0))
+        seed = replay(scenario, (), businesses)
+        result, metrics = polish(scenario, seed, 1, businesses, templates=(template,))
+        self.assertEqual(result.final_cash, 1300)
+        self.assertIn(Action(265, ActionKind.BUY, 0), result.actions)
+        self.assertEqual(metrics["polish_templates"], 1)
+        self.assertEqual(replay(scenario, result.actions, businesses), result)
+
     def test_early_refund_rebuy_accelerates_a_later_upgrade(self):
         scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=272)
         businesses = (Business("Small", 1000, 1), Business("Large", 1400, 100))

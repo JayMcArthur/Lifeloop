@@ -68,7 +68,17 @@ def main():
                             seed = saved
                 found = solve(scenario, args.beam_width, seconds=args.seconds, memory_mb=args.memory_mb,
                               diversity=not args.no_diversity, income_weight=args.income_weight, incumbent=seed)
-                refined, metrics = polish(scenario, found.result, args.polish_seconds)
+                templates = {}
+                if args.polish_seconds:
+                    for education in Education:
+                        for bonus in StartingBonus:
+                            source = Scenario(education, bonus)
+                            for directory in (ROOT / "benchmarks/records", args.output_dir):
+                                template = directory / f"{education.value}-{bonus.value}.json"
+                                if template.exists():
+                                    route = load_record(template, source)
+                                    templates[route.actions] = None
+                refined, metrics = polish(scenario, found.result, args.polish_seconds, templates=templates)
                 found.statistics.update(metrics)
                 if refined.final_cash > found.result.final_cash:
                     if found.statistics["certified"]:
