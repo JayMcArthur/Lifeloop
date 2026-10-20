@@ -399,8 +399,14 @@ public:
                             }
                         }
                     }
-                    retained = select(pool, month);
-                    if (!changed) { converged = true; break; }
+                    auto next = select(pool, month);
+                    // Pruned candidates can be offered again forever. Once the
+                    // retained future states and cash stop changing, another
+                    // round would repeat the same work. Lossy trims still count.
+                    const bool stable = std::equal(retained.begin(), retained.end(), next.begin(), next.end(),
+                        [&](const State& a, const State& b) { return key(a, month) == key(b, month) && a.cash == b.cash; });
+                    retained = std::move(next);
+                    if (!changed || stable) { converged = true; break; }
                 }
                 depth_limited = depth_limited || !converged;
                 beam = std::move(retained);
