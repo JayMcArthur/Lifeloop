@@ -2,6 +2,8 @@
 
 from collections import deque
 from itertools import groupby
+import hashlib
+import json
 import math
 import time
 
@@ -15,6 +17,7 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
     deadline = started + seconds
     best = incumbent
     evaluated = template_count = 0
+    template_hash = hashlib.sha256()
     first, end = scenario.education.start_month + 1, scenario.end_month
     payments = [job_payment(scenario.education, m) * scenario.job_multiplier for m in range(end)]
     starts = {a.kind: a.month for a in best.actions if a.kind in (ActionKind.JOB_BOOST, ActionKind.BUSINESS_BOOST)}
@@ -118,6 +121,8 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
                 break
             candidate, _ = plan(actions)
             evaluate(candidate, job_start, business_start)
+            template_hash.update(json.dumps([[a.month, a.kind.value, a.business] for a in actions],
+                                            separators=(",", ":")).encode() + b"\n")
             template_count += 1
     while seconds:
         before = best.final_cash
@@ -183,16 +188,19 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
             elif action.kind in (ActionKind.SELL, ActionKind.REFUND_BOOST):
                 purchases[owned[action.business].popleft()] = index
         for purchase, sale in purchases.items():
-            for tier in range(len(businesses)):
+            for tier in (None, *range(len(businesses))):
                 if time.monotonic() >= deadline:
                     timed_out = True
                     break
                 if tier == actions[purchase].business:
                     continue
-                variant = list(actions)
-                for index in (purchase,) if sale is None else (purchase, sale):
-                    event = actions[index]
-                    variant[index] = Action(event.month, event.kind, tier)
+                if tier is None:
+                    variant = [event for index, event in enumerate(actions) if index not in (purchase, sale)]
+                else:
+                    variant = list(actions)
+                    for index in (purchase,) if sale is None else (purchase, sale):
+                        event = actions[index]
+                        variant[index] = Action(event.month, event.kind, tier)
                 candidate, _ = plan(variant)
                 evaluate(candidate, job_start, business_start)
             if timed_out:
@@ -202,4 +210,4 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
     return best, {"polish_evaluations": evaluated, "polish_elapsed_seconds": time.monotonic() - started,
                   "polish_status": "disabled" if not seconds else "time_limit" if timed_out else "local_fixed_point",
                   "polish_cash_before": incumbent.final_cash, "polish_cash_after": best.final_cash,
-                  "polish_templates": template_count}
+                  "polish_templates": template_count, "polish_templates_sha256": template_hash.hexdigest()}

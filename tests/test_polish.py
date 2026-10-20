@@ -5,6 +5,17 @@ from lifeloop.polish import polish
 
 
 class PolishTests(unittest.TestCase):
+    def test_removes_an_unprofitable_copy_without_changing_other_ownership(self):
+        scenario = Scenario(starting_cash=1000, max_businesses=2, end_month=267)
+        businesses = (Business("Shop", 100, 1),)
+        seed = replay(scenario, (Action(265, ActionKind.JOB_BOOST), Action(265, ActionKind.BUY, 0),
+                                 Action(265, ActionKind.BUY, 0), Action(266, ActionKind.BUSINESS_BOOST)), businesses)
+        result, _ = polish(scenario, seed, 1, businesses)
+        self.assertEqual(seed.final_cash, 1258)
+        self.assertEqual(result.final_cash, 1284)
+        self.assertEqual(sum(a.kind == ActionKind.BUY for a in result.actions), 1)
+        self.assertEqual(replay(scenario, result.actions, businesses), result)
+
     def test_changes_purchased_tier_and_its_later_sale_together(self):
         scenario = Scenario(starting_cash=300, max_businesses=1, end_month=269)
         businesses = (Business("Small", 100, 1), Business("Large", 200, 100))

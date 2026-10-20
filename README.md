@@ -118,12 +118,13 @@ refund/rebuy after each recorded purchase to fund earlier subsequent upgrades.
 A local fixed point in this
 restricted refinement space is not a global certificate.
 
-It also varies purchased business tiers together with their eventual sales and
+It also varies or removes purchased business tiers together with their eventual sales and
 tries saved investment sequences from the other education/bonus starts. Each
 sequence is funded and retimed using the target scenario's own wages and boosts;
 its original score and action ages do not transfer. The CLI reads templates from
 committed records and its output directory. All three boosts are independent,
 and each remains usable once per round.
+Attempt statistics include the number and fingerprint of the templates tried.
 
 ## Game rules
 
