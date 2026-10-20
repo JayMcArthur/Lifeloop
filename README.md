@@ -3,8 +3,8 @@
 A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
-The [recorded campaign](benchmarks/README.md) reaches **$26,634,901** with
-FreshMart/+100% business income and **$24,407,592** with maximum education.
+The [recorded campaign](benchmarks/README.md) reaches **$27,896,953** with
+FreshMart/+100% business income and **$25,253,906** with maximum education.
 It includes complete action paths and all ten scenario records.
 
 ## Build, test and search

@@ -19,88 +19,72 @@ Education: freshmart; +100% business income
 30y05m: buy Spark Fix
 31y01m: sell (70%) Green Fork → $2,100
 31y01m: buy Spark Fix
-31y09m: sell (70%) Green Fork → $2,100
-31y09m: buy Spark Fix
-33y00m: sell (70%) Green Fork → $2,100
-33y00m: buy Pedal Fleet
-34y00m: sell (70%) Cup & Go → $4,200
-34y00m: buy Pedal Fleet
-34y00m: sell (70%) Cup & Go → $4,200
-35y11m: buy Tech Tinker
-37y03m: sell (70%) Spark Fix → $8,400
-37y03m: buy Tech Tinker
-38y05m: sell (70%) Spark Fix → $8,400
-38y05m: buy Tech Tinker
+32y06m: sell (70%) Green Fork → $2,100
+32y06m: buy Pedal Fleet
+33y08m: sell (70%) Green Fork → $2,100
+33y08m: buy Pedal Fleet
+35y06m: sell (70%) Cup & Go → $4,200
+35y06m: buy Tech Tinker
+37y01m: sell (70%) Cup & Go → $4,200
+37y01m: buy Tech Tinker
 39y05m: sell (70%) Spark Fix → $8,400
-39y05m: buy Tech Tinker
+39y05m: buy Trend Loop
 41y04m: sell (70%) Spark Fix → $8,400
 41y04m: buy Trend Loop
-43y00m: sell (70%) Spark Fix → $8,400
-43y00m: buy Trend Loop
-44y05m: sell (70%) Spark Fix → $8,400
-44y05m: buy Trend Loop
-45y06m: sell (70%) Pedal Fleet → $16,800
-45y06m: buy Trend Loop
-47y05m: sell (70%) Pedal Fleet → $16,800
-47y05m: buy Paw Pal
-49y00m: sell (70%) Tech Tinker → $30,100
-49y00m: buy Paw Pal
-50y04m: sell (70%) Tech Tinker → $30,100
-50y04m: buy Paw Pal
-51y06m: sell (70%) Tech Tinker → $30,100
-51y06m: buy Paw Pal
-53y09m: sell (70%) Tech Tinker → $30,100
-53y09m: buy Dash Logix
-55y06m: sell (70%) Trend Loop → $54,600
-55y06m: buy Dash Logix
-57y00m: sell (70%) Trend Loop → $54,600
-57y00m: buy Dash Logix
-59y07m: sell (70%) Trend Loop → $54,600
-59y07m: buy Crust & Crumb
-61y09m: sell (70%) Trend Loop → $54,600
-61y09m: buy Crust & Crumb
-63y05m: sell (70%) Paw Pal → $98,000
-63y05m: buy Crust & Crumb
-64y11m: sell (70%) Paw Pal → $98,000
-64y11m: buy Crust & Crumb
-67y03m: sell (70%) Dash Logix → $176,400
-67y03m: buy Tailor Forge
-69y03m: sell (70%) Dash Logix → $176,400
-69y03m: buy Tailor Forge
-71y03m: sell (70%) Paw Pal → $98,000
-71y03m: buy Tailor Forge
-74y03m: sell (70%) Dash Logix → $176,400
-74y03m: buy Skysoft
-76y11m: sell (70%) Paw Pal → $98,000
-76y11m: buy Skysoft
+42y11m: sell (70%) Spark Fix → $8,400
+42y11m: buy Trend Loop
+44y04m: sell (70%) Spark Fix → $8,400
+44y04m: buy Trend Loop
+46y08m: sell (70%) Spark Fix → $8,400
+46y08m: buy Paw Pal
+48y06m: sell (70%) Pedal Fleet → $16,800
+48y06m: buy Paw Pal
+50y00m: sell (70%) Pedal Fleet → $16,800
+50y00m: buy Paw Pal
+52y06m: sell (70%) Tech Tinker → $30,100
+52y06m: buy Dash Logix
+54y07m: sell (70%) Tech Tinker → $30,100
+54y07m: buy Dash Logix
+57y07m: sell (70%) Trend Loop → $54,600
+57y07m: buy Crust & Crumb
+60y00m: sell (70%) Trend Loop → $54,600
+60y00m: buy Crust & Crumb
+62y01m: sell (70%) Trend Loop → $54,600
+62y01m: buy Crust & Crumb
+65y05m: sell (70%) Trend Loop → $54,600
+65y05m: buy Tailor Forge
+67y10m: sell (70%) Paw Pal → $98,000
+67y10m: buy Tailor Forge
+71y08m: sell (70%) Paw Pal → $98,000
+71y08m: buy Skysoft
+71y10m: business boost for 120 payments
+73y03m: sell (70%) Paw Pal → $98,000
+73y03m: buy Skysoft
+74y05m: sell (70%) Dash Logix → $176,400
+74y05m: buy Skysoft
+76y03m: sell (70%) Dash Logix → $176,400
+76y03m: buy Rapid Reach
+77y08m: sell (70%) Crust & Crumb → $299,600
+77y08m: buy Rapid Reach
 78y10m: sell (70%) Crust & Crumb → $299,600
-78y10m: buy Skysoft
-79y00m: business boost for 120 payments
-80y06m: sell (70%) Crust & Crumb → $299,600
-80y06m: buy Rapid Reach
-81y10m: sell (70%) Crust & Crumb → $299,600
-81y10m: buy Rapid Reach
-83y00m: sell (70%) Crust & Crumb → $299,600
-83y00m: buy Rapid Reach
-84y07m: sell (70%) Tailor Forge → $509,600
-84y07m: buy Agri World
-85y11m: sell (70%) Tailor Forge → $509,600
-85y11m: buy Agri World
-88y08m: sell (70%) Agri World → $2,356,900
-88y08m: sell (70%) Agri World → $2,356,900
-88y08m: sell (70%) Rapid Reach → $1,472,800
-88y08m: sell (70%) Skysoft → $866,600
-88y08m: buy Bright Core
-88y08m: buy Green Fork
-88y08m: buy Green Fork
-88y08m: buy Green Fork
+78y10m: buy Rapid Reach
+80y07m: sell (70%) Crust & Crumb → $299,600
+80y07m: buy Agri World
+86y07m: sell (70%) Agri World → $2,356,900
+86y07m: sell (70%) Rapid Reach → $1,472,800
+86y07m: sell (70%) Rapid Reach → $1,472,800
+86y07m: sell (70%) Skysoft → $866,600
+86y07m: buy Bright Core
+86y08m: buy Trend Loop
+86y08m: buy Tech Tinker
+86y09m: buy Trend Loop
 90y00m: sell (140%) Bright Core → $19,306,000
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
+90y00m: sell (70%) Tech Tinker → $30,100
+90y00m: sell (70%) Trend Loop → $54,600
+90y00m: sell (70%) Trend Loop → $54,600
+90y00m: sell (70%) Tailor Forge → $509,600
 90y00m: sell (70%) Tailor Forge → $509,600
 90y00m: sell (70%) Skysoft → $866,600
 90y00m: sell (70%) Skysoft → $866,600
 90y00m: sell (70%) Rapid Reach → $1,472,800
-90y00m: sell (70%) Rapid Reach → $1,472,800
-Final cash after refunds: $26,634,901
+Final cash after refunds: $27,896,953
