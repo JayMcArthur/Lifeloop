@@ -43,7 +43,9 @@ All build, test and search jobs run in a verified systemd user scope. Defaults
 are 768 MB total job memory, zero job swap, one CPU, 64 tasks and a finite wall
 deadline. `MAX_MB` may select 256..1024 MB; larger overrides are rejected.
 `MAX_SECONDS` controls the entire CLI/campaign deadline; `--seconds` is each
-native search's earlier graceful-stop budget. Leave time for reporting/builds.
+native search's earlier graceful-stop budget. `--polish-seconds` adds a bounded
+Python refinement pass (default five seconds per scenario). Leave time for both
+phases, reporting and builds.
 
 The compiler limiter additionally caps each compiler at 768 MB and serializes
 compiler processes across LifeLoop worktrees. The native executable installs
@@ -84,7 +86,9 @@ The native core uses compact portfolios, maximum-cash dominance for identical
 future states, normalized expired boost clocks, and candidate accumulation
 capped at twice the requested beam. It reserves part of the beam for distinct
 used/unused boost combinations, inspired by Trading Caravan's continuation
-lanes. `--no-diversity` enables controlled comparison; `--income-weight 25..200`
+lanes. Cash-rich continuations reserve room for multi-sale upgrades, and direct
+sale/purchase pairs survive intermediate beam trimming. `--no-diversity` enables
+controlled comparison; `--income-weight 25..200`
 varies ranking emphasis on remaining business income (default 100).
 
 Within a month, it explores repeated purchases and ordinary/boosted sales,
@@ -94,6 +98,13 @@ results are best found, not proven global optima**. `certified` is true only
 when the configured scenario finishes with no lossy trimming and every monthly
 trade closure reaches a fixed point. Tiny exhaustive-oracle tests verify this
 path; interrupted, beam-trimmed or depth-limited runs are uncertified.
+
+The refinement pass keeps a route's purchase/sale sequence, moves affordable
+transaction blocks to their earliest month, scans monthly job/business boost
+starts, and tries each recorded sale (or final liquidation) for the single
+140% refund. It removes cash-losing ordinary sell/rebuy cycles. Only strict,
+independently replayed improvements are accepted. A local fixed point in this
+restricted refinement space is not a global certificate.
 
 ## Game rules
 

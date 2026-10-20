@@ -2,13 +2,15 @@
 
 import argparse
 import json
+import math
 import os
 from pathlib import Path
 import sys
 
 from lifeloop.model import BUSINESSES, ActionKind, Education, Scenario, StartingBonus, age
 from lifeloop.records import load_record, save_record
-from lifeloop.solver import ROOT, solve
+from lifeloop.polish import polish
+from lifeloop.solver import ROOT, SearchResult, solve
 
 
 def print_route(scenario, result):
@@ -32,12 +34,15 @@ def main():
     parser.add_argument("--seconds", type=int, default=10, help="native time budget per scenario")
     parser.add_argument("--memory-mb", type=int, default=768)
     parser.add_argument("--income-weight", type=int, default=100, help="ranking weight, 25..200 percent")
+    parser.add_argument("--polish-seconds", type=float, default=5, help="bounded boost/refund retiming after native search")
     parser.add_argument("--no-diversity", action="store_true")
     parser.add_argument("--campaign", action="store_true", help="search all five educations and both bonuses sequentially")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "runs")
     parser.add_argument("--incumbent", type=Path, help="a replay-valid checkpoint for a single scenario")
     parser.add_argument("--json", action="store_true", help="print one machine-readable summary per scenario")
     args = parser.parse_args()
+    if not math.isfinite(args.polish_seconds) or not 0 <= args.polish_seconds <= 60:
+        parser.error("--polish-seconds must be finite and between zero and 60")
     if args.campaign and args.incumbent:
         parser.error("--incumbent selects one scenario; campaign checkpoints load from --output-dir")
     scenarios = [Scenario(e, b) for e in Education for b in StartingBonus] if args.campaign else [
@@ -58,6 +63,13 @@ def main():
                     seed = saved
             found = solve(scenario, args.beam_width, seconds=args.seconds, memory_mb=args.memory_mb,
                           diversity=not args.no_diversity, income_weight=args.income_weight, incumbent=seed)
+            refined, metrics = polish(scenario, found.result, args.polish_seconds)
+            found.statistics.update(metrics)
+            if refined.final_cash > found.result.final_cash:
+                if found.statistics["certified"]:
+                    raise RuntimeError("Polishing improved a claimed exact result")
+                found.statistics["best_source"] = "polish"
+            found = SearchResult(refined, found.statistics)
             save_record(path, scenario, found.result, found.statistics)
             summary = {"education": scenario.education.value, "starting_bonus": scenario.starting_bonus.value,
                        "final_cash": found.result.final_cash, "checkpoint": str(path), **found.statistics}
@@ -75,7 +87,7 @@ def main():
         if not args.json:
             print_route(*best)
     except (ValueError, RuntimeError, OSError) as error:
-        parser.exit(2, f"Search stopped: {error}\nExisting atomic checkpoints are unchanged.\n")
+        parser.exit(2, f"Search stopped: {error}\nPreviously written checkpoints remain available.\n")
 
 
 if __name__ == "__main__":

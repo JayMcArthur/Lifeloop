@@ -5,6 +5,7 @@
 #include <csignal>
 #include <cstdint>
 #include <memory>
+#include <numeric>
 #include <stdexcept>
 #include <tuple>
 #include <unordered_map>
@@ -225,6 +226,25 @@ class Search {
                 selected.push_back(ordered[i]);
             }
         }
+        // Preserve cash-rich continuations that may need several sales before
+        // a purchase. Ranking only current income loses these intermediate states.
+        if (input.diversity) {
+            std::vector<std::size_t> liquid(ordered.size());
+            std::iota(liquid.begin(), liquid.end(), 0);
+            std::sort(liquid.begin(), liquid.end(), [&](auto a, auto b) {
+                const auto& x = ordered[a]; const auto& y = ordered[b];
+                return std::tuple(x.cash + x.resale, x.cash, x.holdings) >
+                       std::tuple(y.cash + y.resale, y.cash, y.holdings);
+            });
+            counts.fill(0);
+            for (auto i : liquid) {
+                if (!used[i] && counts[lane(ordered[i])] < input.width / 64) {
+                    counts[lane(ordered[i])]++;
+                    used[i] = true;
+                    selected.push_back(ordered[i]);
+                }
+            }
+        }
         for (std::size_t i = 0; i < ordered.size() && selected.size() < std::size_t(input.width); ++i)
             if (!used[i]) selected.push_back(std::move(ordered[i]));
         return selected;
@@ -328,9 +348,21 @@ public:
                             if (state.count < input.slots && state.cash >= input.businesses[i].cost)
                                 changed = offer(pool, act(state, {month, buy, i}), month) || changed;
                             if ((state.holdings >> (4 * i)) & 15) {
-                                changed = offer(pool, act(state, {month, sell, i}), month) || changed;
-                                if (!state.refund_used)
-                                    changed = offer(pool, act(state, {month, refund, i}), month) || changed;
+                                const auto sold = act(state, {month, sell, i});
+                                changed = offer(pool, sold, month) || changed;
+                                for (int j = 0; j < input.business_count; ++j) {
+                                    if (input.businesses[j].income > input.businesses[i].income &&
+                                        sold.cash >= input.businesses[j].cost)
+                                        changed = offer(pool, act(sold, {month, buy, j}), month) || changed;
+                                }
+                                if (!state.refund_used) {
+                                    const auto boosted_sale = act(state, {month, refund, i});
+                                    changed = offer(pool, boosted_sale, month) || changed;
+                                    for (int j = 0; j < input.business_count; ++j) {
+                                        if (boosted_sale.cash >= input.businesses[j].cost)
+                                            changed = offer(pool, act(boosted_sale, {month, buy, j}), month) || changed;
+                                    }
+                                }
                             }
                         }
                     }
