@@ -137,6 +137,29 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
                 break
             candidate, _ = plan(best.actions, target)
             evaluate(candidate, job_start, business_start)
+        if timed_out:
+            break
+        # Remove the old refund choice, including a pure buy/refund cash cycle.
+        # Probe refund/rebuy after each purchase to accelerate later investments.
+        ordinary = []
+        for action in best.actions:
+            if action.kind == ActionKind.REFUND_BOOST:
+                if ordinary and ordinary[-1] == Action(action.month, ActionKind.BUY, action.business):
+                    ordinary.pop()
+                else:
+                    ordinary.append(Action(action.month, ActionKind.SELL, action.business))
+            else:
+                ordinary.append(action)
+        for index, action in enumerate(ordinary):
+            if action.kind != ActionKind.BUY:
+                continue
+            if time.monotonic() >= deadline:
+                timed_out = True
+                break
+            events = [*ordinary[:index + 1], Action(action.month, ActionKind.REFUND_BOOST, action.business),
+                      action, *ordinary[index + 1:]]
+            candidate, _ = plan(events)
+            evaluate(candidate, job_start, business_start)
         if timed_out or best.final_cash == before:
             break
     return best, {"polish_evaluations": evaluated, "polish_elapsed_seconds": time.monotonic() - started,

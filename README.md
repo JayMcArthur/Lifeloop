@@ -107,7 +107,9 @@ The refinement pass keeps a route's purchase/sale sequence, moves affordable
 transaction blocks to their earliest month, scans monthly job/business boost
 starts, and tries each recorded sale (or final liquidation) for the single
 140% refund. It removes cash-losing ordinary sell/rebuy cycles. Only strict,
-independently replayed improvements are accepted. A local fixed point in this
+independently replayed improvements are accepted. It also tests an immediate
+refund/rebuy after each recorded purchase to fund earlier subsequent upgrades.
+A local fixed point in this
 restricted refinement space is not a global certificate.
 
 ## Game rules
