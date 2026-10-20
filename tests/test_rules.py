@@ -112,6 +112,24 @@ class GameRulesTests(unittest.TestCase):
         result = replay(scenario, (Action(first, ActionKind.JOB_BOOST),))
         self.assertEqual(result.final_cash, 60 * 4)
 
+    def test_full_boost_window_spans_a_pay_upgrade_then_expires(self):
+        first = Education.DOCUDYNO.start_month + 1
+        scenario = Scenario(starting_bonus=StartingBonus.JOB, end_month=first + 125)
+        result = replay(scenario, (Action(first, ActionKind.JOB_BOOST),))
+        permanent_income = 2 * (78 * 60 + 47 * 100)
+        boost_income = 2 * (78 * 60 + 42 * 100)
+        self.assertEqual(result.final_cash, permanent_income + boost_income)
+
+    def test_boost_is_clipped_at_end_of_round(self):
+        scenario = Scenario(starting_cash=3_000)
+        first = scenario.end_month - 3
+        # Starting late never grants payments beyond the round's horizon.
+        actions = (Action(first, ActionKind.BUY, 0),
+                   Action(first + 1, ActionKind.BUSINESS_BOOST))
+        boosted = replay(scenario, actions)
+        ordinary = replay(scenario, (actions[0],))
+        self.assertEqual(boosted.final_cash - ordinary.final_cash, 2 * 35 * 2)
+
     def test_replay_rejects_boost_after_trading_and_outside_round(self):
         first = Education.DOCUDYNO.start_month + 1
         scenario = Scenario(starting_cash=3_000)
