@@ -11,11 +11,19 @@ END_MONTH = 90 * 12
 
 
 class Education(Enum):
-    SUNNY_SPROUT = "sunny-sprout"
-    FRESHMART = "freshmart"
-    BRICKLINE = "brickline"
-    BYTEFIX = "bytefix"
-    DOCUDYNO = "docudyno"
+    NONE = "none"
+    PRIMARY = "primary"
+    SECONDARY = "secondary"
+    COLLEGE = "college"
+    UNIVERSITY = "university"
+
+    @property
+    def label(self) -> str:
+        return self.value.title()
+
+    @property
+    def job_track(self) -> str:
+        return JOB_TRACKS[self]
 
     @property
     def start_month(self) -> int:
@@ -24,17 +32,30 @@ class Education(Enum):
 
 # Each threshold is tenure at the upgrade. Its new pay arrives next month.
 JOBS = {
-    Education.SUNNY_SPROUT: (10, ((0, 10), (96, 20), (204, 35), (324, 55), (480, 80))),
-    Education.FRESHMART: (12, ((0, 18), (84, 35), (180, 60), (300, 90), (456, 140))),
-    Education.BRICKLINE: (17, ((0, 25), (84, 45), (180, 75), (300, 110), (456, 170))),
-    Education.BYTEFIX: (19, ((0, 45), (78, 75), (162, 110), (270, 165), (402, 240), (570, 320))),
-    Education.DOCUDYNO: (22, ((0, 60), (78, 100), (162, 150), (270, 220), (414, 300), (594, 400))),
+    Education.NONE: (10, ((0, 10), (96, 20), (204, 35), (324, 55), (480, 80))),
+    Education.PRIMARY: (12, ((0, 18), (84, 35), (180, 60), (300, 90), (456, 140))),
+    Education.SECONDARY: (17, ((0, 25), (84, 45), (180, 75), (300, 110), (456, 170))),
+    Education.COLLEGE: (19, ((0, 45), (78, 75), (162, 110), (270, 165), (402, 240), (570, 320))),
+    Education.UNIVERSITY: (22, ((0, 60), (78, 100), (162, 150), (270, 220), (414, 300), (594, 400))),
+}
+
+JOB_TRACKS = {
+    Education.NONE: "SunnySproutFields",
+    Education.PRIMARY: "FreshMart",
+    Education.SECONDARY: "BrickLineWorks",
+    Education.COLLEGE: "ByteFixServices",
+    Education.UNIVERSITY: "DocuDynoCorp",
 }
 
 
 class StartingBonus(Enum):
     JOB = "job"
     BUSINESS = "business"
+    BUSINESS_50 = "business-50"
+
+    @property
+    def label(self) -> str:
+        return "+50% business income" if self == StartingBonus.BUSINESS_50 else f"+100% {self.value} income"
 
 
 @dataclass(frozen=True, slots=True)
@@ -70,7 +91,7 @@ BUSINESSES = (
 
 @dataclass(frozen=True, slots=True)
 class Scenario:
-    education: Education = Education.DOCUDYNO
+    education: Education = Education.UNIVERSITY
     starting_bonus: StartingBonus = StartingBonus.BUSINESS
     starting_cash: int = 0
     max_businesses: int = MAX_BUSINESSES
@@ -89,7 +110,9 @@ class Scenario:
         return 2 if self.starting_bonus == StartingBonus.JOB else 1
 
     @property
-    def business_multiplier(self) -> int:
+    def business_multiplier(self) -> int | float:
+        if self.starting_bonus == StartingBonus.BUSINESS_50:
+            return 1.5
         return 2 if self.starting_bonus == StartingBonus.BUSINESS else 1
 
 
@@ -113,7 +136,8 @@ class Action:
 
 @dataclass(frozen=True, slots=True)
 class State:
-    cash: int = 0
+    # Supported fractional payments are exact binary halves, never rounded.
+    cash: int | float = 0
     owned: tuple[int, ...] = ()
     job_until: int = 0
     business_until: int = 0
@@ -122,7 +146,7 @@ class State:
 
 @dataclass(frozen=True, slots=True)
 class Result:
-    final_cash: int
+    final_cash: int | float
     actions: tuple[Action, ...]
     final_sales: tuple[Action, ...]
 
@@ -149,7 +173,7 @@ def activate(state: State, action: Action) -> State:
     return replace(state, **{field: action.month + BOOST_MONTHS})
 
 
-def income(scenario: Scenario, state: State, month: int, businesses=BUSINESSES) -> int:
+def income(scenario: Scenario, state: State, month: int, businesses=BUSINESSES) -> int | float:
     job = job_payment(scenario.education, month) * scenario.job_multiplier
     business = sum(businesses[i].income for i in state.owned) * scenario.business_multiplier
     return job * (2 if month < state.job_until else 1) + business * (2 if month < state.business_until else 1)

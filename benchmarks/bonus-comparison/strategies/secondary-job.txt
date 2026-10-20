@@ -1,0 +1,62 @@
+Education: Secondary; job track: BrickLineWorks; +100% job income
+17y01m: job boost for 120 payments
+19y06m: buy Green Fork
+21y05m: buy Green Fork
+22y11m: buy Green Fork
+24y01m: buy Green Fork
+24y11m: buy Green Fork
+25y07m: buy Green Fork
+26y10m: buy Cup & Go
+28y03m: buy Cup & Go
+29y05m: buy Cup & Go
+31y03m: sell (70%) Green Fork → $2,100
+31y03m: buy Spark Fix
+32y09m: sell (70%) Green Fork → $2,100
+32y09m: buy Spark Fix
+34y00m: sell (70%) Green Fork → $2,100
+34y00m: buy Spark Fix
+35y03m: sell (70%) Green Fork → $2,100
+35y03m: buy Spark Fix
+37y08m: sell (70%) Green Fork → $2,100
+37y08m: buy Pedal Fleet
+37y08m: sell (70%) Green Fork → $2,100
+39y11m: buy Pedal Fleet
+43y02m: sell (70%) Cup & Go → $4,200
+43y02m: buy Tech Tinker
+45y10m: sell (70%) Cup & Go → $4,200
+45y10m: buy Tech Tinker
+48y02m: sell (70%) Cup & Go → $4,200
+48y02m: buy Tech Tinker
+51y11m: sell (70%) Spark Fix → $8,400
+51y11m: buy Trend Loop
+55y01m: sell (70%) Spark Fix → $8,400
+55y01m: buy Trend Loop
+60y00m: sell (70%) Spark Fix → $8,400
+60y00m: buy Paw Pal
+64y00m: sell (70%) Spark Fix → $8,400
+64y00m: buy Paw Pal
+67y02m: sell (70%) Pedal Fleet → $16,800
+67y02m: buy Paw Pal
+70y00m: sell (70%) Pedal Fleet → $16,800
+70y00m: buy Paw Pal
+74y06m: sell (70%) Tech Tinker → $30,100
+74y06m: buy Dash Logix
+78y04m: sell (70%) Tech Tinker → $30,100
+78y04m: buy Dash Logix
+79y11m: business boost for 120 payments
+80y09m: sell (70%) Tech Tinker → $30,100
+80y09m: buy Dash Logix
+83y04m: sell (70%) Trend Loop → $54,600
+83y04m: buy Crust & Crumb
+89y07m: sell (70%) Crust & Crumb → $299,600
+89y07m: sell (70%) Dash Logix → $176,400
+89y07m: sell (70%) Dash Logix → $176,400
+89y07m: sell (70%) Dash Logix → $176,400
+89y07m: sell (70%) Paw Pal → $98,000
+89y07m: sell (70%) Paw Pal → $98,000
+89y07m: buy Rapid Reach
+90y00m: sell (140%) Rapid Reach → $2,945,600
+90y00m: sell (70%) Trend Loop → $54,600
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Paw Pal → $98,000
+Final cash after refunds: $3,260,417.00

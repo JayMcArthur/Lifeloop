@@ -9,13 +9,28 @@ from lifeloop.solver import solve
 
 
 class GameRulesTests(unittest.TestCase):
+    def test_half_business_bonus_and_temporary_boost_preserve_half_dollars(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.BUSINESS_50)
+        month = scenario.education.start_month + 1
+        state = State(owned=(0,))
+        self.assertEqual(income(scenario, state, month), 18 + 52.5)
+        state = activate(state, Action(month, ActionKind.BUSINESS_BOOST))
+        self.assertEqual(income(scenario, state, month), 18 + 105)
+        state = activate(state, Action(month, ActionKind.JOB_BOOST))
+        self.assertEqual(income(scenario, state, month), 36 + 105)
+
+    def test_primary_job_bonus_can_reach_3024_at_15_years_7_months(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.JOB, end_month=188)
+        result = replay(scenario, (Action(147, ActionKind.JOB_BOOST),))
+        self.assertEqual(result.final_cash, 3024)
+
     def test_education_sets_start_age_and_first_payment(self):
         for education, years, first_pay in (
-            (Education.SUNNY_SPROUT, 10, 10),
-            (Education.FRESHMART, 12, 18),
-            (Education.BRICKLINE, 17, 25),
-            (Education.BYTEFIX, 19, 45),
-            (Education.DOCUDYNO, 22, 60),
+            (Education.NONE, 10, 10),
+            (Education.PRIMARY, 12, 18),
+            (Education.SECONDARY, 17, 25),
+            (Education.COLLEGE, 19, 45),
+            (Education.UNIVERSITY, 22, 60),
         ):
             with self.subTest(education=education):
                 self.assertEqual(education.start_month, years * 12)
@@ -30,8 +45,8 @@ class GameRulesTests(unittest.TestCase):
                 with self.subTest(education=education, upgrade=upgrade):
                     self.assertEqual(job_payment(education, upgrade), schedule[index - 1][1])
                     self.assertEqual(job_payment(education, upgrade + 1), payment)
-        self.assertEqual(job_payment(Education.DOCUDYNO, 71 * 12 + 6), 300)
-        self.assertEqual(job_payment(Education.DOCUDYNO, 71 * 12 + 7), 400)
+        self.assertEqual(job_payment(Education.UNIVERSITY, 71 * 12 + 6), 300)
+        self.assertEqual(job_payment(Education.UNIVERSITY, 71 * 12 + 7), 400)
 
     def test_business_catalog_and_round_limits(self):
         self.assertEqual(len(BUSINESSES), 16)
@@ -43,7 +58,7 @@ class GameRulesTests(unittest.TestCase):
 
     def test_starting_bonus_doubles_only_selected_income(self):
         state = State(owned=(0,))
-        month = Education.DOCUDYNO.start_month + 1
+        month = Education.UNIVERSITY.start_month + 1
         job = Scenario(starting_bonus=StartingBonus.JOB)
         business = Scenario(starting_bonus=StartingBonus.BUSINESS)
         self.assertEqual(income(job, state, month), 60 * 2 + 35)
@@ -101,19 +116,19 @@ class GameRulesTests(unittest.TestCase):
         self.assertEqual(used.final_cash, 2_100 + 4_200)
 
     def test_replay_has_no_income_on_purchase_or_terminal_month(self):
-        first = Education.DOCUDYNO.start_month + 1
+        first = Education.UNIVERSITY.start_month + 1
         scenario = Scenario(starting_cash=3_000, end_month=first + 2)
         result = replay(scenario, (Action(first, ActionKind.BUY, 0),))
         self.assertEqual(result.final_cash, 60 + 60 + 70 + 4_200)
 
     def test_replay_applies_boost_before_current_month_payment(self):
-        first = Education.DOCUDYNO.start_month + 1
+        first = Education.UNIVERSITY.start_month + 1
         scenario = Scenario(starting_bonus=StartingBonus.JOB, end_month=first + 1)
         result = replay(scenario, (Action(first, ActionKind.JOB_BOOST),))
         self.assertEqual(result.final_cash, 60 * 4)
 
     def test_full_boost_window_spans_a_pay_upgrade_then_expires(self):
-        first = Education.DOCUDYNO.start_month + 1
+        first = Education.UNIVERSITY.start_month + 1
         scenario = Scenario(starting_bonus=StartingBonus.JOB, end_month=first + 125)
         result = replay(scenario, (Action(first, ActionKind.JOB_BOOST),))
         permanent_income = 2 * (78 * 60 + 47 * 100)
@@ -131,7 +146,7 @@ class GameRulesTests(unittest.TestCase):
         self.assertEqual(boosted.final_cash - ordinary.final_cash, 2 * 35 * 2)
 
     def test_replay_rejects_boost_after_trading_and_outside_round(self):
-        first = Education.DOCUDYNO.start_month + 1
+        first = Education.UNIVERSITY.start_month + 1
         scenario = Scenario(starting_cash=3_000)
         with self.assertRaisesRegex(ValueError, "before the month's trades"):
             replay(scenario, (Action(first, ActionKind.BUY, 0), Action(first, ActionKind.JOB_BOOST)))
@@ -145,10 +160,10 @@ class GameRulesTests(unittest.TestCase):
             trade(Scenario(), State(), Action(300, ActionKind.SELL, 0))
 
     def test_search_finds_known_short_round_best_and_replays(self):
-        first = Education.DOCUDYNO.start_month + 1
+        first = Education.UNIVERSITY.start_month + 1
         businesses = (Business("Test shop", 100, 20),)
         scenario = Scenario(starting_cash=100, max_businesses=1, end_month=first + 4)
-        result = solve(scenario, beam_width=256, businesses=businesses)
+        result = solve(scenario, beam_width=256, businesses=businesses).result
         # Four boosted job payments, three boosted shop payments, one final 140% refund.
         self.assertEqual(result.final_cash, 4 * 120 + 3 * 80 + 140)
         self.assertEqual(replay(scenario, result.actions, businesses), result)
@@ -159,13 +174,13 @@ class GameRulesTests(unittest.TestCase):
             for bonus in StartingBonus:
                 with self.subTest(education=education, bonus=bonus):
                     scenario = Scenario(education, bonus, 100, 2, education.start_month + 7)
-                    result = solve(scenario, 32, businesses)
+                    result = solve(scenario, 32, businesses).result
                     self.assertEqual(replay(scenario, result.actions, businesses), result)
 
     def test_empty_portfolio_can_finish_without_refund_boost(self):
-        first = Education.SUNNY_SPROUT.start_month + 1
-        scenario = Scenario(Education.SUNNY_SPROUT, StartingBonus.JOB, end_month=first + 2)
-        result = solve(scenario, 8)
+        first = Education.NONE.start_month + 1
+        scenario = Scenario(Education.NONE, StartingBonus.JOB, end_month=first + 2)
+        result = solve(scenario, 8).result
         self.assertEqual(result.final_cash, 2 * 10 * 4)
         self.assertEqual(result.final_sales, ())
 

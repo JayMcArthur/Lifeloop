@@ -1,0 +1,320 @@
+{
+  "schema": 1,
+  "signature": "dcc605702c5749ef13187276bc23e30579bcc532673b6c7308328ca8c600f17d",
+  "scenario": {
+    "education": "none",
+    "starting_bonus": "job",
+    "starting_cash": 0,
+    "max_businesses": 9,
+    "end_month": 1080
+  },
+  "result": {
+    "final_cash": 2603420,
+    "actions": [
+      [
+        121,
+        "job boost",
+        null
+      ],
+      [
+        195,
+        "buy",
+        0
+      ],
+      [
+        229,
+        "buy",
+        0
+      ],
+      [
+        252,
+        "buy",
+        0
+      ],
+      [
+        273,
+        "buy",
+        0
+      ],
+      [
+        290,
+        "buy",
+        0
+      ],
+      [
+        304,
+        "buy",
+        0
+      ],
+      [
+        316,
+        "buy",
+        0
+      ],
+      [
+        336,
+        "buy",
+        1
+      ],
+      [
+        352,
+        "buy",
+        1
+      ],
+      [
+        375,
+        "sell (70%)",
+        0
+      ],
+      [
+        375,
+        "buy",
+        2
+      ],
+      [
+        396,
+        "sell (70%)",
+        0
+      ],
+      [
+        396,
+        "buy",
+        2
+      ],
+      [
+        414,
+        "sell (70%)",
+        0
+      ],
+      [
+        414,
+        "buy",
+        2
+      ],
+      [
+        431,
+        "sell (70%)",
+        0
+      ],
+      [
+        431,
+        "buy",
+        2
+      ],
+      [
+        431,
+        "sell (70%)",
+        0
+      ],
+      [
+        447,
+        "buy",
+        2
+      ],
+      [
+        477,
+        "sell (70%)",
+        0
+      ],
+      [
+        477,
+        "buy",
+        3
+      ],
+      [
+        503,
+        "sell (70%)",
+        0
+      ],
+      [
+        503,
+        "buy",
+        3
+      ],
+      [
+        543,
+        "sell (70%)",
+        1
+      ],
+      [
+        543,
+        "buy",
+        4
+      ],
+      [
+        577,
+        "sell (70%)",
+        1
+      ],
+      [
+        577,
+        "buy",
+        4
+      ],
+      [
+        604,
+        "sell (70%)",
+        2
+      ],
+      [
+        604,
+        "buy",
+        4
+      ],
+      [
+        650,
+        "sell (70%)",
+        2
+      ],
+      [
+        650,
+        "buy",
+        5
+      ],
+      [
+        690,
+        "sell (70%)",
+        2
+      ],
+      [
+        690,
+        "buy",
+        5
+      ],
+      [
+        690,
+        "sell (70%)",
+        2
+      ],
+      [
+        725,
+        "buy",
+        5
+      ],
+      [
+        782,
+        "sell (70%)",
+        2
+      ],
+      [
+        782,
+        "buy",
+        6
+      ],
+      [
+        825,
+        "sell (70%)",
+        3
+      ],
+      [
+        825,
+        "buy",
+        6
+      ],
+      [
+        863,
+        "sell (70%)",
+        3
+      ],
+      [
+        863,
+        "buy",
+        6
+      ],
+      [
+        892,
+        "sell (70%)",
+        4
+      ],
+      [
+        892,
+        "buy",
+        6
+      ],
+      [
+        947,
+        "sell (70%)",
+        4
+      ],
+      [
+        947,
+        "buy",
+        7
+      ],
+      [
+        960,
+        "business boost",
+        null
+      ],
+      [
+        976,
+        "sell (70%)",
+        4
+      ],
+      [
+        976,
+        "buy",
+        7
+      ],
+      [
+        1056,
+        "sell (70%)",
+        7
+      ],
+      [
+        1056,
+        "sell (70%)",
+        6
+      ],
+      [
+        1056,
+        "sell (70%)",
+        6
+      ],
+      [
+        1056,
+        "buy",
+        10
+      ],
+      [
+        1056,
+        "buy",
+        0
+      ],
+      [
+        1057,
+        "buy",
+        1
+      ]
+    ]
+  },
+  "statistics": {
+    "engine": "cpp",
+    "status": "completed",
+    "elapsed_seconds": 0.00490535,
+    "peak_rss_kb": 4084,
+    "candidates": 18451,
+    "dominated": 41,
+    "lossy_prunes": 17451,
+    "peak_pool": 2,
+    "months_completed": 959,
+    "depth_limited": false,
+    "certified": false,
+    "best_source": "incumbent",
+    "beam_width": 1,
+    "time_limit_seconds": 1,
+    "hard_memory_mb": 768,
+    "diversity": true,
+    "income_weight": 100,
+    "incumbent_cash": 2603420,
+    "source_commit": "88ddf4900fb7c6e7758dce65e121ce60a0b24040",
+    "source_sha256": "e24ffd1880c8d8fc4c79f447fd9027d1d54080b882f48395976ab240e03858b6",
+    "polish_evaluations": 2489,
+    "polish_elapsed_seconds": 1.3422271099407226,
+    "polish_status": "local_fixed_point",
+    "polish_cash_before": 2603420,
+    "polish_cash_after": 2603420,
+    "polish_templates": 20,
+    "polish_templates_sha256": "c571fb247b6b7bab6b1eb37fe0ff44c3b9239910c54529c563f05939b46bbca4"
+  }
+}

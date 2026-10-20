@@ -1,0 +1,70 @@
+Education: College; job track: ByteFixServices; +100% job income
+19y01m: job boost for 120 payments
+20y05m: buy Green Fork
+21y07m: buy Green Fork
+22y07m: buy Green Fork
+23y06m: buy Green Fork
+24y03m: buy Green Fork
+25y00m: buy Green Fork
+26y01m: buy Cup & Go
+27y00m: buy Cup & Go
+28y07m: buy Spark Fix
+29y11m: sell (70%) Green Fork → $2,100
+29y11m: buy Spark Fix
+31y03m: sell (70%) Green Fork → $2,100
+31y03m: buy Spark Fix
+32y06m: sell (70%) Green Fork → $2,100
+32y06m: buy Spark Fix
+33y07m: sell (70%) Green Fork → $2,100
+33y07m: buy Spark Fix
+33y07m: sell (70%) Green Fork → $2,100
+34y07m: buy Spark Fix
+38y04m: sell (70%) Green Fork → $2,100
+38y04m: buy Tech Tinker
+41y03m: sell (70%) Cup & Go → $4,200
+41y03m: buy Tech Tinker
+43y08m: sell (70%) Cup & Go → $4,200
+43y08m: buy Tech Tinker
+47y04m: sell (70%) Spark Fix → $8,400
+47y04m: buy Trend Loop
+50y06m: sell (70%) Spark Fix → $8,400
+50y06m: buy Trend Loop
+53y02m: sell (70%) Spark Fix → $8,400
+53y02m: buy Trend Loop
+57y06m: sell (70%) Spark Fix → $8,400
+57y06m: buy Paw Pal
+61y01m: sell (70%) Spark Fix → $8,400
+61y01m: buy Paw Pal
+64y02m: sell (70%) Spark Fix → $8,400
+64y02m: buy Paw Pal
+68y08m: sell (70%) Tech Tinker → $30,100
+68y08m: buy Dash Logix
+72y05m: sell (70%) Tech Tinker → $30,100
+72y05m: buy Dash Logix
+75y09m: sell (70%) Tech Tinker → $30,100
+75y09m: buy Dash Logix
+79y11m: business boost for 120 payments
+80y03m: sell (70%) Trend Loop → $54,600
+80y03m: buy Crust & Crumb
+82y05m: sell (70%) Trend Loop → $54,600
+82y05m: buy Crust & Crumb
+88y00m: sell (70%) Crust & Crumb → $299,600
+88y00m: sell (70%) Crust & Crumb → $299,600
+88y00m: sell (70%) Dash Logix → $176,400
+88y00m: sell (70%) Dash Logix → $176,400
+88y00m: sell (70%) Trend Loop → $54,600
+88y00m: buy Rapid Reach
+88y00m: buy Green Fork
+88y00m: buy Green Fork
+88y00m: buy Green Fork
+88y00m: buy Green Fork
+90y00m: sell (140%) Rapid Reach → $2,945,600
+90y00m: sell (70%) Green Fork → $2,100
+90y00m: sell (70%) Green Fork → $2,100
+90y00m: sell (70%) Green Fork → $2,100
+90y00m: sell (70%) Green Fork → $2,100
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Paw Pal → $98,000
+90y00m: sell (70%) Dash Logix → $176,400
+Final cash after refunds: $3,844,302.00

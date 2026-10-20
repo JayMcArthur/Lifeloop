@@ -1,79 +1,181 @@
 # LifeLoop solver
 
-Searches for a job/business strategy and prints a monthly action schedule.
-The original experimental script is preserved in the initial Git commit.
+**[Saved results and winning strategies](RESULTS.md)** — start here for education
+comparisons, exact boost timings and complete action paths.
 
-## Setup and run
+A C++ search core explores investment and boost schedules. Python owns the
+game data and independently replays every returned or loaded strategy.
 
-Requires Nix with flakes on x86_64 Linux. Python 3.13.15 and its Nix provisioner
-input are locked by `flake.nix` and `flake.lock`. The solver and tests use only
-the Python standard library; there are no Python packages to install.
+The [current bonus comparison](benchmarks/bonus-comparison/README.md) reaches
+**$9,155,745 with College/+50% business**. The strongest +100% job route is
+**$3,925,391 with University**. All five education starts and both current choices
+have saved, independently replayed action paths.
 
-Run these commands from the actual checkout or task worktree. They work without
-an interactive shell or a previously activated environment:
+The [preserved reference campaign](benchmarks/README.md) uses **+100% business**
+starting income and reaches $27,896,953 with Primary. Its records remain unchanged;
+it is a separate research case from the current +50% business option.
 
-```bash
-nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-file --command python3 --version
-nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-file --command python3 -m unittest discover -s tests -v
-nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-file --command python3 main.py
-```
-
-Nix may download public inputs/binaries on first use. Repeating these commands
-reuses its immutable cache and must leave `flake.lock` unchanged. No virtualenv,
-mutable dependency directory, credentials, or deployment setup is needed.
-
-The default scenario uses maximum education (DocuDyno), the business starting
-bonus, nine business slots, and a lifespan of 90 years. Choose a scenario with:
+Continue the current comparison:
 
 ```bash
-nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-file --command python3 main.py --education freshmart --starting-bonus job --beam-width 128
+MAX_SECONDS=550 ./scripts/run_safe.sh --compare-starting-bonuses --beam-width 64 --seconds 20 --polish-seconds 30
 ```
 
-Education choices: `sunny-sprout`, `freshmart`, `brickline`, `bytefix`, `docudyno`.
-Starting bonus choices: `job`, `business`.
+This searches all five educations, writes separate checkpoints under
+`runs/bonus-comparison/`, and uses exact half-dollar business payments. Green Fork
+pays $52.50 with the +50% starting bonus and $105 during its temporary 2× boost.
+
+## Build, test and search
+
+Requires Nix flakes, x86_64 Linux, cgroup v2 and a running systemd user manager.
+The repository's existing `flake.lock` pins Python 3.13.15, GCC and the native
+toolchain. There are no Python or C++ package dependencies to install.
+
+From the actual checkout or task worktree:
+
+```bash
+./scripts/build_safe.sh
+./scripts/run_tests_safe.sh
+./scripts/run_safe.sh
+```
+
+These commands restore the locked environment noninteractively. Builds are
+serialized and cached locally in `build/`. Repeating setup leaves the lock
+unchanged. A direct `python3 main.py` CLI launch enters the same safe runner.
+
+The default is University education (DocuDynoCorp job track), +100% business starting income,
+beam 512 and ten seconds of native search. To search all fifteen combinations
+(including the preserved +100% business reference):
+
+```bash
+MAX_SECONDS=400 ./scripts/run_safe.sh --campaign --beam-width 512 --seconds 15
+```
+
+Select a scenario and a larger bounded run:
+
+```bash
+MAX_SECONDS=90 ./scripts/run_safe.sh --education university --starting-bonus business --beam-width 2000 --seconds 60
+```
+
+Education choices: `none` (age 10), `primary` (12), `secondary` (17),
+`college` (19), `university` (22). Their job tracks are SunnySproutFields,
+FreshMart, BrickLineWorks, ByteFixServices and DocuDynoCorp, respectively.
+Starting bonus choices: `job` (+100% job), `business-50` (+50% business),
+and `business` (preserved +100% business reference). The single-scenario default
+remains the reference case; select `--starting-bonus business-50` for the 50% case.
+`--campaign` explores all three cases; `--compare-starting-bonuses` selects the
+two current alternatives above.
+
+## Resource containment
+
+All build, test and search jobs run in a verified systemd user scope. Defaults
+are 768 MB total job memory, zero job swap, one CPU, 64 tasks and a finite wall
+deadline. `MAX_MB` may select 256..1024 MB; larger overrides are rejected.
+`MAX_SECONDS` controls the entire CLI/campaign deadline; `--seconds` is each
+native search's earlier graceful-stop budget. `--polish-seconds` adds a bounded
+Python refinement pass (default five seconds per scenario). Leave time for both
+phases, reporting and builds.
+
+The compiler limiter additionally caps each compiler at 768 MB and serializes
+compiler processes across LifeLoop worktrees. The native executable installs
+hard address-space/CPU/core-dump limits and checks the real cgroup constraints
+before allocating application state. It refuses an uncontained launch.
+An earlier internal RSS budget leaves headroom before the hard memory ceiling.
+Nested native processes stay in their supervisor's shared cgroup.
+
+For another debug/native command, use the locked environment and bounded runner:
+
+```bash
+nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-file --command scripts/run_limited.sh COMMAND ARGS
+```
+
+## Results and continuation
+
+Each scenario writes an atomic replay-verified checkpoint to
+`runs/EDUCATION-BONUS.json`. Repeating the command loads it as a floor and injects
+its valid prefixes into the next search. An exclusive output-directory lock
+rejects overlapping writers. `runs/attempts.jsonl` records each run's
+parameters, elapsed time, peak native RSS, candidate/pruning counts, completion
+status, source commit/hash and whether the best route came from its incumbent.
+Use `--output-dir DIR` to keep a separate campaign and `--json` for summary lines.
+Use `--incumbent FILE` to seed a single scenario from an existing record.
+
+An interrupted or failed run cannot overwrite an earlier checkpoint with a
+partial file. Native time/memory stops return a valid completed strategy using
+the best continuation found so far. A hard-killed process leaves the previous
+checkpoint intact. Continuation preserves the best route; it restarts frontier
+exploration and does not retain a persistent exhaustive search graph.
+
+Recorded reference strategies live under `benchmarks/records/`; the current
+[bonus comparison](benchmarks/bonus-comparison/README.md) has separate records
+under `benchmarks/bonus-comparison/records/`. The original
+Python beam-64 baseline is replay-verified at $16,922,240 for University/business.
+The CLI automatically retains each scenario's committed best record as a floor,
+as well as the original Python baseline for University/business. Fresh checkouts
+therefore keep the best recorded route even during a short search.
+
+## Search behavior and limits
+
+The native core uses compact portfolios, maximum-cash dominance for identical
+future states, normalized expired boost clocks, and candidate accumulation
+capped at twice the requested beam. It reserves part of the beam for distinct
+used/unused boost combinations, inspired by Trading Caravan's continuation
+lanes. Cash-rich continuations reserve room for multi-sale upgrades, and direct
+sale/purchase pairs survive intermediate beam trimming. `--no-diversity` enables
+controlled comparison; `--income-weight 25..200`
+varies ranking emphasis on remaining business income (default 100).
+
+Within a month, it explores repeated purchases and ordinary/boosted sales,
+including immediate buy/refund pairs and selling and rebuying a business.
+Its completion score also considers selling holdings normally after the last
+payment, buying an affordable business and immediately refunding it at 140%.
+Closure is bounded at 20 expansion
+rounds. Ranking and beam trimming can lose promising routes, so **full-game
+results are best found, not proven global optima**. `certified` is true only
+when the configured scenario finishes with no lossy trimming and every monthly
+trade closure reaches a fixed point. Tiny exhaustive-oracle tests verify this
+path; interrupted, beam-trimmed or depth-limited runs are uncertified.
+
+The refinement pass moves affordable transaction blocks to their earliest month,
+scans monthly job/business boost
+starts, and tries each recorded sale (or final liquidation) for the single
+140% refund. It removes cash-losing ordinary sell/rebuy cycles. Only strict,
+independently replayed improvements are accepted. It also tests an immediate
+refund/rebuy after each recorded purchase to fund earlier subsequent upgrades.
+A local fixed point in this
+restricted refinement space is not a global certificate.
+
+It also varies or removes purchased business tiers together with their eventual sales and
+tries saved investment sequences from the other education/bonus starts. Each
+sequence is funded and retimed using the target scenario's own wages and boosts;
+its original score and action ages do not transfer. The CLI reads templates from
+committed records and its output directory. All three boosts are independent,
+and each remains usable once per round.
+Attempt statistics include the number and fingerprint of the templates tried.
 
 ## Game rules
 
-- Education determines the job track and starting age: 10, 12, 17, 19, or 22.
-- Choose a permanent +100% job or business income bonus (2× base). Market is omitted.
-- Own up to nine businesses, including multiple copies of the same business.
-- All sixteen business tiers are included, from Green Fork ($3,000, $35/month)
-  through Bright Core ($13,790,000, $35,500/month).
-- Activate the job boost once and the independent business boost once per round.
-  Each doubles its income category for 120 monthly payments (ten years).
-  This multiplies the starting bonus for 4× base income in that category.
-- Normally a sale refunds 70% of purchase price. One business sale per round can
-  instead refund 140%. Other copies and subsequent sales receive 70%.
-- DocuDyno upgrades to $400 base monthly pay during age 71 years, six months.
-  The first $400 payment arrives at 71 years, seven months.
+- Education levels None, Primary, Secondary, College and University start at
+  ages 10, 12, 17, 19 and 22, respectively.
+- The current starting choices are +100% job (2× base) or +50% business
+  (1.5× base). The previous +100% business (2×) research case is retained separately.
+  Market is omitted.
+- Own up to nine businesses, including multiple copies. All sixteen tiers run
+  from Green Fork ($3,000, $35/month) to Bright Core ($13,790,000, $35,500/month).
+- Activate each independent job/business boost once for 120 monthly payments.
+  The boost multiplies its starting bonus: 4× job income with the job bonus,
+  or 3× business income with the 50% business bonus (4× in the reference case).
+- Ordinary sales refund 70%; one business sale per round can refund 140%.
+  Buying and refunding is immediate and consumes no game time, so the one-use
+  refund may accelerate early investment or fund a final payout.
+- DocuDyno upgrades to base $400 during age 71 years, six months. Its first
+  $400 payment arrives at 71 years, seven months.
 
-Age labels such as `71y06m` are years and months, never decimal years.
-Boosts activate before that month's payment. Income arrives before purchases
-and sales, so a newly bought business first earns next month. Paid months begin
-one month after education finishes and end before age 90. Remaining businesses
-are sold at age 90; if the refund boost is unused, it applies to one most
-expensive remaining business. Multiple copies and final liquidation retain the
-prototype's existing assumptions. The model also assumes a sold business can
-be purchased again.
+Boosts activate before the month's income; trades happen after income. New
+businesses first earn next month. Payments begin one month after education
+finishes and end before age 90. Remaining businesses sell at age 90; an unused
+refund boost applies to one most expensive remaining business. Multiple copies
+and final liquidation retain the prototype's assumptions. Repurchase of a sold
+business is an explicit model assumption. Ages such as `71y06m` are years/months.
 
-## Search limits
-
-This is a bounded beam search, **not a proof of the globally optimal strategy**.
-It considers boost activation each month and retains the best estimated states
-according to `--beam-width` (default 64). A wider beam costs more time and memory;
-it can produce a different result and does not guarantee improvement.
-
-The planner explores waiting, one purchase, one normal upgrade to a higher
-income business, or one boosted sale optionally followed by a purchase per
-month. The replay model permits multiple trades in a month. This action limit
-belongs to the search, not the game rules. Beam ranking estimates holding
-current businesses through the remaining lifespan, including available boosts.
-It can discard strategies that would become stronger through later purchases.
-
-Every printed strategy is replayed against the monthly game model before its
-result is shown. Dollar calculations use integers; the catalog's whole-thousand
-prices make 70% and 140% refunds exact.
-
-`lifeloop/model.py` owns the rules and replay; `lifeloop/solver.py` owns strategy
-search. Project plans, tickets, and rule decisions live in SilverBullet under
-`Projects/Lifeloop`.
+Project planning and decisions live in SilverBullet under `Projects/Lifeloop`.
