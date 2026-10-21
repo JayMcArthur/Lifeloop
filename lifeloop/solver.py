@@ -54,15 +54,15 @@ def solve(scenario: Scenario, beam_width: int = 512, businesses=BUSINESSES, *,
     if memory_mb < 256:
         raise ValueError("At least 256 MB of bounded job memory is required")
 
-    first = scenario.education.start_month + 1
+    first = scenario.education.start_month
     # Preserve half-dollar payments while keeping the native core integer-only.
     scale = 2 if scenario.starting_bonus == StartingBonus.BUSINESS_50 else 1
     header = [first, scenario.end_month, scenario.max_businesses, beam_width, seconds,
               memory_mb * 3 // 4, int(diversity), income_weight, scenario.starting_cash * scale, len(businesses)]
-    lines = ["LIFELOOP1 " + " ".join(map(str, header))]
+    lines = ["LIFELOOP2 " + " ".join(map(str, header))]
     lines += [f"{b.cost * scale} {int(b.income * scenario.business_multiplier * scale)}" for b in businesses]
     lines.append(" ".join(str(job_payment(scenario.education, m) * scenario.job_multiplier * scale)
-                          for m in range(scenario.end_month)))
+                          for m in range(scenario.end_month + 1)))
     actions = incumbent.actions if incumbent else ()
     lines.append(f"{int(incumbent.final_cash * scale) if incumbent else -1} {len(actions)}")
     lines += [f"{a.month} {KINDS.index(a.kind)} {a.business if a.business is not None else -1}"

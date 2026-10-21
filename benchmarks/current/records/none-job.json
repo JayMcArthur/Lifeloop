@@ -1,0 +1,301 @@
+{
+  "schema": 1,
+  "signature": "568121a0d8b7e7019d8e8c5df5222332ed29912b4918dc7b7262f8993caa0485",
+  "scenario": {
+    "education": "none",
+    "starting_bonus": "job",
+    "starting_cash": 0,
+    "max_businesses": 9,
+    "end_month": 1080
+  },
+  "result": {
+    "final_cash": 2608494,
+    "actions": [
+      [
+        120,
+        "job boost",
+        null
+      ],
+      [
+        195,
+        "buy",
+        0
+      ],
+      [
+        229,
+        "buy",
+        0
+      ],
+      [
+        252,
+        "buy",
+        0
+      ],
+      [
+        273,
+        "buy",
+        0
+      ],
+      [
+        290,
+        "buy",
+        0
+      ],
+      [
+        304,
+        "buy",
+        0
+      ],
+      [
+        316,
+        "buy",
+        0
+      ],
+      [
+        336,
+        "buy",
+        1
+      ],
+      [
+        352,
+        "buy",
+        1
+      ],
+      [
+        375,
+        "sell (70%)",
+        0
+      ],
+      [
+        375,
+        "buy",
+        2
+      ],
+      [
+        396,
+        "sell (70%)",
+        0
+      ],
+      [
+        396,
+        "buy",
+        2
+      ],
+      [
+        414,
+        "sell (70%)",
+        0
+      ],
+      [
+        414,
+        "buy",
+        2
+      ],
+      [
+        431,
+        "sell (70%)",
+        0
+      ],
+      [
+        431,
+        "buy",
+        2
+      ],
+      [
+        431,
+        "sell (70%)",
+        0
+      ],
+      [
+        447,
+        "buy",
+        2
+      ],
+      [
+        477,
+        "sell (70%)",
+        0
+      ],
+      [
+        477,
+        "buy",
+        3
+      ],
+      [
+        503,
+        "sell (70%)",
+        0
+      ],
+      [
+        503,
+        "buy",
+        3
+      ],
+      [
+        543,
+        "sell (70%)",
+        1
+      ],
+      [
+        543,
+        "buy",
+        4
+      ],
+      [
+        577,
+        "sell (70%)",
+        1
+      ],
+      [
+        577,
+        "buy",
+        4
+      ],
+      [
+        604,
+        "sell (70%)",
+        2
+      ],
+      [
+        604,
+        "buy",
+        4
+      ],
+      [
+        650,
+        "sell (70%)",
+        2
+      ],
+      [
+        650,
+        "buy",
+        5
+      ],
+      [
+        690,
+        "sell (70%)",
+        2
+      ],
+      [
+        690,
+        "buy",
+        5
+      ],
+      [
+        690,
+        "sell (70%)",
+        2
+      ],
+      [
+        725,
+        "buy",
+        5
+      ],
+      [
+        782,
+        "sell (70%)",
+        2
+      ],
+      [
+        782,
+        "buy",
+        6
+      ],
+      [
+        825,
+        "sell (70%)",
+        3
+      ],
+      [
+        825,
+        "buy",
+        6
+      ],
+      [
+        863,
+        "sell (70%)",
+        3
+      ],
+      [
+        863,
+        "buy",
+        6
+      ],
+      [
+        892,
+        "sell (70%)",
+        4
+      ],
+      [
+        892,
+        "buy",
+        6
+      ],
+      [
+        947,
+        "sell (70%)",
+        4
+      ],
+      [
+        947,
+        "buy",
+        7
+      ],
+      [
+        959,
+        "business boost",
+        null
+      ],
+      [
+        976,
+        "sell (70%)",
+        4
+      ],
+      [
+        976,
+        "buy",
+        7
+      ],
+      [
+        1049,
+        "sell (70%)",
+        7
+      ],
+      [
+        1049,
+        "sell (70%)",
+        7
+      ],
+      [
+        1049,
+        "sell (70%)",
+        6
+      ],
+      [
+        1049,
+        "buy",
+        10
+      ],
+      [
+        1050,
+        "buy",
+        2
+      ],
+      [
+        1050,
+        "buy",
+        1
+      ]
+    ]
+  },
+  "statistics": {
+    "engine": "corrected-replay",
+    "certified": false,
+    "fresh_search": false,
+    "source_record": "benchmarks/bonus-comparison/records/none-job.json",
+    "source_record_commit": "be1a69a748faaa58a081a05f740be218d4d8df83",
+    "source_record_sha256": "9c556275e173b7ed75490fd0e74d26330ef4f647f35875f43337541fa33a6c21",
+    "historical_final_cash": 2608334,
+    "correction": "Boosts applied one displayed month before old first-payment labels; sell by end-1; final salary at end."
+  }
+}

@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 import sys
 
-from lifeloop.model import BUSINESSES, ActionKind, Education, Scenario, StartingBonus, age
+from lifeloop.model import BOOST_MONTHS, BUSINESSES, INCOME_BOOSTS, ActionKind, Education, Scenario, StartingBonus, age
 from lifeloop.records import campaign_lock, load_record, save_record
 from lifeloop.polish import polish
 from lifeloop.solver import ROOT, SearchResult, solve
@@ -17,10 +17,16 @@ def print_route(scenario, result):
     print(f"Education: {scenario.education.label}; job track: {scenario.education.job_track}; "
           f"{scenario.starting_bonus.label}")
     for action in (*result.actions, *result.final_sales):
+        if action.kind in INCOME_BOOSTS:
+            print(f"{age(action.month)}: apply {action.kind.value} "
+                  f"(first payment {age(action.month + 1)}; "
+                  f"last payment {age(min(action.month + BOOST_MONTHS, scenario.end_month))})")
+            continue
         detail = BUSINESSES[action.business].name if action.business is not None else "for 120 payments"
         if action.kind in (ActionKind.SELL, ActionKind.REFUND_BOOST):
             detail += f" → ${BUSINESSES[action.business].refund(action.kind == ActionKind.REFUND_BOOST):,}"
         print(f"{age(action.month)}: {action.kind.value} {detail}")
+    print(f"{age(scenario.end_month)}: final salary payment; game ends immediately (no actions)")
     print(f"Final cash after refunds: ${result.final_cash:,.2f}")
 
 
@@ -46,7 +52,8 @@ def main():
     parser.add_argument("--json", action="store_true", help="print one machine-readable summary per scenario")
     args = parser.parse_args()
     if args.output_dir is None:
-        args.output_dir = ROOT / "runs" / "bonus-comparison" if args.compare_starting_bonuses else ROOT / "runs"
+        args.output_dir = (ROOT / "runs/current/bonus-comparison" if args.compare_starting_bonuses
+                           else ROOT / "runs/current")
     if not math.isfinite(args.polish_seconds) or not 0 <= args.polish_seconds <= 60:
         parser.error("--polish-seconds must be finite and between zero and 60")
     if (args.campaign or args.compare_starting_bonuses) and args.incumbent:
@@ -59,7 +66,7 @@ def main():
         args.campaign or args.compare_starting_bonuses) else [
             Scenario(Education(args.education), StartingBonus(args.starting_bonus))]
     best = None
-    recorded_directories = (ROOT / "benchmarks/records", ROOT / "benchmarks/bonus-comparison/records")
+    recorded_directories = (ROOT / "benchmarks/current/records",)
     try:
         with campaign_lock(args.output_dir):
             for scenario in scenarios:
@@ -71,7 +78,7 @@ def main():
                         seed = saved
                 floors = [directory / path.name for directory in recorded_directories]
                 if scenario == Scenario():
-                    floors.append(ROOT / "benchmarks/records/python-baseline.json")
+                    floors.append(ROOT / "benchmarks/current/records/python-baseline.json")
                 for floor in floors:
                     if floor.exists():
                         saved = load_record(floor, scenario)

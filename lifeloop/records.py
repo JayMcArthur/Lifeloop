@@ -31,8 +31,8 @@ def scenario_data(scenario: Scenario) -> dict:
 def signature(scenario: Scenario, businesses=BUSINESSES) -> str:
     data = {"scenario": scenario_data(scenario),
             "businesses": [(b.name, b.cost, b.income) for b in businesses],
-            "payments": [job_payment(scenario.education, m) for m in range(scenario.end_month)],
-            "rules": "income-before-trades;boost=120;refund=70/140-once;terminal-no-income;v1"}
+            "payments": [job_payment(scenario.education, m) for m in range(scenario.end_month + 1)],
+            "rules": "income-before-actions;boost-next=120;refund=70/140-once;liquidate-before-terminal-salary;v2"}
     if scenario.starting_bonus == StartingBonus.BUSINESS_50:
         data["business_payments"] = [b.income * scenario.business_multiplier for b in businesses]
     return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()

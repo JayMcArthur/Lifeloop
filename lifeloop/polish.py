@@ -18,11 +18,11 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
     best = incumbent
     evaluated = template_count = 0
     template_hash = hashlib.sha256()
-    first, end = scenario.education.start_month + 1, scenario.end_month
-    payments = [job_payment(scenario.education, m) * scenario.job_multiplier for m in range(end)]
+    first, end = scenario.education.start_month, scenario.end_month
+    payments = [job_payment(scenario.education, m) * scenario.job_multiplier for m in range(end + 1)]
     starts = {a.kind: a.month for a in best.actions if a.kind in (ActionKind.JOB_BOOST, ActionKind.BUSINESS_BOOST)}
     job_start = starts.get(ActionKind.JOB_BOOST, max(first, end - 120))
-    business_start = starts.get(ActionKind.BUSINESS_BOOST, max(first, end - 120))
+    business_start = starts.get(ActionKind.BUSINESS_BOOST, max(first, end - 121))
 
     def plan(actions, target="current"):
         blocks = []
@@ -64,8 +64,8 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
                 events.append(Action(month, ActionKind.JOB_BOOST))
             if month == business:
                 events.append(Action(month, ActionKind.BUSINESS_BOOST))
-            cash += payments[month] * (2 if job <= month < job + 120 else 1)
-            cash += rate * (2 if business <= month < business + 120 else 1)
+            cash += payments[month] * (2 if job < month <= job + 120 else 1)
+            cash += rate * (2 if business < month <= business + 120 else 1)
             while block_index < len(blocks):
                 block = blocks[block_index]
                 money, slots, refund_used = cash, count, used_refund
@@ -107,6 +107,7 @@ def polish(scenario: Scenario, incumbent: Result, seconds: float = 5, businesses
                 events.extend((Action(end - 1, ActionKind.BUY, chosen),
                                Action(end - 1, ActionKind.REFUND_BOOST, chosen)))
             cash += extra
+        cash += payments[end] * (2 if job < end <= job + 120 else 1)
         if cash > best.final_cash:
             result = replay(scenario, tuple(events), businesses)
             if result.final_cash != cash:
