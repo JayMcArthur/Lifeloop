@@ -1,4 +1,6 @@
-# Playable starting-bonus comparison
+# Preserved nine-slot starting-bonus comparison
+
+These saved comparisons use **nine slots and ending age 90**. Business starts now default to ten slots, with an optional extension to 95; [new +100% business results](../business-10/README.md) are separate. This campaign did not rerun the +50% business/job comparison.
 
 The original route filenames now show actual application dates and final sales before the game ends. Apply an income boost on the listed date for the **next 120 payments**. Complete sales by **89y11m**; 90 credits the final salary and immediately ends the game.
 

@@ -1,4 +1,6 @@
 import json
+from contextlib import redirect_stdout
+import io
 from pathlib import Path
 import subprocess
 import tempfile
@@ -7,9 +9,44 @@ import unittest
 from lifeloop.model import Education, Scenario, StartingBonus, replay
 from lifeloop.records import load_record
 from lifeloop.solver import ROOT
+from main import print_route
 
 
 class RecordedStrategyTests(unittest.TestCase):
+    def test_ten_slot_saved_guides_replay_for_both_horizons(self):
+        for years in (90, 95):
+            directory = ROOT / "benchmarks/business-10" / f"age-{years}"
+            for education in Education:
+                with self.subTest(years=years, education=education):
+                    scenario = Scenario(education, max_businesses=10, end_month=years * 12)
+                    name = f"{education.value}-business"
+                    result = load_record(directory / "records" / f"{name}.json", scenario)
+                    previous = load_record(ROOT / "benchmarks/current/records" / f"{name}.json",
+                                           Scenario(education, max_businesses=9))
+                    self.assertGreaterEqual(result.final_cash, replay(scenario, previous.actions).final_cash)
+                    self.assertTrue(all(a.month < scenario.end_month
+                                        for a in (*result.actions, *result.final_sales)))
+                    output = io.StringIO()
+                    with redirect_stdout(output):
+                        print_route(scenario, result)
+                    self.assertEqual((directory / "strategies" / f"{name}.txt").read_text(), output.getvalue())
+                    if years == 90:
+                        self.assertEqual((ROOT / "benchmarks/strategies" / f"{name}.txt").read_text(),
+                                         output.getvalue())
+
+    def test_cli_explicit_nine_slots_can_reproduce_the_previous_scenario(self):
+        scenario = Scenario(Education.PRIMARY, max_businesses=9)
+        floor = load_record(ROOT / "benchmarks/current/records/primary-business.json", scenario)
+        with tempfile.TemporaryDirectory() as directory:
+            completed = subprocess.run([str(ROOT / "scripts/run_safe.sh"), "--education", "primary",
+                                        "--max-businesses", "9", "--beam-width", "1", "--seconds", "1",
+                                        "--polish-seconds", "0", "--json", "--output-dir", directory],
+                                       cwd=ROOT, capture_output=True, text=True, check=True, timeout=30)
+            summary = json.loads(completed.stdout)
+            self.assertEqual(summary["max_businesses"], 9)
+            saved = load_record(Path(directory) / "primary-business.json", scenario)
+            self.assertGreaterEqual(saved.final_cash, floor.final_cash)
+
     def test_comparison_cli_selects_only_current_bonuses_and_keeps_saved_floors(self):
         with tempfile.TemporaryDirectory() as directory:
             completed = subprocess.run([str(ROOT / "scripts/run_safe.sh"), "--compare-starting-bonuses",

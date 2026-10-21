@@ -6,11 +6,9 @@ comparisons, exact boost timings and complete action paths.
 A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
-The preserved [nine-slot timing-corrected results](benchmarks/current/README.md) reach
-**$27,897,093 with Primary/+100% business**, **$9,156,065 with College/+50% business**,
-and **$3,926,191 with University/+100% job**. These are existing routes replayed
-under the confirmed monthly timing, without a new optimization campaign.
-[RESULTS.md](RESULTS.md) shows when to tap each boost and the final sales.
+The [current ten-slot business strategies](benchmarks/business-10/README.md) reach **$27,901,533 with Primary ending at 90**, or **$35,677,573 with Primary and the optional ad extension to 95**. These are bounded, independently replayed searches, without a proof of global optimality. [RESULTS.md](RESULTS.md) links every education’s full route for both endings.
+
+The [prior nine-slot results](benchmarks/current/README.md) remain preserved, including the +50% business and +100% job comparisons; those two bonuses were not re-searched in this campaign.
 
 The original public strategy filenames and reports now show the corrected
 playable routes too. Raw historical JSON checkpoints and attempt logs remain

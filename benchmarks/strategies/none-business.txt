@@ -1,4 +1,5 @@
 Education: None; job track: SunnySproutFields; +100% business income
+Business slots: 10; ending age: 90y00m
 10y04m: apply job boost (first payment 10y05m; last payment 20y04m)
 20y04m: buy Green Fork
 23y02m: buy Green Fork
@@ -68,24 +69,20 @@ Education: None; job track: SunnySproutFields; +100% business income
 83y00m: buy Rapid Reach
 84y11m: sell (70%) Crust & Crumb → $299,600
 84y11m: buy Agri World
-88y07m: sell (70%) Agri World → $2,356,900
-88y07m: sell (70%) Rapid Reach → $1,472,800
-88y07m: sell (70%) Rapid Reach → $1,472,800
-88y07m: sell (70%) Skysoft → $866,600
-88y07m: sell (70%) Tailor Forge → $509,600
-88y07m: buy Bright Core
-88y07m: buy Green Fork
-88y07m: buy Green Fork
-88y07m: buy Green Fork
-88y07m: buy Green Fork
+85y00m: buy Trend Loop
+85y07m: sell (70%) Trend Loop → $54,600
+85y07m: buy Skysoft
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Rapid Reach → $1,472,800
+89y11m: sell (70%) Rapid Reach → $1,472,800
+89y11m: sell (70%) Agri World → $2,356,900
+89y11m: buy Bright Core
 89y11m: sell (140%) Bright Core → $19,306,000
-89y11m: sell (70%) Green Fork → $2,100
-89y11m: sell (70%) Green Fork → $2,100
-89y11m: sell (70%) Green Fork → $2,100
-89y11m: sell (70%) Green Fork → $2,100
-89y11m: sell (70%) Tailor Forge → $509,600
-89y11m: sell (70%) Tailor Forge → $509,600
-89y11m: sell (70%) Skysoft → $866,600
-89y11m: sell (70%) Skysoft → $866,600
 90y00m: final salary payment; game ends immediately (no actions)
-Final cash after refunds: $23,841,438.00
+Final cash after refunds: $23,880,358.00
