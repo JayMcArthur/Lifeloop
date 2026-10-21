@@ -6,24 +6,30 @@ comparisons, exact boost timings and complete action paths.
 A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
-The [current timing-corrected results](benchmarks/current/README.md) reach
-**$27,897,093 with Primary/+100% business**, **$9,156,065 with College/+50% business**,
-and **$3,926,191 with University/+100% job**. These are existing routes replayed
-under the confirmed monthly timing, without a new optimization campaign.
-[RESULTS.md](RESULTS.md) shows when to tap each boost and the final sales.
+The [current ten-slot business strategies](benchmarks/business-10/README.md) reach **$27,901,533 with Primary ending at 90**, or **$35,677,573 with Primary and the optional ad extension to 95**. These are bounded, independently replayed searches, without a proof of global optimality. [RESULTS.md](RESULTS.md) links every education’s full route for both endings.
+
+The [prior nine-slot results](benchmarks/current/README.md) remain preserved, including the +50% business and +100% job comparisons; those two bonuses were not re-searched in this campaign.
 
 The original public strategy filenames and reports now show the corrected
 playable routes too. Raw historical JSON checkpoints and attempt logs remain
 unchanged; earlier readable versions are preserved in Git history.
 
-Continue the current comparison:
+Business starts now default to **10 slots** (job starts retain nine). A normal round ends at **90**; use `--bonus-years 5` for the optional ad extension to **95**. The extension is a separate scenario with separate checkpoints. [RESULTS.md](RESULTS.md) links both new business-run guides.
+
+Search Primary/+100% business with the extension:
+
+```bash
+MAX_SECONDS=90 ./scripts/run_safe.sh --education primary --bonus-years 5 --seconds 30 --polish-seconds 30
+```
+
+Continue the starting-bonus comparison:
 
 ```bash
 MAX_SECONDS=550 ./scripts/run_safe.sh --compare-starting-bonuses --beam-width 64 --seconds 20 --polish-seconds 30
 ```
 
 This searches all five educations, writes separate checkpoints under
-`runs/current/bonus-comparison/`, and uses exact half-dollar business payments. Green Fork
+`runs/age-90/bonus-comparison/`, and uses exact half-dollar business payments. Green Fork
 pays $52.50 with the +50% starting bonus and $105 during its temporary 2× boost.
 
 ## Build, test and search
@@ -52,7 +58,7 @@ beam 512 and ten seconds of native search. To search all fifteen combinations
 MAX_SECONDS=400 ./scripts/run_safe.sh --campaign --beam-width 512 --seconds 15
 ```
 
-Select a scenario and a larger bounded run:
+Select a scenario and a larger bounded run (no extension unless requested):
 
 ```bash
 MAX_SECONDS=90 ./scripts/run_safe.sh --education university --starting-bonus business --beam-width 2000 --seconds 60
@@ -93,12 +99,12 @@ nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-
 ## Results and continuation
 
 Each scenario writes an atomic replay-verified checkpoint to
-`runs/current/EDUCATION-BONUS.json`. Repeating the command loads it as a floor and injects
+`runs/age-90/EDUCATION-BONUS.json` (or `runs/age-95/` with the extension). Repeating the command loads it as a floor and injects
 its valid prefixes into the next search. An exclusive output-directory lock
-rejects overlapping writers. `runs/current/attempts.jsonl` records each run's
+rejects overlapping writers. the output directory’s `attempts.jsonl` records each run's
 parameters, elapsed time, peak native RSS, candidate/pruning counts, completion
 status, source commit/hash and whether the best route came from its incumbent.
-Use `--output-dir DIR` to keep a separate campaign and `--json` for summary lines.
+Use `--output-dir DIR` to keep a separate campaign and `--json` for summary lines, including the slot limit and ending month. `--max-businesses N` explicitly selects 1..10 slots; its default output adds `slots-N/` to separate those checkpoints.
 Use `--incumbent FILE` to seed a single scenario from an existing record.
 
 An interrupted or failed run cannot overwrite an earlier checkpoint with a
@@ -107,11 +113,7 @@ the best continuation found so far. A hard-killed process leaves the previous
 checkpoint intact. Continuation preserves the best route; it restarts frontier
 exploration and does not retain a persistent exhaustive search graph.
 
-Current strategies live under `benchmarks/current/records/`, including a corrected
-Python baseline. The CLI retains each scenario's committed replay-valid record
-as a floor. Current rule signatures reject old-phase checkpoints. Historical
-records and attempt logs stay in their original benchmark directories; the CLI
-uses the corrected current records and separate output paths.
+New ten-slot +100% business strategies live under `benchmarks/business-10/age-90/` and `age-95/`. Prior nine-slot strategies and the Python baseline remain under `benchmarks/current/records/`. The CLI validates each original checkpoint under its own scenario, then independently replays the same actions with any additional slots or years before using it as a floor. It never transfers an old score. Horizon and capacity participate in checkpoint signatures; mismatched checkpoints are rejected. Historical raw records and attempt logs remain preserved.
 
 ## Search behavior and limits
 
@@ -128,8 +130,7 @@ Within a month, it explores repeated purchases and ordinary/boosted sales,
 including immediate buy/refund pairs and selling and rebuying a business.
 Its completion score also considers selling holdings normally on the last
 actionable date, buying an affordable business and immediately refunding it at 140%.
-Closure is bounded at 20 expansion
-rounds. Ranking and beam trimming can lose promising routes, so **full-game
+Closure is bounded at 20 expansion rounds for up to nine slots and 22 for ten. Ranking and beam trimming can lose promising routes, so **full-game
 results are best found, not proven global optima**. `certified` is true only
 when the configured scenario finishes with no lossy trimming and every monthly
 trade closure reaches a fixed point. Tiny exhaustive-oracle tests verify this
@@ -159,7 +160,7 @@ Attempt statistics include the number and fingerprint of the templates tried.
 - Starting bonuses supported here are +100% job (2× base), +100% business
   (2× base, the confirmed Primary playthrough), and +50% business (1.5× base).
   Market is omitted.
-- Own up to nine businesses, including multiple copies. All sixteen tiers run
+- Business starts allow ten businesses, including multiple copies. Job starts default to nine; use `--max-businesses` to select an explicit limit. All sixteen tiers run
   from Green Fork ($3,000, $35/month) to Bright Core ($13,790,000, $35,500/month).
 - Activate each independent job/business boost once for 120 monthly payments.
   The boost multiplies its starting bonus: 4× job income with the job bonus,
@@ -175,9 +176,7 @@ Apply a boost on that date for the next 120 payments; the first boosted payment
 arrives next month. New businesses also first earn next month. You can act at
 the education starting date, before the first payment.
 
-Sell all remaining businesses on **89y11m**; an unused refund boost applies to
-one most expensive remaining business. Advancing to90 pays the final salary and
-immediately ends the game, with no further actions. Final salary cannot fund an
+The normal ending is age **90**. The optional ad extension adds **five years**, for a maximum ending age of **95**. Sell all remaining businesses on **89y11m** normally, or **94y11m** with the extension; an unused refund boost applies to one most expensive remaining business. Advancing to the selected ending pays the final salary and immediately ends the game, with no further actions. Final salary cannot fund an
 earlier purchase. The same last-action/final-payment ordering applies to custom
 short horizons. Repurchase of a sold business remains an explicit model
 assumption. Ages such as `71y06m` are years/months.

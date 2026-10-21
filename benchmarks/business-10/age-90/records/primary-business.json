@@ -1,0 +1,446 @@
+{
+  "schema": 1,
+  "signature": "c849ecf8dfe3b87c26cbb92dd47f3e433e1407488070e63fbc941cc4b9d5d16e",
+  "scenario": {
+    "education": "primary",
+    "starting_bonus": "business",
+    "starting_cash": 0,
+    "max_businesses": 10,
+    "end_month": 1080
+  },
+  "result": {
+    "final_cash": 27901533,
+    "actions": [
+      [
+        145,
+        "job boost",
+        null
+      ],
+      [
+        228,
+        "buy",
+        0
+      ],
+      [
+        250,
+        "buy",
+        0
+      ],
+      [
+        264,
+        "buy",
+        0
+      ],
+      [
+        276,
+        "buy",
+        0
+      ],
+      [
+        286,
+        "buy",
+        0
+      ],
+      [
+        294,
+        "buy",
+        0
+      ],
+      [
+        301,
+        "buy",
+        0
+      ],
+      [
+        312,
+        "buy",
+        1
+      ],
+      [
+        322,
+        "buy",
+        1
+      ],
+      [
+        335,
+        "sell (70%)",
+        0
+      ],
+      [
+        335,
+        "buy",
+        2
+      ],
+      [
+        346,
+        "sell (70%)",
+        0
+      ],
+      [
+        346,
+        "buy",
+        2
+      ],
+      [
+        356,
+        "sell (70%)",
+        0
+      ],
+      [
+        356,
+        "buy",
+        2
+      ],
+      [
+        365,
+        "sell (70%)",
+        0
+      ],
+      [
+        365,
+        "buy",
+        2
+      ],
+      [
+        373,
+        "sell (70%)",
+        0
+      ],
+      [
+        373,
+        "buy",
+        2
+      ],
+      [
+        390,
+        "sell (70%)",
+        0
+      ],
+      [
+        390,
+        "buy",
+        3
+      ],
+      [
+        404,
+        "sell (70%)",
+        0
+      ],
+      [
+        404,
+        "buy",
+        3
+      ],
+      [
+        426,
+        "sell (70%)",
+        1
+      ],
+      [
+        426,
+        "buy",
+        4
+      ],
+      [
+        445,
+        "sell (70%)",
+        1
+      ],
+      [
+        445,
+        "buy",
+        4
+      ],
+      [
+        473,
+        "sell (70%)",
+        2
+      ],
+      [
+        473,
+        "buy",
+        5
+      ],
+      [
+        496,
+        "sell (70%)",
+        2
+      ],
+      [
+        496,
+        "buy",
+        5
+      ],
+      [
+        515,
+        "sell (70%)",
+        2
+      ],
+      [
+        515,
+        "buy",
+        5
+      ],
+      [
+        532,
+        "sell (70%)",
+        2
+      ],
+      [
+        532,
+        "buy",
+        5
+      ],
+      [
+        560,
+        "sell (70%)",
+        2
+      ],
+      [
+        560,
+        "buy",
+        6
+      ],
+      [
+        582,
+        "sell (70%)",
+        3
+      ],
+      [
+        582,
+        "buy",
+        6
+      ],
+      [
+        600,
+        "sell (70%)",
+        3
+      ],
+      [
+        600,
+        "buy",
+        6
+      ],
+      [
+        630,
+        "sell (70%)",
+        4
+      ],
+      [
+        630,
+        "buy",
+        7
+      ],
+      [
+        655,
+        "sell (70%)",
+        4
+      ],
+      [
+        655,
+        "buy",
+        7
+      ],
+      [
+        691,
+        "sell (70%)",
+        5
+      ],
+      [
+        691,
+        "buy",
+        8
+      ],
+      [
+        720,
+        "sell (70%)",
+        5
+      ],
+      [
+        720,
+        "buy",
+        8
+      ],
+      [
+        745,
+        "sell (70%)",
+        5
+      ],
+      [
+        745,
+        "buy",
+        8
+      ],
+      [
+        785,
+        "sell (70%)",
+        5
+      ],
+      [
+        785,
+        "buy",
+        9
+      ],
+      [
+        814,
+        "sell (70%)",
+        6
+      ],
+      [
+        814,
+        "buy",
+        9
+      ],
+      [
+        860,
+        "sell (70%)",
+        6
+      ],
+      [
+        860,
+        "buy",
+        10
+      ],
+      [
+        861,
+        "business boost",
+        null
+      ],
+      [
+        879,
+        "sell (70%)",
+        6
+      ],
+      [
+        879,
+        "buy",
+        10
+      ],
+      [
+        893,
+        "sell (70%)",
+        7
+      ],
+      [
+        893,
+        "buy",
+        10
+      ],
+      [
+        915,
+        "sell (70%)",
+        7
+      ],
+      [
+        915,
+        "buy",
+        11
+      ],
+      [
+        932,
+        "sell (70%)",
+        8
+      ],
+      [
+        932,
+        "buy",
+        11
+      ],
+      [
+        946,
+        "sell (70%)",
+        8
+      ],
+      [
+        946,
+        "buy",
+        11
+      ],
+      [
+        967,
+        "sell (70%)",
+        8
+      ],
+      [
+        967,
+        "buy",
+        12
+      ],
+      [
+        1039,
+        "sell (70%)",
+        12
+      ],
+      [
+        1039,
+        "sell (70%)",
+        11
+      ],
+      [
+        1039,
+        "sell (70%)",
+        11
+      ],
+      [
+        1039,
+        "sell (70%)",
+        10
+      ],
+      [
+        1039,
+        "buy",
+        15
+      ],
+      [
+        1040,
+        "buy",
+        5
+      ],
+      [
+        1040,
+        "buy",
+        4
+      ],
+      [
+        1041,
+        "buy",
+        4
+      ],
+      [
+        1041,
+        "buy",
+        4
+      ]
+    ]
+  },
+  "statistics": {
+    "engine": "cpp",
+    "status": "completed",
+    "elapsed_seconds": 1.28657,
+    "peak_rss_kb": 4084,
+    "candidates": 2452643,
+    "dominated": 173751,
+    "lossy_prunes": 2122021,
+    "peak_pool": 64,
+    "months_completed": 936,
+    "depth_limited": true,
+    "certified": false,
+    "best_source": "polish",
+    "beam_width": 32,
+    "time_limit_seconds": 20,
+    "hard_memory_mb": 768,
+    "diversity": true,
+    "income_weight": 200,
+    "incumbent_cash": 27897093,
+    "native_money_scale": 1,
+    "source_commit": "f172873af5d00330fe6b6e29a927781c721ccd0e",
+    "source_sha256": "d564e5c79648ea010d5e46aa841240cdbfe86bcb33cffd08e6b2aad3f09d4d9b",
+    "polish_evaluations": 5332,
+    "polish_elapsed_seconds": 3.020629541017115,
+    "polish_status": "local_fixed_point",
+    "polish_cash_before": 27901213,
+    "polish_cash_after": 27901533,
+    "polish_templates": 20,
+    "polish_templates_sha256": "6804956485d0291556a7dad6c67fb90115574b9dbe291ab6c4995adfc64d53f4"
+  }
+}

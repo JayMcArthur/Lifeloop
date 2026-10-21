@@ -87,12 +87,21 @@ class NativeSearchTests(unittest.TestCase):
 
     def test_multiple_purchases_can_happen_in_the_same_month(self):
         businesses = (Business("Shop", 100, 100),)
-        scenario = Scenario(starting_cash=900, max_businesses=9, end_month=269)
+        scenario = Scenario(starting_cash=1000, max_businesses=10, end_month=269)
         found = solve(scenario, 10000, businesses, seconds=5)
         self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
         purchases = [a for a in found.result.actions if a.kind == ActionKind.BUY and a.month == 264]
-        self.assertGreater(len(purchases), 1)
+        self.assertGreaterEqual(len(purchases), 10)
         self.assertTrue(found.statistics["certified"])
+
+    def test_age_95_ten_business_seed_replays_in_native_and_python(self):
+        scenario = Scenario(Education.PRIMARY, starting_cash=30_000, end_month=95 * 12)
+        actions = (Action(scenario.end_month - 2, ActionKind.BUY, 0),) * 10
+        seed = replay(scenario, actions)
+        found = solve(scenario, 1, seconds=1, incumbent=seed)
+        self.assertGreaterEqual(found.result.final_cash, seed.final_cash)
+        self.assertEqual(replay(scenario, found.result.actions), found.result)
+        self.assertTrue(all(a.month < 95 * 12 for a in (*found.result.actions, *found.result.final_sales)))
 
     def test_immediate_refund_can_fund_another_purchase_in_the_same_month(self):
         businesses = (Business("Small", 1000, 1), Business("Large", 1400, 100))
@@ -125,7 +134,7 @@ class NativeSearchTests(unittest.TestCase):
         self.assertTrue(found.statistics["certified"])
 
     def test_stopped_search_keeps_replayed_incumbent_and_reports_no_certificate(self):
-        scenario = Scenario()
+        scenario = Scenario(max_businesses=9)
         seed = load_record(ROOT / "benchmarks/current/records/python-baseline.json", scenario)
         found = solve(scenario, 50000, seconds=1, incumbent=seed)
         self.assertGreaterEqual(found.result.final_cash, seed.final_cash)

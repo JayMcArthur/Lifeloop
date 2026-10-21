@@ -1,4 +1,5 @@
 Education: College; job track: ByteFixServices; +100% business income
+Business slots: 10; ending age: 90y00m
 19y00m: apply job boost (first payment 19y01m; last payment 29y00m)
 21y10m: buy Green Fork
 23y05m: buy Green Fork
@@ -78,7 +79,9 @@ Education: College; job track: ByteFixServices; +100% business income
 87y05m: buy Spark Fix
 87y05m: buy Spark Fix
 87y05m: buy Spark Fix
+87y06m: buy Spark Fix
 89y11m: sell (140%) Bright Core → $19,306,000
+89y11m: sell (70%) Spark Fix → $8,400
 89y11m: sell (70%) Spark Fix → $8,400
 89y11m: sell (70%) Spark Fix → $8,400
 89y11m: sell (70%) Spark Fix → $8,400
@@ -88,4 +91,4 @@ Education: College; job track: ByteFixServices; +100% business income
 89y11m: sell (70%) Skysoft → $866,600
 89y11m: sell (70%) Rapid Reach → $1,472,800
 90y00m: final salary payment; game ends immediately (no actions)
-Final cash after refunds: $26,837,992.00
+Final cash after refunds: $26,839,612.00

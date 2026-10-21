@@ -1,4 +1,5 @@
 Education: Primary; job track: FreshMart; +100% business income
+Business slots: 10; ending age: 90y00m
 12y01m: apply job boost (first payment 12y02m; last payment 22y01m)
 19y00m: buy Green Fork
 20y10m: buy Green Fork
@@ -77,10 +78,12 @@ Education: Primary; job track: FreshMart; +100% business income
 86y07m: buy Bright Core
 86y08m: buy Trend Loop
 86y08m: buy Tech Tinker
-86y09m: buy Trend Loop
+86y09m: buy Tech Tinker
+86y09m: buy Tech Tinker
 89y11m: sell (140%) Bright Core → $19,306,000
 89y11m: sell (70%) Tech Tinker → $30,100
-89y11m: sell (70%) Trend Loop → $54,600
+89y11m: sell (70%) Tech Tinker → $30,100
+89y11m: sell (70%) Tech Tinker → $30,100
 89y11m: sell (70%) Trend Loop → $54,600
 89y11m: sell (70%) Tailor Forge → $509,600
 89y11m: sell (70%) Tailor Forge → $509,600
@@ -88,4 +91,4 @@ Education: Primary; job track: FreshMart; +100% business income
 89y11m: sell (70%) Skysoft → $866,600
 89y11m: sell (70%) Rapid Reach → $1,472,800
 90y00m: final salary payment; game ends immediately (no actions)
-Final cash after refunds: $27,897,093.00
+Final cash after refunds: $27,901,533.00

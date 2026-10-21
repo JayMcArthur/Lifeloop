@@ -1,0 +1,94 @@
+Education: Secondary; job track: BrickLineWorks; +100% business income
+Business slots: 10; ending age: 95y00m; includes the optional five-year ad extension
+17y00m: apply job boost (first payment 17y01m; last payment 27y00m)
+22y00m: buy Green Fork
+24y01m: buy Green Fork
+25y02m: buy Green Fork
+26y00m: buy Green Fork
+26y09m: buy Green Fork
+27y04m: buy Green Fork
+27y10m: buy Green Fork
+28y04m: buy Green Fork
+29y02m: buy Cup & Go
+30y04m: sell (70%) Green Fork → $2,100
+30y04m: buy Spark Fix
+31y04m: sell (70%) Green Fork → $2,100
+31y04m: buy Spark Fix
+32y02m: sell (70%) Green Fork → $2,100
+32y02m: buy Spark Fix
+33y00m: sell (70%) Green Fork → $2,100
+33y00m: buy Spark Fix
+33y08m: sell (70%) Green Fork → $2,100
+33y08m: buy Spark Fix
+34y04m: sell (70%) Green Fork → $2,100
+34y04m: buy Spark Fix
+35y07m: sell (70%) Green Fork → $2,100
+35y07m: buy Pedal Fleet
+37y09m: sell (70%) Green Fork → $2,100
+37y09m: buy Tech Tinker
+39y04m: sell (70%) Cup & Go → $4,200
+39y04m: buy Tech Tinker
+41y10m: sell (70%) Spark Fix → $8,400
+41y10m: buy Trend Loop
+43y09m: sell (70%) Spark Fix → $8,400
+43y09m: buy Trend Loop
+45y05m: sell (70%) Spark Fix → $8,400
+45y05m: buy Trend Loop
+46y10m: sell (70%) Spark Fix → $8,400
+46y10m: buy Trend Loop
+49y03m: sell (70%) Spark Fix → $8,400
+49y03m: buy Paw Pal
+51y02m: sell (70%) Spark Fix → $8,400
+51y02m: buy Paw Pal
+52y09m: sell (70%) Pedal Fleet → $16,800
+52y09m: buy Paw Pal
+55y02m: sell (70%) Tech Tinker → $30,100
+55y02m: buy Dash Logix
+57y03m: sell (70%) Tech Tinker → $30,100
+57y03m: buy Dash Logix
+60y03m: sell (70%) Trend Loop → $54,600
+60y03m: buy Crust & Crumb
+62y08m: sell (70%) Trend Loop → $54,600
+62y08m: buy Crust & Crumb
+64y09m: sell (70%) Trend Loop → $54,600
+64y09m: buy Crust & Crumb
+68y01m: sell (70%) Trend Loop → $54,600
+68y01m: buy Tailor Forge
+72y06m: sell (70%) Paw Pal → $98,000
+72y06m: buy Skysoft
+75y11m: sell (70%) Paw Pal → $98,000
+75y11m: buy Skysoft
+78y09m: sell (70%) Paw Pal → $98,000
+78y09m: buy Skysoft
+78y10m: apply business boost (first payment 78y11m; last payment 88y10m)
+79y11m: sell (70%) Dash Logix → $176,400
+79y11m: buy Skysoft
+81y07m: sell (70%) Dash Logix → $176,400
+81y07m: buy Rapid Reach
+82y11m: sell (70%) Crust & Crumb → $299,600
+82y11m: buy Rapid Reach
+84y01m: sell (70%) Crust & Crumb → $299,600
+84y01m: buy Rapid Reach
+85y09m: sell (70%) Crust & Crumb → $299,600
+85y09m: buy Agri World
+90y05m: sell (70%) Rapid Reach → $1,472,800
+90y05m: sell (70%) Rapid Reach → $1,472,800
+90y05m: sell (70%) Rapid Reach → $1,472,800
+90y05m: sell (70%) Skysoft → $866,600
+90y05m: buy Bright Core
+90y06m: buy Paw Pal
+90y07m: buy Paw Pal
+90y09m: buy Paw Pal
+90y10m: buy Paw Pal
+94y11m: sell (140%) Bright Core → $19,306,000
+94y11m: sell (70%) Paw Pal → $98,000
+94y11m: sell (70%) Paw Pal → $98,000
+94y11m: sell (70%) Paw Pal → $98,000
+94y11m: sell (70%) Paw Pal → $98,000
+94y11m: sell (70%) Tailor Forge → $509,600
+94y11m: sell (70%) Skysoft → $866,600
+94y11m: sell (70%) Skysoft → $866,600
+94y11m: sell (70%) Skysoft → $866,600
+94y11m: sell (70%) Agri World → $2,356,900
+95y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $31,265,120.00

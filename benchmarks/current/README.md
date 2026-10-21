@@ -1,6 +1,8 @@
-# Corrected monthly timing — 2026-10-21
+# Preserved nine-slot monthly timing results — 2026-10-21
 
-These are existing saved routes replayed under the confirmed game timing, **without a new optimization search**. All action dates now say when to tap. The original raw records and 95-/40-attempt logs remain unchanged as historical evidence. The original public readable-route filenames now contain these corrected instructions too; previous readable versions are preserved in Git history.
+**This preserved dataset uses nine business slots and ends at 90.** For the new ten-slot rules and optional five-year ad extension, use [the current business strategies](../business-10/README.md).
+
+These are existing saved routes replayed under the confirmed game timing, **without a new optimization search**. All action dates now say when to tap. The original raw records and 95-/40-attempt logs remain unchanged as historical evidence. The original public +100% business filenames now show newer ten-slot, age-90 routes; this nine-slot dataset remains unchanged. Previous readable versions are preserved in Git history.
 
 ## Actions on the displayed date
 
@@ -34,9 +36,9 @@ The current directory holds 15 scenario checkpoints plus the corrected original 
 
 ## Preservation and provenance
 
-Raw historical JSON records and attempt matrices under `../records/` and `../bonus-comparison/records/` remain unchanged. The public readable strategy paths under `../strategies/` and `../bonus-comparison/strategies/` now match the corrected current routes, so earlier live links are safe to follow. Original readable versions and reports are recoverable in [Git history](https://github.com/JayMcArthur/Lifeloop/tree/be1a69a748faaa58a081a05f740be218d4d8df83/benchmarks). Corrections use the same purchase/sale sequences, move each income boost one month before its old first-payment label, liquidate on the last actionable date and include final salary. Where two historical job routes existed, the stronger corrected route was retained.
+Raw historical JSON records and attempt matrices under `../records/` and `../bonus-comparison/records/` remain unchanged. The public +100% business paths under `../strategies/` now contain the newer ten-slot age-90 routes; comparison paths under `../bonus-comparison/strategies/` retain the nine-slot corrected comparison. Original readable versions and reports are recoverable in [Git history](https://github.com/JayMcArthur/Lifeloop/tree/be1a69a748faaa58a081a05f740be218d4d8df83/benchmarks). Corrections use the same purchase/sale sequences, move each income boost one month before its old first-payment label, liquidate on the last actionable date and include final salary. Where two historical job routes existed, the stronger corrected route was retained.
 
-Each corrected record pins the original record path, SHA256 and source commit `be1a69a748faaa58a081a05f740be218d4d8df83`, its historical score and the correction applied. Records are marked `fresh_search: false` and uncertified. Their rule signatures differ from the old phase convention: old checkpoints are rejected rather than treated as current scores. Fresh output defaults to `runs/current/` (or `runs/current/bonus-comparison/` for the two-option comparison).
+Each corrected record pins the original record path, SHA256 and source commit `be1a69a748faaa58a081a05f740be218d4d8df83`, its historical score and the correction applied. Records are marked `fresh_search: false` and uncertified. Their rule signatures differ from the old phase convention: old checkpoints are rejected rather than treated as current scores. Fresh output now defaults to `runs/age-90/` or `runs/age-95/` with `--bonus-years 5`; comparisons add `bonus-comparison/`. Use `--max-businesses 9` to reproduce this dataset’s capacity.
 
 The boost-date correction preserves the old effective income window. For these saved routes, the numerical score change is the newly included final salary. These remain best found routes; global optimality is unproven.
 
