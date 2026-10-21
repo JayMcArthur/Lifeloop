@@ -1,5 +1,5 @@
 Education: University; job track: DocuDynoCorp; +100% job income
-22y02m: job boost for 120 payments
+22y01m: apply job boost (first payment 22y02m; last payment 32y01m)
 23y01m: buy Green Fork
 24y00m: buy Green Fork
 24y10m: buy Green Fork
@@ -43,7 +43,7 @@ Education: University; job track: DocuDynoCorp; +100% job income
 73y02m: buy Dash Logix
 76y03m: sell (70%) Tech Tinker → $30,100
 76y03m: buy Dash Logix
-79y11m: business boost for 120 payments
+79y10m: apply business boost (first payment 79y11m; last payment 89y10m)
 80y05m: sell (70%) Trend Loop → $54,600
 80y05m: buy Crust & Crumb
 82y06m: sell (70%) Trend Loop → $54,600
@@ -58,13 +58,14 @@ Education: University; job track: DocuDynoCorp; +100% job income
 87y08m: buy Cup & Go
 87y09m: buy Cup & Go
 87y09m: buy Cup & Go
-90y00m: sell (140%) Rapid Reach → $2,945,600
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Dash Logix → $176,400
-Final cash after refunds: $3,925,391.00
+89y11m: sell (140%) Rapid Reach → $2,945,600
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Dash Logix → $176,400
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $3,926,191.00

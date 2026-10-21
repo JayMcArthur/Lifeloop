@@ -1,5 +1,5 @@
 Education: College; job track: ByteFixServices; +50% business income
-19y01m: job boost for 120 payments
+19y00m: apply job boost (first payment 19y01m; last payment 29y00m)
 21y10m: buy Green Fork
 23y07m: buy Green Fork
 24y11m: buy Green Fork
@@ -51,7 +51,7 @@ Education: College; job track: ByteFixServices; +50% business income
 73y06m: buy Crust & Crumb
 76y01m: sell (70%) Trend Loop → $54,600
 76y01m: buy Crust & Crumb
-80y00m: business boost for 120 payments
+79y11m: apply business boost (first payment 80y00m; last payment 89y11m)
 80y00m: sell (70%) Trend Loop → $54,600
 80y00m: buy Tailor Forge
 81y07m: sell (70%) Paw Pal → $98,000
@@ -74,13 +74,14 @@ Education: College; job track: ByteFixServices; +50% business income
 88y07m: buy Cup & Go
 88y07m: buy Cup & Go
 88y07m: buy Cup & Go
-90y00m: sell (140%) Globe Freight → $7,541,800
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Dash Logix → $176,400
-90y00m: sell (70%) Tailor Forge → $509,600
-Final cash after refunds: $9,155,745.00
+89y11m: sell (140%) Globe Freight → $7,541,800
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Dash Logix → $176,400
+89y11m: sell (70%) Tailor Forge → $509,600
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $9,156,065.00

@@ -1,5 +1,5 @@
 Education: None; job track: SunnySproutFields; +50% business income
-10y05m: job boost for 120 payments
+10y04m: apply job boost (first payment 10y05m; last payment 20y04m)
 20y04m: buy Green Fork
 23y10m: buy Green Fork
 25y10m: buy Green Fork
@@ -49,7 +49,7 @@ Education: None; job track: SunnySproutFields; +50% business income
 74y10m: buy Crust & Crumb
 77y10m: sell (70%) Trend Loop → $54,600
 77y10m: buy Crust & Crumb
-79y09m: business boost for 120 payments
+79y08m: apply business boost (first payment 79y09m; last payment 89y08m)
 80y01m: sell (70%) Trend Loop → $54,600
 80y01m: buy Crust & Crumb
 82y02m: sell (70%) Trend Loop → $54,600
@@ -71,4 +71,5 @@ Education: None; job track: SunnySproutFields; +50% business income
 89y11m: sell (70%) Tailor Forge → $509,600
 89y11m: buy Globe Freight
 89y11m: sell (140%) Globe Freight → $7,541,800
-Final cash after refunds: $7,687,216.00
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $7,687,296.00

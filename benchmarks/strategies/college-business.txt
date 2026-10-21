@@ -1,5 +1,5 @@
 Education: College; job track: ByteFixServices; +100% business income
-19y01m: job boost for 120 payments
+19y00m: apply job boost (first payment 19y01m; last payment 29y00m)
 21y10m: buy Green Fork
 23y05m: buy Green Fork
 24y06m: buy Green Fork
@@ -57,7 +57,7 @@ Education: College; job track: ByteFixServices; +100% business income
 68y09m: buy Tailor Forge
 72y06m: sell (70%) Paw Pal → $98,000
 72y06m: buy Skysoft
-72y08m: business boost for 120 payments
+72y07m: apply business boost (first payment 72y08m; last payment 82y07m)
 74y01m: sell (70%) Paw Pal → $98,000
 74y01m: buy Skysoft
 75y03m: sell (70%) Dash Logix → $176,400
@@ -78,13 +78,14 @@ Education: College; job track: ByteFixServices; +100% business income
 87y05m: buy Spark Fix
 87y05m: buy Spark Fix
 87y05m: buy Spark Fix
-90y00m: sell (140%) Bright Core → $19,306,000
-90y00m: sell (70%) Spark Fix → $8,400
-90y00m: sell (70%) Spark Fix → $8,400
-90y00m: sell (70%) Spark Fix → $8,400
-90y00m: sell (70%) Tailor Forge → $509,600
-90y00m: sell (70%) Tailor Forge → $509,600
-90y00m: sell (70%) Skysoft → $866,600
-90y00m: sell (70%) Skysoft → $866,600
-90y00m: sell (70%) Rapid Reach → $1,472,800
-Final cash after refunds: $26,837,672
+89y11m: sell (140%) Bright Core → $19,306,000
+89y11m: sell (70%) Spark Fix → $8,400
+89y11m: sell (70%) Spark Fix → $8,400
+89y11m: sell (70%) Spark Fix → $8,400
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Rapid Reach → $1,472,800
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $26,837,992.00

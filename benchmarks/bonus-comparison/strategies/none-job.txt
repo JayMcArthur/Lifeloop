@@ -1,5 +1,5 @@
 Education: None; job track: SunnySproutFields; +100% job income
-10y01m: job boost for 120 payments
+10y00m: apply job boost (first payment 10y01m; last payment 20y00m)
 16y03m: buy Green Fork
 19y01m: buy Green Fork
 21y00m: buy Green Fork
@@ -45,7 +45,7 @@ Education: None; job track: SunnySproutFields; +100% job income
 74y04m: buy Paw Pal
 78y11m: sell (70%) Tech Tinker → $30,100
 78y11m: buy Dash Logix
-80y00m: business boost for 120 payments
+79y11m: apply business boost (first payment 80y00m; last payment 89y11m)
 81y04m: sell (70%) Tech Tinker → $30,100
 81y04m: buy Dash Logix
 87y05m: sell (70%) Dash Logix → $176,400
@@ -54,13 +54,14 @@ Education: None; job track: SunnySproutFields; +100% job income
 87y05m: buy Skysoft
 87y06m: buy Spark Fix
 87y06m: buy Cup & Go
-90y00m: sell (140%) Skysoft → $1,733,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Spark Fix → $8,400
-90y00m: sell (70%) Trend Loop → $54,600
-90y00m: sell (70%) Trend Loop → $54,600
-90y00m: sell (70%) Trend Loop → $54,600
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-Final cash after refunds: $2,608,334.00
+89y11m: sell (140%) Skysoft → $1,733,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Spark Fix → $8,400
+89y11m: sell (70%) Trend Loop → $54,600
+89y11m: sell (70%) Trend Loop → $54,600
+89y11m: sell (70%) Trend Loop → $54,600
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $2,608,494.00

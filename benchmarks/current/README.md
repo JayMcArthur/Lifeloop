@@ -1,6 +1,6 @@
 # Corrected monthly timing — 2026-10-21
 
-These are existing saved routes replayed under the confirmed game timing, **without a new optimization search**. All action dates now say when to tap. The previous records and 95-/40-attempt logs remain unchanged in their original directories as historical evidence; their old boost labels and age-90 sales are not playable instructions.
+These are existing saved routes replayed under the confirmed game timing, **without a new optimization search**. All action dates now say when to tap. The original raw records and 95-/40-attempt logs remain unchanged as historical evidence. The original public readable-route filenames now contain these corrected instructions too; previous readable versions are preserved in Git history.
 
 ## Actions on the displayed date
 
@@ -34,7 +34,7 @@ The current directory holds 15 scenario checkpoints plus the corrected original 
 
 ## Preservation and provenance
 
-Historical JSON records, readable routes and attempt matrices under `../records/`, `../strategies/` and `../bonus-comparison/` remain byte-for-byte unchanged. Corrections use those exact purchase/sale sequences, move each income boost one month before its old first-payment label, liquidate on the last actionable date and include the final salary. Where two historical job routes existed, the stronger corrected route was retained.
+Raw historical JSON records and attempt matrices under `../records/` and `../bonus-comparison/records/` remain unchanged. The public readable strategy paths under `../strategies/` and `../bonus-comparison/strategies/` now match the corrected current routes, so earlier live links are safe to follow. Original readable versions and reports are recoverable in [Git history](https://github.com/JayMcArthur/Lifeloop/tree/be1a69a748faaa58a081a05f740be218d4d8df83/benchmarks). Corrections use the same purchase/sale sequences, move each income boost one month before its old first-payment label, liquidate on the last actionable date and include final salary. Where two historical job routes existed, the stronger corrected route was retained.
 
 Each corrected record pins the original record path, SHA256 and source commit `be1a69a748faaa58a081a05f740be218d4d8df83`, its historical score and the correction applied. Records are marked `fresh_search: false` and uncertified. Their rule signatures differ from the old phase convention: old checkpoints are rejected rather than treated as current scores. Fresh output defaults to `runs/current/` (or `runs/current/bonus-comparison/` for the two-option comparison).
 
