@@ -170,13 +170,14 @@ def activate(state: State, action: Action) -> State:
         raise ValueError("Expected an income boost")
     if getattr(state, field):
         raise ValueError(f"{action.kind.value} has already been used this round")
-    return replace(state, **{field: action.month + BOOST_MONTHS})
+    return replace(state, **{field: action.month + BOOST_MONTHS + 1})
 
 
 def income(scenario: Scenario, state: State, month: int, businesses=BUSINESSES) -> int | float:
     job = job_payment(scenario.education, month) * scenario.job_multiplier
     business = sum(businesses[i].income for i in state.owned) * scenario.business_multiplier
-    return job * (2 if month < state.job_until else 1) + business * (2 if month < state.business_until else 1)
+    return (job * (2 if state.job_until - BOOST_MONTHS <= month < state.job_until else 1)
+            + business * (2 if state.business_until - BOOST_MONTHS <= month < state.business_until else 1))
 
 
 def trade(scenario: Scenario, state: State, action: Action, businesses=BUSINESSES) -> State:
@@ -207,37 +208,34 @@ def finish(scenario: Scenario, state: State, actions: tuple[Action, ...], busine
     sales = []
     if state.owned and not state.refund_used:
         index = max(state.owned, key=lambda i: businesses[i].cost)
-        action = Action(scenario.end_month, ActionKind.REFUND_BOOST, index)
+        action = Action(scenario.end_month - 1, ActionKind.REFUND_BOOST, index)
         state = trade(scenario, state, action, businesses)
         sales.append(action)
     for index in state.owned:
-        action = Action(scenario.end_month, ActionKind.SELL, index)
+        action = Action(scenario.end_month - 1, ActionKind.SELL, index)
         state = trade(scenario, state, action, businesses)
         sales.append(action)
-    return Result(state.cash, actions, tuple(sales))
+    # The last transition pays salary and immediately ends the game. Holdings
+    # have already been sold on the previous displayed date.
+    final_payment = income(scenario, state, scenario.end_month, businesses)
+    return Result(state.cash + final_payment, actions, tuple(sales))
 
 
 def replay(scenario: Scenario, actions: tuple[Action, ...], businesses=BUSINESSES) -> Result:
-    """Activate boosts before payment, then trade after payment each month."""
-    first_month = scenario.education.start_month + 1
+    """Pay on each transition, then act on the displayed date; no actions at end."""
+    first_month = scenario.education.start_month
     if any(a.month < first_month or a.month >= scenario.end_month for a in actions):
-        raise ValueError("Actions must fall inside the round's paid months")
+        raise ValueError("Actions must fall inside the round before its end date")
     if any(a.month > b.month for a, b in zip(actions, actions[1:])):
         raise ValueError("Actions must be ordered by month")
     monthly = {month: tuple(group) for month, group in groupby(actions, key=lambda a: a.month)}
     state = State(cash=scenario.starting_cash)
     for month in range(first_month, scenario.end_month):
         events = monthly.get(month, ())
-        trading = False
-        for action in events:
-            if action.kind in INCOME_BOOSTS:
-                if trading:
-                    raise ValueError("Income boosts activate before the month's trades")
-                state = activate(state, action)
-            else:
-                trading = True
         state = replace(state, cash=state.cash + income(scenario, state, month, businesses))
         for action in events:
-            if action.kind not in INCOME_BOOSTS:
+            if action.kind in INCOME_BOOSTS:
+                state = activate(state, action)
+            else:
                 state = trade(scenario, state, action, businesses)
     return finish(scenario, state, actions, businesses)

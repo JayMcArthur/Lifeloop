@@ -1,0 +1,401 @@
+{
+  "schema": 1,
+  "signature": "0ccc886527d6ba8f27a846761417249973f87a51349fb0c14f9b192fb9da165c",
+  "scenario": {
+    "education": "primary",
+    "starting_bonus": "business-50",
+    "starting_cash": 0,
+    "max_businesses": 9,
+    "end_month": 1080
+  },
+  "result": {
+    "final_cash": 9018245.5,
+    "actions": [
+      [
+        145,
+        "job boost",
+        null
+      ],
+      [
+        228,
+        "buy",
+        0
+      ],
+      [
+        253,
+        "buy",
+        0
+      ],
+      [
+        271,
+        "buy",
+        0
+      ],
+      [
+        287,
+        "buy",
+        0
+      ],
+      [
+        299,
+        "buy",
+        0
+      ],
+      [
+        309,
+        "buy",
+        0
+      ],
+      [
+        318,
+        "buy",
+        0
+      ],
+      [
+        333,
+        "buy",
+        1
+      ],
+      [
+        344,
+        "buy",
+        1
+      ],
+      [
+        361,
+        "sell (70%)",
+        0
+      ],
+      [
+        361,
+        "buy",
+        2
+      ],
+      [
+        376,
+        "sell (70%)",
+        0
+      ],
+      [
+        376,
+        "buy",
+        2
+      ],
+      [
+        389,
+        "sell (70%)",
+        0
+      ],
+      [
+        389,
+        "buy",
+        2
+      ],
+      [
+        401,
+        "sell (70%)",
+        0
+      ],
+      [
+        401,
+        "buy",
+        2
+      ],
+      [
+        411,
+        "sell (70%)",
+        0
+      ],
+      [
+        411,
+        "buy",
+        2
+      ],
+      [
+        433,
+        "sell (70%)",
+        0
+      ],
+      [
+        433,
+        "buy",
+        3
+      ],
+      [
+        452,
+        "sell (70%)",
+        0
+      ],
+      [
+        452,
+        "buy",
+        3
+      ],
+      [
+        480,
+        "sell (70%)",
+        1
+      ],
+      [
+        480,
+        "buy",
+        4
+      ],
+      [
+        504,
+        "sell (70%)",
+        1
+      ],
+      [
+        504,
+        "buy",
+        4
+      ],
+      [
+        541,
+        "sell (70%)",
+        2
+      ],
+      [
+        541,
+        "buy",
+        5
+      ],
+      [
+        571,
+        "sell (70%)",
+        2
+      ],
+      [
+        571,
+        "buy",
+        5
+      ],
+      [
+        597,
+        "sell (70%)",
+        2
+      ],
+      [
+        597,
+        "buy",
+        5
+      ],
+      [
+        619,
+        "sell (70%)",
+        2
+      ],
+      [
+        619,
+        "buy",
+        5
+      ],
+      [
+        655,
+        "sell (70%)",
+        2
+      ],
+      [
+        655,
+        "buy",
+        6
+      ],
+      [
+        684,
+        "sell (70%)",
+        3
+      ],
+      [
+        684,
+        "buy",
+        6
+      ],
+      [
+        708,
+        "sell (70%)",
+        3
+      ],
+      [
+        708,
+        "buy",
+        6
+      ],
+      [
+        747,
+        "sell (70%)",
+        4
+      ],
+      [
+        747,
+        "buy",
+        7
+      ],
+      [
+        806,
+        "sell (70%)",
+        4
+      ],
+      [
+        806,
+        "buy",
+        8
+      ],
+      [
+        849,
+        "sell (70%)",
+        5
+      ],
+      [
+        849,
+        "buy",
+        8
+      ],
+      [
+        885,
+        "sell (70%)",
+        5
+      ],
+      [
+        885,
+        "buy",
+        8
+      ],
+      [
+        916,
+        "sell (70%)",
+        5
+      ],
+      [
+        916,
+        "buy",
+        8
+      ],
+      [
+        927,
+        "business boost",
+        null
+      ],
+      [
+        946,
+        "sell (70%)",
+        5
+      ],
+      [
+        946,
+        "buy",
+        9
+      ],
+      [
+        965,
+        "sell (70%)",
+        6
+      ],
+      [
+        965,
+        "buy",
+        9
+      ],
+      [
+        981,
+        "sell (70%)",
+        6
+      ],
+      [
+        981,
+        "buy",
+        9
+      ],
+      [
+        996,
+        "sell (70%)",
+        6
+      ],
+      [
+        996,
+        "buy",
+        9
+      ],
+      [
+        1051,
+        "sell (70%)",
+        8
+      ],
+      [
+        1051,
+        "sell (70%)",
+        9
+      ],
+      [
+        1051,
+        "sell (70%)",
+        9
+      ],
+      [
+        1051,
+        "sell (70%)",
+        9
+      ],
+      [
+        1051,
+        "sell (70%)",
+        8
+      ],
+      [
+        1051,
+        "sell (70%)",
+        8
+      ],
+      [
+        1051,
+        "sell (70%)",
+        8
+      ],
+      [
+        1051,
+        "buy",
+        13
+      ],
+      [
+        1051,
+        "buy",
+        0
+      ],
+      [
+        1051,
+        "buy",
+        0
+      ],
+      [
+        1051,
+        "buy",
+        0
+      ],
+      [
+        1051,
+        "buy",
+        0
+      ],
+      [
+        1052,
+        "buy",
+        0
+      ],
+      [
+        1052,
+        "buy",
+        0
+      ]
+    ]
+  },
+  "statistics": {
+    "engine": "corrected-replay",
+    "certified": false,
+    "fresh_search": false,
+    "source_record": "benchmarks/bonus-comparison/records/primary-business-50.json",
+    "source_record_commit": "be1a69a748faaa58a081a05f740be218d4d8df83",
+    "source_record_sha256": "0fec18a378612684bfcef3d6511e673a798dc38b37ed4cdc541d4996c21ae509",
+    "historical_final_cash": 9018105.5,
+    "correction": "Boosts applied one displayed month before old first-payment labels; sell by end-1; final salary at end."
+  }
+}

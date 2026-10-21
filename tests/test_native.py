@@ -15,17 +15,17 @@ from lifeloop.solver import ROOT, ensure_binary, solve
 
 def exhaustive_cash(scenario, businesses):
     """Independent tiny oracle, including arbitrary same-month trade sequences."""
-    first = scenario.education.start_month + 1
+    first = scenario.education.start_month
     frontier = {(tuple(0 for _ in businesses), 0, 0, False): scenario.starting_cash}
     for month in range(first, scenario.end_month):
         paid = {}
         for (owned, job_end, business_end, used), cash in frontier.items():
+            earned = job_payment(scenario.education, month) * scenario.job_multiplier * (2 if month < job_end else 1)
+            earned += sum(n * business.income for n, business in zip(owned, businesses)) * scenario.business_multiplier * (2 if month < business_end else 1)
             for job_now in (False, True) if not job_end else (False,):
                 for business_now in (False, True) if not business_end else (False,):
-                    j = month + 120 if job_now else job_end
-                    b = month + 120 if business_now else business_end
-                    earned = job_payment(scenario.education, month) * scenario.job_multiplier * (2 if month < j else 1)
-                    earned += sum(n * business.income for n, business in zip(owned, businesses)) * scenario.business_multiplier * (2 if month < b else 1)
+                    j = month + 121 if job_now else job_end
+                    b = month + 121 if business_now else business_end
                     key = owned, j, b, used
                     paid[key] = max(paid.get(key, -1), cash + earned)
         queue = deque(paid.items())
@@ -50,10 +50,11 @@ def exhaustive_cash(scenario, businesses):
                         queue.append((new_key, value))
         frontier = paid
     best = 0
-    for (owned, _, _, used), cash in frontier.items():
+    for (owned, job_end, _, used), cash in frontier.items():
         value = cash + sum(n * b.cost * 7 // 10 for n, b in zip(owned, businesses))
         if not used:
             value += max((b.cost * 7 // 10 for n, b in zip(owned, businesses) if n), default=0)
+        value += job_payment(scenario.education, scenario.end_month) * scenario.job_multiplier * (2 if scenario.end_month < job_end else 1)
         best = max(best, value)
     return best
 
@@ -63,7 +64,7 @@ class NativeSearchTests(unittest.TestCase):
         scenario = Scenario(Education.PRIMARY, StartingBonus.BUSINESS_50, 100, 1, 147)
         businesses = (Business("Shop", 100, 35),)
         seed = replay(scenario, (Action(145, ActionKind.BUY, 0),), businesses)
-        self.assertEqual(seed.final_cash, 228.5)
+        self.assertEqual(seed.final_cash, 246.5)
         found = solve(scenario, 5000, businesses, seconds=5, incumbent=seed)
         self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
         self.assertTrue(found.statistics["certified"])
@@ -89,7 +90,7 @@ class NativeSearchTests(unittest.TestCase):
         scenario = Scenario(starting_cash=900, max_businesses=9, end_month=269)
         found = solve(scenario, 10000, businesses, seconds=5)
         self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
-        purchases = [a for a in found.result.actions if a.kind == ActionKind.BUY and a.month == 265]
+        purchases = [a for a in found.result.actions if a.kind == ActionKind.BUY and a.month == 264]
         self.assertGreater(len(purchases), 1)
         self.assertTrue(found.statistics["certified"])
 
@@ -99,24 +100,33 @@ class NativeSearchTests(unittest.TestCase):
         found = solve(scenario, 5000, businesses, seconds=5)
         self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
         refund = next(a for a in found.result.actions if a.kind == ActionKind.REFUND_BOOST)
-        self.assertEqual(refund.month, 265)
+        self.assertEqual(refund.month, 264)
         self.assertTrue(any(a.month == refund.month and a.kind == ActionKind.BUY and a.business == 1
                             for a in found.result.actions))
         self.assertTrue(found.statistics["certified"])
 
     def test_final_refund_purchase_uses_no_extra_month(self):
         businesses = (Business("Shop", 1000, 1),)
-        scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=266)
+        scenario = Scenario(starting_cash=1000, max_businesses=1, end_month=265)
         found = solve(scenario, 5000, businesses, seconds=5)
         self.assertEqual(found.result.final_cash, 1520)
         self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
         self.assertFalse(found.result.final_sales)
-        self.assertEqual(found.result.actions[-2:], (Action(265, ActionKind.BUY, 0),
-                                                     Action(265, ActionKind.REFUND_BOOST, 0)))
+        self.assertEqual(found.result.actions[-2:], (Action(264, ActionKind.BUY, 0),
+                                                     Action(264, ActionKind.REFUND_BOOST, 0)))
+
+    def test_final_salary_cannot_fund_a_purchase_before_the_game_ends(self):
+        scenario = Scenario(Education.PRIMARY, StartingBonus.BUSINESS, 950, 1, 146)
+        businesses = (Business("Shop", 1000, 1),)
+        found = solve(scenario, 5000, businesses, seconds=5)
+        self.assertEqual(found.result.final_cash, 950 + 2 * 36)
+        self.assertEqual(found.result.final_cash, exhaustive_cash(scenario, businesses))
+        self.assertFalse(any(a.kind == ActionKind.BUY for a in found.result.actions))
+        self.assertTrue(found.statistics["certified"])
 
     def test_stopped_search_keeps_replayed_incumbent_and_reports_no_certificate(self):
         scenario = Scenario()
-        seed = load_record(ROOT / "benchmarks/records/python-baseline.json", scenario)
+        seed = load_record(ROOT / "benchmarks/current/records/python-baseline.json", scenario)
         found = solve(scenario, 50000, seconds=1, incumbent=seed)
         self.assertGreaterEqual(found.result.final_cash, seed.final_cash)
         self.assertEqual(found.statistics["status"], "time_limit")

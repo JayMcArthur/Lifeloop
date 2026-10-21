@@ -54,7 +54,7 @@ Input read_input() {
     std::string magic;
     std::cin >> magic >> input.first >> input.end >> input.slots >> input.width >> input.seconds
              >> input.memory_mb >> input.diversity >> input.income_weight >> input.cash >> input.business_count;
-    if (!std::cin || magic != "LIFELOOP1" || input.first < 1 || input.end < input.first ||
+    if (!std::cin || magic != "LIFELOOP2" || input.first < 1 || input.end <= input.first ||
         input.end > 1080 || input.slots < 1 || input.slots > 9 || input.width < 1 || input.width > 50000 ||
         input.seconds < 1 || input.seconds > 1700 || input.memory_mb < 64 || input.memory_mb > 768 ||
         input.diversity < 0 || input.diversity > 1 || input.income_weight < 25 || input.income_weight > 200 ||
@@ -69,7 +69,7 @@ Input read_input() {
         input.businesses.push_back(business);
     }
     input.prefix.push_back(0);
-    for (int i = 0; i < input.end; ++i) {
+    for (int i = 0; i <= input.end; ++i) {
         Money payment = 0;
         std::cin >> payment;
         if (!std::cin || payment < 0 || payment > 1'000'000'000)
@@ -119,7 +119,7 @@ class Search {
     Money terminal_cash(const State& state, int month) const {
         const int next = month + 1, remaining = input.end - next;
         Money value = state.cash + state.resale + state.rate * remaining + input.prefix[input.end] - input.prefix[next];
-        if (!state.job_end) value += input.prefix[input.end] - input.prefix[std::max(next, input.end - 120)];
+        if (!state.job_end) value += input.prefix[input.end] - input.prefix[std::max(next, input.end - 119)];
         else value += input.prefix[std::max(next, std::min(input.end, state.job_end))] - input.prefix[next];
         const int boost_months = state.business_end ? std::max(0, std::min(input.end, state.business_end) - next)
                                                    : std::min(120, remaining);
@@ -143,8 +143,11 @@ class Search {
     Money completion(const State& state, int month) const {
         const Money cash = terminal_cash(state, month);
         const int chosen = refund_purchase(state, cash);
+        // Final salary cannot fund the preceding date's buy/refund trades.
+        const Money final_job = input.payments[input.end] *
+                                (!state.job_end || input.end < state.job_end ? 2 : 1);
         return cash + (state.refund_used ? 0 : chosen < 0 ? state.extra_refund
-                                        : input.businesses[chosen].cost * 4 / 10);
+                                        : input.businesses[chosen].cost * 4 / 10) + final_job;
     }
 
     long double score(const State& state, int month) const {
@@ -162,10 +165,10 @@ class Search {
         std::reverse(best_actions.begin(), best_actions.end());
         std::vector<Action> tail;
         const int next = month + 1;
-        if (!state.job_end && next < input.end)
-            tail.push_back({std::max(next, input.end - 120), job_boost, -1});
+        if (!state.job_end)
+            tail.push_back({std::max({month, input.first, input.end - 120}), job_boost, -1});
         if (!state.business_end && state.count && next < input.end)
-            tail.push_back({next, business_boost, -1});
+            tail.push_back({std::max(month, input.first), business_boost, -1});
         std::stable_sort(tail.begin(), tail.end(), [](auto a, auto b) { return a.month < b.month; });
         best_actions.insert(best_actions.end(), tail.begin(), tail.end());
         const int chosen = refund_purchase(state, terminal_cash(state, month));
@@ -191,7 +194,7 @@ class Search {
         if (action.kind < buy) {
             int& until = action.kind == job_boost ? state.job_end : state.business_end;
             if (until) throw std::runtime_error("Seed reuses income boost");
-            until = action.month + 120;
+            until = action.month + 121;
         } else {
             if (i < 0 || i >= input.business_count) throw std::runtime_error("Unknown seed business");
             const auto& business = input.businesses[i];
@@ -309,23 +312,15 @@ public:
         // Validate the full seed before accepting its claimed final value.
         if (input.seed_cash >= 0) {
             for (int month = input.first; month < input.end; ++month) {
-                bool traded = false;
-                auto index = seed_index;
-                while (index < input.seed.size() && input.seed[index].month == month) {
-                    const auto action = input.seed[index++];
-                    if (action.kind < buy) {
-                        if (traded) throw std::runtime_error("Seed boosts follow trades");
-                        seed_state = act(seed_state, action);
-                    } else traded = true;
-                }
                 seed_state = pay(seed_state, month);
                 while (seed_index < input.seed.size() && input.seed[seed_index].month == month) {
                     const auto action = input.seed[seed_index++];
-                    if (action.kind >= buy) seed_state = act(seed_state, action);
+                    seed_state = act(seed_state, action);
                 }
             }
             const Money seed_value = seed_state.cash + seed_state.resale +
-                                     (seed_state.refund_used ? 0 : seed_state.extra_refund);
+                                     (seed_state.refund_used ? 0 : seed_state.extra_refund) +
+                                     input.payments[input.end] * (input.end < seed_state.job_end ? 2 : 1);
             if (seed_index != input.seed.size() || seed_value != input.seed_cash)
                 throw std::runtime_error("Seed does not replay to its claimed value");
             if (seed_value > best_cash) {
@@ -343,25 +338,21 @@ public:
                 Pool pool;
                 pool.reserve(std::size_t(input.width) * 2);
                 for (const auto& state : beam) {
-                    std::vector<State> choices{state};
-                    if (!state.job_end) choices.push_back(act(state, {month, job_boost, -1}));
-                    if (!state.business_end && state.count) {
+                    const auto paid = pay(state, month);
+                    std::vector<State> choices{paid};
+                    if (!paid.job_end) choices.push_back(act(paid, {month, job_boost, -1}));
+                    if (!paid.business_end && paid.count) {
                         const auto size = choices.size();
                         for (std::size_t i = 0; i < size; ++i)
                             choices.push_back(act(choices[i], {month, business_boost, -1}));
                     }
-                    for (auto& choice : choices) offer(pool, pay(std::move(choice), month), month);
+                    for (auto& choice : choices) offer(pool, std::move(choice), month);
                 }
                 if (input.seed_cash >= 0) {
-                    auto index = seed_index;
-                    while (index < input.seed.size() && input.seed[index].month == month) {
-                        const auto action = input.seed[index++];
-                        if (action.kind < buy) seed_state = act(seed_state, action);
-                    }
                     seed_state = pay(seed_state, month);
                     while (seed_index < input.seed.size() && input.seed[seed_index].month == month) {
                         const auto action = input.seed[seed_index++];
-                        if (action.kind >= buy) seed_state = act(seed_state, action);
+                        seed_state = act(seed_state, action);
                     }
                     offer(pool, seed_state, month);
                 }
@@ -373,6 +364,8 @@ public:
                     for (const auto& state : retained) pool.emplace(key(state, month), state);
                     bool changed = false;
                     for (const auto& state : retained) {
+                        if (!state.business_end && state.count)
+                            changed = offer(pool, act(state, {month, business_boost, -1}), month) || changed;
                         for (int i = 0; i < input.business_count; ++i) {
                             if (state.count < input.slots && state.cash >= input.businesses[i].cost) {
                                 const auto bought = act(state, {month, buy, i});

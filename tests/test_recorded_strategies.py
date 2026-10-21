@@ -24,14 +24,14 @@ class RecordedStrategyTests(unittest.TestCase):
             for summary in summaries:
                 scenario = Scenario(Education(summary["education"]), StartingBonus(summary["starting_bonus"]))
                 name = f"{scenario.education.value}-{scenario.starting_bonus.value}.json"
-                floor = load_record(ROOT / "benchmarks/bonus-comparison/records" / name, scenario)
+                floor = load_record(ROOT / "benchmarks/current/records" / name, scenario)
                 saved = load_record(Path(directory) / name, scenario)
                 self.assertEqual(saved.final_cash, summary["final_cash"])
                 self.assertGreaterEqual(saved.final_cash, floor.final_cash)
 
     def test_primary_cli_selects_primary_education_and_freshmart_job_track(self):
         scenario = Scenario(Education.PRIMARY)
-        floor = load_record(ROOT / "benchmarks/records/primary-business.json", scenario)
+        floor = load_record(ROOT / "benchmarks/current/records/primary-business.json", scenario)
         with tempfile.TemporaryDirectory() as directory:
             completed = subprocess.run([str(ROOT / "scripts/run_safe.sh"), "--education", "primary",
                                         "--beam-width", "1", "--seconds", "1", "--polish-seconds", "0",
@@ -43,21 +43,22 @@ class RecordedStrategyTests(unittest.TestCase):
             saved = load_record(Path(directory) / "primary-business.json", scenario)
             self.assertGreaterEqual(saved.final_cash, floor.final_cash)
 
-    def test_all_published_reference_and_comparison_scores_pass_independent_replay(self):
-        sets = (("benchmarks/records", (StartingBonus.JOB, StartingBonus.BUSINESS)),
-                ("benchmarks/bonus-comparison/records", (StartingBonus.JOB, StartingBonus.BUSINESS_50)))
-        for directory, bonuses in sets:
-            for education in Education:
-                for bonus in bonuses:
-                    with self.subTest(directory=directory, education=education, bonus=bonus):
-                        # Loading checks signatures and independently replays scores.
-                        load_record(ROOT / directory / f"{education.value}-{bonus.value}.json",
-                                    Scenario(education, bonus))
+    def test_current_scores_replay_and_historical_rule_checkpoints_are_rejected(self):
+        for education in Education:
+            for bonus in StartingBonus:
+                scenario = Scenario(education, bonus)
+                with self.subTest(education=education, bonus=bonus):
+                    result = load_record(ROOT / "benchmarks/current/records" /
+                                         f"{education.value}-{bonus.value}.json", scenario)
+                    self.assertTrue(all(a.month < scenario.end_month
+                                        for a in (*result.actions, *result.final_sales)))
+        with self.assertRaisesRegex(ValueError, "different scenario or rule set"):
+            load_record(ROOT / "benchmarks/records/university-business.json", Scenario())
 
     def test_fresh_output_directory_keeps_committed_default_strategy(self):
         scenario = Scenario()
-        floor = load_record(ROOT / "benchmarks/records/university-business.json", scenario)
-        baseline = load_record(ROOT / "benchmarks/records/python-baseline.json", scenario)
+        floor = load_record(ROOT / "benchmarks/current/records/university-business.json", scenario)
+        baseline = load_record(ROOT / "benchmarks/current/records/python-baseline.json", scenario)
         self.assertGreater(floor.final_cash, baseline.final_cash)
         with tempfile.TemporaryDirectory() as directory:
             completed = subprocess.run([str(ROOT / "scripts/run_safe.sh"), "--beam-width", "1",

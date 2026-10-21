@@ -6,14 +6,15 @@ comparisons, exact boost timings and complete action paths.
 A C++ search core explores investment and boost schedules. Python owns the
 game data and independently replays every returned or loaded strategy.
 
-The [current bonus comparison](benchmarks/bonus-comparison/README.md) reaches
-**$9,155,745 with College/+50% business**. The strongest +100% job route is
-**$3,925,391 with University**. All five education starts and both current choices
-have saved, independently replayed action paths.
+The [current timing-corrected results](benchmarks/current/README.md) reach
+**$27,897,093 with Primary/+100% business**, **$9,156,065 with College/+50% business**,
+and **$3,926,191 with University/+100% job**. These are existing routes replayed
+under the confirmed monthly timing, without a new optimization campaign.
+[RESULTS.md](RESULTS.md) shows when to tap each boost and the final sales.
 
-The [preserved reference campaign](benchmarks/README.md) uses **+100% business**
-starting income and reaches $27,896,953 with Primary. Its records remain unchanged;
-it is a separate research case from the current +50% business option.
+Original campaign artifacts remain unchanged as historical evidence. Their old
+first-payment boost labels and age-90 liquidation dates are superseded by the
+current playable routes.
 
 Continue the current comparison:
 
@@ -22,7 +23,7 @@ MAX_SECONDS=550 ./scripts/run_safe.sh --compare-starting-bonuses --beam-width 64
 ```
 
 This searches all five educations, writes separate checkpoints under
-`runs/bonus-comparison/`, and uses exact half-dollar business payments. Green Fork
+`runs/current/bonus-comparison/`, and uses exact half-dollar business payments. Green Fork
 pays $52.50 with the +50% starting bonus and $105 during its temporary 2× boost.
 
 ## Build, test and search
@@ -45,7 +46,7 @@ unchanged. A direct `python3 main.py` CLI launch enters the same safe runner.
 
 The default is University education (DocuDynoCorp job track), +100% business starting income,
 beam 512 and ten seconds of native search. To search all fifteen combinations
-(including the preserved +100% business reference):
+(including +100% business):
 
 ```bash
 MAX_SECONDS=400 ./scripts/run_safe.sh --campaign --beam-width 512 --seconds 15
@@ -61,8 +62,8 @@ Education choices: `none` (age 10), `primary` (12), `secondary` (17),
 `college` (19), `university` (22). Their job tracks are SunnySproutFields,
 FreshMart, BrickLineWorks, ByteFixServices and DocuDynoCorp, respectively.
 Starting bonus choices: `job` (+100% job), `business-50` (+50% business),
-and `business` (preserved +100% business reference). The single-scenario default
-remains the reference case; select `--starting-bonus business-50` for the 50% case.
+and `business` (+100% business). The single-scenario default
+remains University/+100% business; select `--starting-bonus business-50` for the 50% case.
 `--campaign` explores all three cases; `--compare-starting-bonuses` selects the
 two current alternatives above.
 
@@ -92,9 +93,9 @@ nix --extra-experimental-features 'nix-command flakes' develop --no-update-lock-
 ## Results and continuation
 
 Each scenario writes an atomic replay-verified checkpoint to
-`runs/EDUCATION-BONUS.json`. Repeating the command loads it as a floor and injects
+`runs/current/EDUCATION-BONUS.json`. Repeating the command loads it as a floor and injects
 its valid prefixes into the next search. An exclusive output-directory lock
-rejects overlapping writers. `runs/attempts.jsonl` records each run's
+rejects overlapping writers. `runs/current/attempts.jsonl` records each run's
 parameters, elapsed time, peak native RSS, candidate/pruning counts, completion
 status, source commit/hash and whether the best route came from its incumbent.
 Use `--output-dir DIR` to keep a separate campaign and `--json` for summary lines.
@@ -106,13 +107,11 @@ the best continuation found so far. A hard-killed process leaves the previous
 checkpoint intact. Continuation preserves the best route; it restarts frontier
 exploration and does not retain a persistent exhaustive search graph.
 
-Recorded reference strategies live under `benchmarks/records/`; the current
-[bonus comparison](benchmarks/bonus-comparison/README.md) has separate records
-under `benchmarks/bonus-comparison/records/`. The original
-Python beam-64 baseline is replay-verified at $16,922,240 for University/business.
-The CLI automatically retains each scenario's committed best record as a floor,
-as well as the original Python baseline for University/business. Fresh checkouts
-therefore keep the best recorded route even during a short search.
+Current strategies live under `benchmarks/current/records/`, including a corrected
+Python baseline. The CLI retains each scenario's committed replay-valid record
+as a floor. Current rule signatures reject old-phase checkpoints. Historical
+records and attempt logs stay in their original benchmark directories; the CLI
+uses the corrected current records and separate output paths.
 
 ## Search behavior and limits
 
@@ -127,8 +126,8 @@ varies ranking emphasis on remaining business income (default 100).
 
 Within a month, it explores repeated purchases and ordinary/boosted sales,
 including immediate buy/refund pairs and selling and rebuying a business.
-Its completion score also considers selling holdings normally after the last
-payment, buying an affordable business and immediately refunding it at 140%.
+Its completion score also considers selling holdings normally on the last
+actionable date, buying an affordable business and immediately refunding it at 140%.
 Closure is bounded at 20 expansion
 rounds. Ranking and beam trimming can lose promising routes, so **full-game
 results are best found, not proven global optima**. `certified` is true only
@@ -157,8 +156,8 @@ Attempt statistics include the number and fingerprint of the templates tried.
 
 - Education levels None, Primary, Secondary, College and University start at
   ages 10, 12, 17, 19 and 22, respectively.
-- The current starting choices are +100% job (2× base) or +50% business
-  (1.5× base). The previous +100% business (2×) research case is retained separately.
+- Starting bonuses supported here are +100% job (2× base), +100% business
+  (2× base, the confirmed Primary playthrough), and +50% business (1.5× base).
   Market is omitted.
 - Own up to nine businesses, including multiple copies. All sixteen tiers run
   from Green Fork ($3,000, $35/month) to Bright Core ($13,790,000, $35,500/month).
@@ -171,11 +170,16 @@ Attempt statistics include the number and fingerprint of the templates tried.
 - DocuDyno upgrades to base $400 during age 71 years, six months. Its first
   $400 payment arrives at 71 years, seven months.
 
-Boosts activate before the month's income; trades happen after income. New
-businesses first earn next month. Payments begin one month after education
-finishes and end before age 90. Remaining businesses sell at age 90; an unused
-refund boost applies to one most expensive remaining business. Multiple copies
-and final liquidation retain the prototype's assumptions. Repurchase of a sold
-business is an explicit model assumption. Ages such as `71y06m` are years/months.
+Each monthly transition pays income, then actions occur on the displayed date.
+Apply a boost on that date for the next 120 payments; the first boosted payment
+arrives next month. New businesses also first earn next month. You can act at
+the education starting date, before the first payment.
+
+Sell all remaining businesses on **89y11m**; an unused refund boost applies to
+one most expensive remaining business. Advancing to90 pays the final salary and
+immediately ends the game, with no further actions. Final salary cannot fund an
+earlier purchase. The same last-action/final-payment ordering applies to custom
+short horizons. Repurchase of a sold business remains an explicit model
+assumption. Ages such as `71y06m` are years/months.
 
 Project planning and decisions live in SilverBullet under `Projects/Lifeloop`.
