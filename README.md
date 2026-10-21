@@ -12,9 +12,9 @@ and **$3,926,191 with University/+100% job**. These are existing routes replayed
 under the confirmed monthly timing, without a new optimization campaign.
 [RESULTS.md](RESULTS.md) shows when to tap each boost and the final sales.
 
-Original campaign artifacts remain unchanged as historical evidence. Their old
-first-payment boost labels and age-90 liquidation dates are superseded by the
-current playable routes.
+The original public strategy filenames and reports now show the corrected
+playable routes too. Raw historical JSON checkpoints and attempt logs remain
+unchanged; earlier readable versions are preserved in Git history.
 
 Continue the current comparison:
 

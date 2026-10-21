@@ -1,5 +1,5 @@
 Education: Primary; job track: FreshMart; +100% job income
-12y01m: job boost for 120 payments
+12y00m: apply job boost (first payment 12y01m; last payment 22y00m)
 15y06m: buy Green Fork
 17y10m: buy Green Fork
 19y05m: buy Green Fork
@@ -45,7 +45,7 @@ Education: Primary; job track: FreshMart; +100% job income
 76y04m: buy Dash Logix
 79y09m: sell (70%) Tech Tinker → $30,100
 79y09m: buy Dash Logix
-79y11m: business boost for 120 payments
+79y10m: apply business boost (first payment 79y11m; last payment 89y10m)
 82y04m: sell (70%) Trend Loop → $54,600
 82y04m: buy Crust & Crumb
 88y10m: sell (70%) Crust & Crumb → $299,600
@@ -55,8 +55,9 @@ Education: Primary; job track: FreshMart; +100% job income
 88y10m: sell (70%) Trend Loop → $54,600
 88y10m: sell (70%) Paw Pal → $98,000
 88y10m: buy Rapid Reach
-90y00m: sell (140%) Rapid Reach → $2,945,600
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-Final cash after refunds: $3,441,355.00
+89y11m: sell (140%) Rapid Reach → $2,945,600
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $3,441,635.00

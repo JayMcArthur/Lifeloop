@@ -1,5 +1,5 @@
 Education: None; job track: SunnySproutFields; +100% business income
-10y05m: job boost for 120 payments
+10y04m: apply job boost (first payment 10y05m; last payment 20y04m)
 20y04m: buy Green Fork
 23y02m: buy Green Fork
 24y09m: buy Green Fork
@@ -59,7 +59,7 @@ Education: None; job track: SunnySproutFields; +100% business income
 75y10m: buy Skysoft
 78y08m: sell (70%) Paw Pal → $98,000
 78y08m: buy Skysoft
-78y10m: business boost for 120 payments
+78y09m: apply business boost (first payment 78y10m; last payment 88y09m)
 79y10m: sell (70%) Dash Logix → $176,400
 79y10m: buy Skysoft
 81y07m: sell (70%) Dash Logix → $176,400
@@ -78,13 +78,14 @@ Education: None; job track: SunnySproutFields; +100% business income
 88y07m: buy Green Fork
 88y07m: buy Green Fork
 88y07m: buy Green Fork
-90y00m: sell (140%) Bright Core → $19,306,000
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Tailor Forge → $509,600
-90y00m: sell (70%) Tailor Forge → $509,600
-90y00m: sell (70%) Skysoft → $866,600
-90y00m: sell (70%) Skysoft → $866,600
-Final cash after refunds: $23,841,358
+89y11m: sell (140%) Bright Core → $19,306,000
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Skysoft → $866,600
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $23,841,438.00

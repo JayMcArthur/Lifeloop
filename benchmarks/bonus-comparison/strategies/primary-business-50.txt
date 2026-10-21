@@ -1,5 +1,5 @@
 Education: Primary; job track: FreshMart; +50% business income
-12y02m: job boost for 120 payments
+12y01m: apply job boost (first payment 12y02m; last payment 22y01m)
 19y00m: buy Green Fork
 21y01m: buy Green Fork
 22y07m: buy Green Fork
@@ -51,7 +51,7 @@ Education: Primary; job track: FreshMart; +50% business income
 73y09m: buy Crust & Crumb
 76y04m: sell (70%) Trend Loop → $54,600
 76y04m: buy Crust & Crumb
-77y04m: business boost for 120 payments
+77y03m: apply business boost (first payment 77y04m; last payment 87y03m)
 78y10m: sell (70%) Trend Loop → $54,600
 78y10m: buy Tailor Forge
 80y05m: sell (70%) Paw Pal → $98,000
@@ -74,13 +74,14 @@ Education: Primary; job track: FreshMart; +50% business income
 87y07m: buy Green Fork
 87y08m: buy Green Fork
 87y08m: buy Green Fork
-90y00m: sell (140%) Globe Freight → $7,541,800
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Dash Logix → $176,400
-90y00m: sell (70%) Tailor Forge → $509,600
-Final cash after refunds: $9,018,105.50
+89y11m: sell (140%) Globe Freight → $7,541,800
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Dash Logix → $176,400
+89y11m: sell (70%) Tailor Forge → $509,600
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $9,018,245.50

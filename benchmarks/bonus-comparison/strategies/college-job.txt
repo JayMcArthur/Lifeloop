@@ -1,5 +1,5 @@
 Education: College; job track: ByteFixServices; +100% job income
-19y01m: job boost for 120 payments
+19y00m: apply job boost (first payment 19y01m; last payment 29y00m)
 20y05m: buy Green Fork
 21y07m: buy Green Fork
 22y07m: buy Green Fork
@@ -43,7 +43,7 @@ Education: College; job track: ByteFixServices; +100% job income
 72y05m: buy Dash Logix
 75y09m: sell (70%) Tech Tinker → $30,100
 75y09m: buy Dash Logix
-79y11m: business boost for 120 payments
+79y10m: apply business boost (first payment 79y11m; last payment 89y10m)
 80y03m: sell (70%) Trend Loop → $54,600
 80y03m: buy Crust & Crumb
 82y05m: sell (70%) Trend Loop → $54,600
@@ -58,13 +58,14 @@ Education: College; job track: ByteFixServices; +100% job income
 88y00m: buy Green Fork
 88y00m: buy Green Fork
 88y00m: buy Green Fork
-90y00m: sell (140%) Rapid Reach → $2,945,600
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Green Fork → $2,100
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Paw Pal → $98,000
-90y00m: sell (70%) Dash Logix → $176,400
-Final cash after refunds: $3,844,302.00
+89y11m: sell (140%) Rapid Reach → $2,945,600
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Green Fork → $2,100
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Paw Pal → $98,000
+89y11m: sell (70%) Dash Logix → $176,400
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $3,844,942.00

@@ -1,5 +1,5 @@
 Education: Secondary; job track: BrickLineWorks; +50% business income
-17y01m: job boost for 120 payments
+17y00m: apply job boost (first payment 17y01m; last payment 27y00m)
 22y00m: buy Green Fork
 24y04m: buy Green Fork
 25y08m: buy Green Fork
@@ -51,7 +51,7 @@ Education: Secondary; job track: BrickLineWorks; +50% business income
 76y02m: buy Crust & Crumb
 78y09m: sell (70%) Trend Loop → $54,600
 78y09m: buy Crust & Crumb
-78y11m: business boost for 120 payments
+78y10m: apply business boost (first payment 78y11m; last payment 88y10m)
 80y10m: sell (70%) Trend Loop → $54,600
 80y10m: buy Tailor Forge
 82y05m: sell (70%) Paw Pal → $98,000
@@ -68,7 +68,8 @@ Education: Secondary; job track: BrickLineWorks; +50% business income
 89y08m: sell (70%) Crust & Crumb → $299,600
 89y08m: sell (70%) Crust & Crumb → $299,600
 89y08m: buy Globe Freight
-90y00m: sell (140%) Globe Freight → $7,541,800
-90y00m: sell (70%) Crust & Crumb → $299,600
-90y00m: sell (70%) Crust & Crumb → $299,600
-Final cash after refunds: $8,231,691.00
+89y11m: sell (140%) Globe Freight → $7,541,800
+89y11m: sell (70%) Crust & Crumb → $299,600
+89y11m: sell (70%) Crust & Crumb → $299,600
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $8,231,861.00

@@ -1,5 +1,5 @@
 Education: Secondary; job track: BrickLineWorks; +100% business income
-17y01m: job boost for 120 payments
+17y00m: apply job boost (first payment 17y01m; last payment 27y00m)
 22y00m: buy Green Fork
 24y01m: buy Green Fork
 25y02m: buy Green Fork
@@ -57,7 +57,7 @@ Education: Secondary; job track: BrickLineWorks; +100% business income
 71y08m: buy Tailor Forge
 75y03m: sell (70%) Paw Pal → $98,000
 75y03m: buy Skysoft
-77y02m: business boost for 120 payments
+77y01m: apply business boost (first payment 77y02m; last payment 87y01m)
 77y07m: sell (70%) Paw Pal → $98,000
 77y07m: buy Skysoft
 78y09m: sell (70%) Dash Logix → $176,400
@@ -78,13 +78,14 @@ Education: Secondary; job track: BrickLineWorks; +100% business income
 87y10m: buy Cup & Go
 87y10m: buy Cup & Go
 87y10m: buy Cup & Go
-90y00m: sell (140%) Bright Core → $19,306,000
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Cup & Go → $4,200
-90y00m: sell (70%) Tailor Forge → $509,600
-90y00m: sell (70%) Tailor Forge → $509,600
-90y00m: sell (70%) Skysoft → $866,600
-90y00m: sell (70%) Skysoft → $866,600
-Final cash after refunds: $24,495,230
+89y11m: sell (140%) Bright Core → $19,306,000
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Cup & Go → $4,200
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Tailor Forge → $509,600
+89y11m: sell (70%) Skysoft → $866,600
+89y11m: sell (70%) Skysoft → $866,600
+90y00m: final salary payment; game ends immediately (no actions)
+Final cash after refunds: $24,495,400.00
