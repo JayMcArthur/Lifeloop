@@ -55,7 +55,11 @@ class GameRulesTests(unittest.TestCase):
         self.assertEqual(BUSINESSES[-1], Business("Bright Core", 13_790_000, 35_500))
         self.assertEqual(Scenario().end_month, 90 * 12)
         self.assertEqual(Scenario().max_businesses, MAX_BUSINESSES)
-        self.assertEqual(MAX_BUSINESSES, 9)
+        self.assertEqual(MAX_BUSINESSES, 10)
+        with self.assertRaisesRegex(ValueError, "ten business slots"):
+            Scenario(max_businesses=11)
+        with self.assertRaisesRegex(ValueError, "by age 95"):
+            Scenario(end_month=95 * 12 + 1)
 
     def test_starting_bonus_doubles_only_selected_income(self):
         state = State(owned=(0,))
@@ -88,13 +92,25 @@ class GameRulesTests(unittest.TestCase):
             with self.subTest(kind=kind), self.assertRaisesRegex(ValueError, "already been used"):
                 activate(state, Action(500, kind))
 
-    def test_ninth_purchase_allowed_tenth_rejected(self):
+    def test_tenth_purchase_allowed_eleventh_rejected(self):
         scenario = Scenario()
-        state = State(cash=6_000, owned=(0,) * 8)
+        state = State(cash=6_000, owned=(0,) * 9)
         state = trade(scenario, state, Action(300, ActionKind.BUY, 0))
-        self.assertEqual(len(state.owned), 9)
+        self.assertEqual(len(state.owned), 10)
         with self.assertRaisesRegex(ValueError, "No free business slot"):
             trade(scenario, state, Action(300, ActionKind.BUY, 0))
+
+    def test_extended_round_sells_ten_holdings_before_95_and_pays_final_salary(self):
+        scenario = Scenario(Education.PRIMARY, starting_cash=30_000, end_month=95 * 12)
+        last = scenario.end_month - 1
+        actions = (Action(last - 1, ActionKind.BUY, 0),) * 10 + (
+            Action(last - 1, ActionKind.BUSINESS_BOOST),)
+        result = replay(scenario, actions)
+        self.assertEqual(result.final_cash, replay(scenario, ()).final_cash - 30_000 + 1_400 + 23_100)
+        self.assertEqual(len(result.final_sales), 10)
+        self.assertTrue(all(a.month == 94 * 12 + 11 for a in result.final_sales))
+        with self.assertRaisesRegex(ValueError, "inside the round"):
+            replay(scenario, (*actions, Action(95 * 12, ActionKind.JOB_BOOST)))
 
     def test_140_percent_refund_applies_to_one_copy_once(self):
         scenario = Scenario()

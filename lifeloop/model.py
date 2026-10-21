@@ -6,8 +6,9 @@ from itertools import groupby
 
 
 BOOST_MONTHS = 120
-MAX_BUSINESSES = 9
+MAX_BUSINESSES = 10
 END_MONTH = 90 * 12
+BONUS_MONTHS = 5 * 12
 
 
 class Education(Enum):
@@ -99,9 +100,9 @@ class Scenario:
 
     def __post_init__(self):
         if not 1 <= self.max_businesses <= MAX_BUSINESSES:
-            raise ValueError("A round allows between one and nine business slots")
-        if self.end_month <= self.education.start_month:
-            raise ValueError("The round must end after education finishes")
+            raise ValueError("A round allows between one and ten business slots")
+        if not self.education.start_month < self.end_month <= END_MONTH + BONUS_MONTHS:
+            raise ValueError("The round must end after education finishes and by age 95")
         if self.starting_cash < 0:
             raise ValueError("Starting cash cannot be negative")
 

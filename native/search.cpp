@@ -55,7 +55,7 @@ Input read_input() {
     std::cin >> magic >> input.first >> input.end >> input.slots >> input.width >> input.seconds
              >> input.memory_mb >> input.diversity >> input.income_weight >> input.cash >> input.business_count;
     if (!std::cin || magic != "LIFELOOP2" || input.first < 1 || input.end <= input.first ||
-        input.end > 1080 || input.slots < 1 || input.slots > 9 || input.width < 1 || input.width > 50000 ||
+        input.end > 1140 || input.slots < 1 || input.slots > 10 || input.width < 1 || input.width > 50000 ||
         input.seconds < 1 || input.seconds > 1700 || input.memory_mb < 64 || input.memory_mb > 768 ||
         input.diversity < 0 || input.diversity > 1 || input.income_weight < 25 || input.income_weight > 200 ||
         input.cash < 0 || input.cash > 1'000'000'000'000LL || input.business_count < 1 || input.business_count > 16)
@@ -358,9 +358,9 @@ public:
                 }
                 auto retained = select(pool, month);
                 // Positive-cost ordinary cycles are cash-dominated. A normal
-                // trade form needs <=9 old sales, <=9 buys and one refund cycle.
+                // trade form sells the old slots, fills them and uses one refund cycle.
                 bool converged = false;
-                for (int depth = 0; depth < 20; ++depth) {
+                for (int depth = 0; depth < std::max(20, 2 * input.slots + 2); ++depth) {
                     for (const auto& state : retained) pool.emplace(key(state, month), state);
                     bool changed = false;
                     for (const auto& state : retained) {
